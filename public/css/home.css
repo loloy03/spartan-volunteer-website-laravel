@@ -1,0 +1,74 @@
+.home-pic {
+    position: relative;
+    height: 600px;
+  }
+  
+
+.transparent-text{
+  -webkit-text-stroke: 2px white;
+  -webkit-text-fill-color: transparent;  
+}
+.home-pic img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* to maintain the aspect ratio of the image */
+  }
+
+.text-overlay {
+    position: absolute;
+    top: 80%;
+    left: 2%; /* align to the left */
+    transform: translate(0, -50%);
+    color: white;
+    text-align: center;
+    z-index: 1;
+}
+
+.find-event-button{
+    padding: 10px 20px;
+    border: 0;
+    border-radius: 20px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+
+.find-event-button:hover{
+    background-color: red;
+    color: white;
+}
+
+.view-spartan-button{
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border: 1px solid red;
+  border-radius: 20px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.view-spartan-button:hover{
+  background-color: white;
+  border: 1px solid red;
+  color: red;
+}
+
+.col-lg-5 {
+  position: relative;
+  height: 600px;
+}
+
+.col-lg-5 img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* to maintain the aspect ratio of the image */
+}
+
+.icon-img {
+  width: 30px;
+}

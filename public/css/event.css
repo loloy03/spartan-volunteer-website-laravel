@@ -1,0 +1,44 @@
+.fixed-size-img {
+    width: 700px;
+    height: 200px;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.bg-light-gray{
+    background-color: #EBEBEB;
+}
+
+.align-middle {
+    display: inline-block;
+    vertical-align: left;
+  }
+
+.image-container {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    border: none;
+}
+  
+.image-container img {
+    transition: transform 0.5s ease;
+  }
+  
+  .image-container:hover img {
+    transform: scale(1.1);
+  }
+  
+.image-text {
+
+    position: absolute;
+    top: 0%;
+    background-color: black;
+    color: white;
+    width: 20%;
+  }
+
+.fs-10{
+    font-size: 10px;
+}
+  

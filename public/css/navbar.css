@@ -1,0 +1,35 @@
+
+
+/* montserrat font */
+.f-montserrat {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+  }
+
+/* lato font */
+.f-lato{
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+}
+
+.navbar-nav {
+
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+}
+
+.bottom-transition {
+    border-bottom: 3px solid ;
+    transition: border-bottom-color 0.3s ease-in-out;
+}
+
+.bottom-transition:hover {
+    border-bottom-color: white;
+}
+
+.bg-black{
+    color: black;
+}
+.navbar-spartan-logo-size{
+    width: 120px;
+}
