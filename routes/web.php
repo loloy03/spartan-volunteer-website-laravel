@@ -30,3 +30,10 @@ Route::post('/volunteer_status.confirmed', [App\Http\Controllers\VolunteerStatus
 //Showing as joining volunteer
 Route::get('join-as-volunteer/{event}', [App\Http\Controllers\JoinAsVolunteerController::class, 'show'])->name('join-as-volunteer');
 
+Route::post('/join_as_volunteer.check_in', [App\Http\Controllers\JoinAsVolunteerController::class, 'check_in'])->name('join_as_volunteer.check_in');
+
+Route::post('/join_as_volunteer.check_out', [App\Http\Controllers\JoinAsVolunteerController::class, 'check_out'])->name('join_as_volunteer.check_out');
+
+Route::post('/join_as_volunteer.upload_photo', [App\Http\Controllers\JoinAsVolunteerController::class, 'upload_photo'])->name('join_as_volunteer.upload_photo');
+
+

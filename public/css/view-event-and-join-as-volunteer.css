@@ -1,18 +1,38 @@
-
 .overlay-image {
     position: absolute;
     bottom: 0;
     left: 1;
     opacity: 0.7; /* adjust opacity to your liking */
     width: 200px;
-  }
+}
 
+.overlay-text {
+    position: absolute;
+    top: 0;
+    left: 3;
+}
+5
 .fs-10 {
     font-size: 10px;
 }
 
 .fs-13 {
     font-size: 13px;
+}
+
+
+.fixed-size-img {
+    width: 900px;
+    height: 200px;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    border: none;
 }
 
 .view-event-btn {
@@ -22,22 +42,21 @@
     border: 1px solid red;
     border-radius: 15px;
     transition: 0.7s;
-    
 }
 
-.view-event-btn:hover{
+.view-event-btn:hover {
     background-color: white;
     color: red;
     transition: 0.7s;
 }
 
 .view-event-btn-disabled {
-    opacity: 0.5
+    opacity: 0.5;
 }
 
 .box-border-shadow {
     box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.1);
-    border-top: 5px solid #FDC32D;
+    border-top: 5px solid #fdc32d;
     border-radius: 10px;
 }
 
@@ -47,9 +66,6 @@
     border-radius: 10px;
 }
 
-.two-color-in-div{
+.two-color-in-div {
     background: linear-gradient(to right, white 50%, #f2f2f2 50%);
 }
-
-
-
