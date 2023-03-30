@@ -10,7 +10,7 @@
         <div class="row my-5 p-3">
             <div class="col-lg-6 my-auto">
 
-                <div class="f-montserrat mt-4">
+                <div class="f-montserrat ">
 
                     <div class="d-inline-block mt-2">
                         <!-- Pin icon to indicate the event location -->

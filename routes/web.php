@@ -37,3 +37,8 @@ Route::post('/join_as_volunteer.check_out', [App\Http\Controllers\JoinAsVoluntee
 Route::post('/join_as_volunteer.upload_photo', [App\Http\Controllers\JoinAsVolunteerController::class, 'upload_photo'])->name('join_as_volunteer.upload_photo');
 
 
+Route::post('/store_race_type', [App\Http\Controllers\ClaimCodeController::class, 'store_race_type'])->name('claim_code.store_race');
+
+Route::get('/claim_code/{event}', [App\Http\Controllers\ClaimCodeController::class, 'show'])->name('claim_code.show');
+
+

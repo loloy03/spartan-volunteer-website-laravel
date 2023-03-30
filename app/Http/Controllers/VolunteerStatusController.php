@@ -39,18 +39,18 @@ class VolunteerStatusController extends Controller
             'volunteer_id' => 'required|numeric',
             'event_id' => 'required|numeric',
         ]);
-    
+
         // Search for VolunteerStatus object associated with volunteer_id and event_id
         $volunteerStatus = VolunteerStatus::where('volunteer_id', $validatedData['volunteer_id'])
             ->where('event_id', $validatedData['event_id'])
             ->first();
-    
+
         // If found, set attendance_status to "cancelled" and save changes
         if ($volunteerStatus) {
             $volunteerStatus->attendance_status = "cancelled";
             $volunteerStatus->save();
         }
-    
+
         // Redirect back to previous page
         return redirect()->back();
     }
@@ -61,30 +61,21 @@ class VolunteerStatusController extends Controller
             'volunteer_id' => 'required|numeric',
             'event_id' => 'required|numeric',
         ]);
-    
+
         // Search for VolunteerStatus object associated with volunteer_id and event_id
         $volunteerStatus = VolunteerStatus::where('volunteer_id', $validatedData['volunteer_id'])
             ->where('event_id', $validatedData['event_id'])
             ->first();
-    
+
         // If found, set attendance_status to "cancelled" and save changes
         if ($volunteerStatus) {
             $volunteerStatus->attendance_status = "confirmed";
             $volunteerStatus->save();
         }
-    
+
         // Redirect back to previous page
-        return redirect( route('join-as-volunteer',$request->event_id) );
+        return redirect(route('join-as-volunteer', $request->event_id));
     }
-
-    public function check_if_joined($volunteer_id,$event_id){
-        $attendance_status = VolunteerStatus::where('volunteer_id',$volunteer_id)
-        ->where('event_id',$event_id)
-        ->value('attendance_status');
-
-        return $attendance_status;
-    }
-    
 }
 
 

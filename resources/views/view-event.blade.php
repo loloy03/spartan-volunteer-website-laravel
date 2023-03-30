@@ -8,6 +8,7 @@
 @section('content')
     <div class="container-fluid ">
         <div class="row my-5">
+
             <div class="col-lg-6 my-auto position-relative">
                 <!-- Display the event picture -->
                 <div>
@@ -79,8 +80,7 @@
                                 <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
                                 <input type="hidden" name="event_id" value="{{ $event->event_id }}">
                                 <!-- Cancel registration button -->
-                                <button
-                                    class="my-auto view-event-btn f-montserrat">
+                                <button class="my-auto view-event-btn f-montserrat">
                                     Confirm Registration
                                 </button>
                             </form>
@@ -108,7 +108,8 @@
                 </div>
 
                 {{-- Section for claiming code --}}
-                <div class="box-border-shadow p-3 two-color-in-div mt-3 {{ $attendance_status == 'joining' ? 'd-none' : '' }}">
+                <div
+                    class="box-border-shadow p-3 two-color-in-div mt-3 {{ $attendance_status == 'joining' ? 'd-none' : '' }}">
                     <div class="d-flex justify-content-between f-montserrat">
                         <div class=" text-muted">GET FREE RACE</div>
                         <div class="fs-13">{{ strtoupper($code_start_date) . ' - ' . strtoupper($code_end_date) }}</div>
@@ -122,12 +123,42 @@
                             class="text-success f-lato mb-auto fs-13 {{ $code_status == 'NOT AVAILABLE' ? 'text-danger' : '' }}">
                             STATUS: {{ $code_status }}
                         </div>
-                        <button
-                            class="my-auto view-event-btn f-montserrat {{ $code_status == 'NOT AVAILABLE' || $attendance_status == 'joining' ? 'view-event-btn-disabled' : '' }}"
-                            {{ $code_status == 'NOT AVAILABLE' ? 'disabled' : '' }}>Claim Now</button>
+                        <button {{-- class="my-auto view-event-btn f-montserrat {{ $code_status == 'NOT AVAILABLE' || $attendance_status == 'joining' ? 'view-event-btn-disabled' : '' }}"
+                            {{ $code_status == 'NOT AVAILABLE' ? 'disabled' : '' }}  --}} data-bs-toggle="collapse" data-bs-target="#view"
+                            aria-controls="navbarSupportedContent" aria-expanded="false"
+                            aria-label="{{ __('Toggle navigation') }}">See Races</button>
+
+                    </div>
+                    <div class="mt-4 collapse" id="view">
+                        <div class="f-montserrat">
+                            AVAILABLE RACES
+                        </div>
+
+                        <div class="f-lato text-muted fs-10 mb-2">PICK ONLY ONE RACE TO CLAIM CODE</div>
+
+                        <div class="f-lato mt-1">
+                            <form method="POST" action="{{ route('claim_code.store_race') }}">
+                                @csrf
+
+                                @foreach ($races as $race)
+                                    <div>
+                                        <input type="radio" name="race_type" value="{{ $race->type_of_race }}"
+                                            id="{{ $race->type_of_race }}">
+                                        <label for="{{ $race->type_of_race }}">
+                                            {{ strtoupper($race->type_of_race) }}</label>
+                                    </div>
+                                @endforeach
+
+                                <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
+                                <input type="hidden" name="event_id" value="{{ $event->event_id }}">
+                                <div class="f-montserrat mt-4">
+                                    <button type="submit" class=" view-event-btn">Claim Race</button>
+                                </div>
+                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div> 
+    </div>
 @endsection

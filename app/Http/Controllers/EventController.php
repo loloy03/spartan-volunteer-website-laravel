@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\VolunteerStatusController;
+use App\Models\RaceCode;
+use App\Models\Races;
 use Illuminate\Console\Scheduling\Event;
+use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
 {
@@ -26,10 +29,6 @@ class EventController extends Controller
             return $event;
         });
 
-        // // Get the volunteer's attendance status for the event
-        // $attendance_status = VolunteerStatus::where('volunteer_id', Auth::user()->volunteer_id)
-        //     ->where('event_id', $event->event_id)
-        //     ->value('attendance_status');
 
         // Render the view with the events and the current page number
         return view('event', compact('events'))
@@ -109,15 +108,25 @@ class EventController extends Controller
             ->where('event_id', $event->event_id)
             ->value('attendance_status');
 
+        $isClaimed = RaceCode::where('volunteer_id', Auth::user()->volunteer_id)
+            ->where('event_id', $event->event_id)
+            ->value('status');
+
+
         // If volunteer has cancelled their attendance, update event and code status accordingly
         if ($attendance_status == 'cancelled') {
             $event_status = 'VOLUNTEER CANCELLED';
             $code_status = 'NOT AVAILABLE';
-        }elseif ($attendance_status== 'confirmed') {
-            return redirect( route('join-as-volunteer',$event->event_id) );
+        } elseif ($attendance_status == 'confirmed') {
+            return redirect(route('join-as-volunteer', $event->event_id));
+        } elseif ($isClaimed != null) {
+
+            return redirect(route('claim_code.show', $event->event_id));
         }
 
-        // Pass event data and status variables to the view
+
+        $races = Races::where('event_id', $event->event_id)->get();
+
         return view('view-event', compact(
             'event',
             'date',
@@ -127,9 +136,13 @@ class EventController extends Controller
             'code_start_date',
             'code_end_date',
             'code_status',
-            'attendance_status'
+            'attendance_status',
+            'races'
         ));
     }
+
+
+
 
     /**
      * Show the form for editing the specified resource.
