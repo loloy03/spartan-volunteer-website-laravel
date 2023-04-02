@@ -33,7 +33,7 @@
                     <img class="overlay-image" src="{{ asset('/images/spartan-logo-with-word.png') }}">
                     <div class="overlay-text">
                         <div class="f-montserrat bg-danger text-light p-2">
-                            SECCESSFULLY JOINED AS A VOLUNTEER
+                            SUCCESSFULLY JOINED AS A VOLUNTEER
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                             </div>
                             <div class="f-montserrat fs-4">JOINED AS VOLUNTEER</div>
                             <div class="f-montserrat mb-auto fs-13 pb-3">
-                                ROLE: <em> {{ strtoupper($role ?? 'no role assigned yet') }} </em>
+                                ROLE: <em> {{ strtoupper($role == null ? 'no role assigned yet' : '') }} </em>
                             </div>
 
                         </div>

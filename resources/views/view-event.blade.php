@@ -123,9 +123,11 @@
                             class="text-success f-lato mb-auto fs-13 {{ $code_status == 'NOT AVAILABLE' ? 'text-danger' : '' }}">
                             STATUS: {{ $code_status }}
                         </div>
-                        <button {{-- class="my-auto view-event-btn f-montserrat {{ $code_status == 'NOT AVAILABLE' || $attendance_status == 'joining' ? 'view-event-btn-disabled' : '' }}"
-                            {{ $code_status == 'NOT AVAILABLE' ? 'disabled' : '' }}  --}} data-bs-toggle="collapse" data-bs-target="#view"
-                            aria-controls="navbarSupportedContent" aria-expanded="false"
+                        <button
+                            {{-- class="my-auto view-event-btn f-montserrat {{ $code_status == 'NOT AVAILABLE' || $attendance_status == 'joining' ? 'view-event-btn-disabled' : '' }}"
+                            {{ $code_status == 'NOT AVAILABLE' ? 'disabled' : '' }}  --}}
+                            data-bs-toggle="collapse"
+                            data-bs-target="#view" aria-controls="navbarSupportedContent" aria-expanded="false"
                             aria-label="{{ __('Toggle navigation') }}">See Races</button>
 
                     </div>
@@ -135,6 +137,7 @@
                         </div>
 
                         <div class="f-lato text-muted fs-10 mb-2">PICK ONLY ONE RACE TO CLAIM CODE</div>
+
 
                         <div class="f-lato mt-1">
                             <form method="POST" action="{{ route('claim_code.store_race') }}">

@@ -36,8 +36,11 @@
             <div class="col-lg-6 p-4 my-auto">
                 <div class="box-border-shadow-bt-red p-3">
                     <div class=" text-muted d-inline-block fs-10 ">{{ strtoupper($date) }} </div>
-                    <div class="f-montserrat fs-4">CLAIM CODE</div>
-                    <div class="f-montserrat">STATUS: {{ strtoupper($status) }} </div>
+                    <div class="f-montserrat">
+                        <div class="fs-4">CLAIM CODE</div>
+                        <div class="d-inline-block ">STATUS: </div>
+                        <div class="text-success d-inline-block {{$status == "pending" ? 'text-warning' : ''}}"> {{ strtoupper($status) }}</div>
+                    </div>
                 </div>
             </div>
         </div>

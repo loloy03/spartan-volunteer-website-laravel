@@ -24,7 +24,7 @@ class ClaimCodeController extends Controller
         $race_code->volunteer_id = $validatedData['volunteer_id'];
         $race_code->event_id = $validatedData['event_id'];
         $race_code->race_type = $validatedData['race_type'];
-        $race_code->status = 'pending for confirmation';
+        $race_code->status = 'pending';
         $race_code->save();
 
         // Redirect the user back to the previous page
