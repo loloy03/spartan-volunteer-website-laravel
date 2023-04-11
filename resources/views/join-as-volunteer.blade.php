@@ -48,13 +48,14 @@
                             </div>
                             <div class="f-montserrat fs-4">JOINED AS VOLUNTEER</div>
                             <div class="f-montserrat mb-auto fs-13 pb-3">
-                                ROLE: <em> {{ strtoupper($role == null ? 'no role assigned yet' : '') }} </em>
+                                ROLE: <em> {{ strtoupper($role == null ? 'no role assigned yet' : $role) }} </em>
+
                             </div>
 
                         </div>
                         <div class="col-lg-5 {{ $date > $event->date ? 'd-none' : '' }}">
                             <div class="text-muted fs-10 f-montserrat ">PLEASE CHECK IN AND CHECK OUT IN THE DAY OF THE
-                                EVENT
+                                EVENT 
                             </div>
                             <div class="mt-4">
                                 <div class="d-inline-block">

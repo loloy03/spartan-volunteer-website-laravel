@@ -82,11 +82,8 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end bg-dark" aria-labelledby="navbarDropdown">
                                     @auth
-                                        <a class="dropdown-item text-white" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
-                                            {{ __('Profile') }}
-                                        </a>
+                                        <a class="dropdown-item text-white" href="{{ route('profile.show') }}">
+                                            {{ __('Profile') }} </a>
                                     @endauth
 
                                     <a class="dropdown-item text-white" href="{{ route('logout') }}"
