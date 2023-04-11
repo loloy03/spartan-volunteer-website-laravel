@@ -8,25 +8,24 @@
 @section('content')
     <div class="container-fluid p-5">
         <div class="f-montserrat display-6">
-            @if ($picked_sort == 'All Events')
-                {{ __('ALL EVENTS') }}
+            @if ($picked_sort == 'RECENT EVENTS')
+                {{ __('RECENTS EVENTS') }}
             @else
                 {{ __('AVAILABLE EVENTS') }}
             @endif
         </div>
-
 
         <div class="f-montserrat my-3">
             <div class="d-inline-block">SORT BY:</div>
             <form method="GET" action="{{ route('event') }}" class="d-inline-block">
                 <select name="sort_by" onchange="this.form.submit()">
                     <option value="" disabled selected> {{ $picked_sort }} </option>
-                    <option value="avail_events">Available Events</option>
-                    <option value="date_asc">Date (oldest first)</option>
-                    <option value="date_desc">Date (newest first)</option>
-                    <option value="title_asc">Title (A-Z)</option>
-                    <option value="title_desc">Title (Z-A)</option>
-                    <option value="all_events">All Events</option>
+                    <option value="avail_events">AVAILABLE EVENTS</option>
+                    <option value="date_asc">DATE (OLDEST FIRST)</option>
+                    <option value="date_desc">DATE (NEWEST FIRST)</option>
+                    <option value="title_asc">TTITLE (A-Z)</option>
+                    <option value="title_desc">TITLE (Z-A)</option>
+                    <option value="recent_events">RECENT EVENTS</option>
                 </select>
             </form>
         </div>

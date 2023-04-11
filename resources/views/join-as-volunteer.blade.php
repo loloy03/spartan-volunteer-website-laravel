@@ -53,9 +53,9 @@
                             </div>
 
                         </div>
-                        <div class="col-lg-5 {{ $date > $event->date ? 'd-none' : '' }}">
+                        <div class="col-lg-5 ">
                             <div class="text-muted fs-10 f-montserrat ">PLEASE CHECK IN AND CHECK OUT IN THE DAY OF THE
-                                EVENT 
+                                EVENT
                             </div>
                             <div class="mt-4">
                                 <div class="d-inline-block">
@@ -65,8 +65,8 @@
                                         <input type="hidden" name="event_id" value="{{ $event->event_id }}">
                                         <!-- Cancel registration button -->
                                         <button type="submit"
-                                            class="view-event-btn f-montserrat {{ $event->date != $today ? 'view-event-btn-disabled' : '' }}"
-                                            {{ $event->date != $today ? 'disabled' : '' }}>
+                                            class="view-event-btn f-montserrat {{ $event->date != $today || $check_in != null ? 'view-event-btn-disabled' : '' }}"
+                                            {{ $event->date != $today || $check_in != null ? 'disabled' : '' }}>
                                             Check In
                                         </button>
                                     </form>
@@ -78,8 +78,8 @@
                                         <input type="hidden" name="event_id" value="{{ $event->event_id }}">
                                         <!-- Cancel registration button -->
                                         <button type="submit"
-                                            class="view-event-btn f-montserrat {{ $event->date != $today ? 'view-event-btn-disabled' : '' }}"
-                                            {{ $event->date != $today ? 'disabled' : '' }}>
+                                            class="view-event-btn f-montserrat {{ $event->date != $today || $check_in == null || $check_out != null ? 'view-event-btn-disabled' : '' }}"
+                                            {{ $event->date != $today || $check_in == null || $check_out != null ? 'disabled' : '' }}>
                                             Check Out
                                         </button>
                                     </form>

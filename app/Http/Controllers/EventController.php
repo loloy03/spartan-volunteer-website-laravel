@@ -36,23 +36,23 @@ class EventController extends Controller
         switch ($sort_by) {
             case 'date_asc':
                 $events->orderBy('date', 'asc');
-                $picked_sort = "Date (oldest first)";
+                $picked_sort = "DATE (OLDEST FIRST)";
                 break;
             case 'date_desc':
                 $events->orderBy('date', 'desc');
-                $picked_sort = "Date (newest first)";
+                $picked_sort = "DATE (NEWEST FIRST)";
                 break;
             case 'title_asc':
                 $events->orderBy('title', 'asc');
-                $picked_sort = "Title (A-Z)";
+                $picked_sort = "TITLE (A-Z)";
                 break;
             case 'title_desc':
                 $events->orderBy('title', 'desc');
-                $picked_sort = "Title (Z-A)";
+                $picked_sort = "TITLE (Z-A)";
                 break;
-            case 'all_events':
+            case 'recent_events':
                 $events = Events::where('date', '<', date('Y-m-d'));
-                $picked_sort = "All Events";
+                $picked_sort = "RECENT EVENTS";
                 break;
             default:
                 $events->latest('date');
@@ -96,7 +96,7 @@ class EventController extends Controller
     public function show(Events $event)
     {
         // Format the event date to Month Day, Year
-        $date = date('F jS, Y', strtotime($event->date));
+        $date = date('M j, Y', strtotime($event->date));
 
         // Check if today's date is within the event start and end date
         $today = date('Y-m-d');
@@ -124,10 +124,10 @@ class EventController extends Controller
         }
 
         // Format event and code start/end dates to Month Day format
-        $event_start_date = date('F jS', strtotime($event->start_date));
-        $event_end_date = date('F jS', strtotime($event->end_date));
-        $code_start_date = date('F jS', strtotime($event->code_start_date));
-        $code_end_date = date('F jS', strtotime($event->code_end_date));
+        $event_start_date = date('M j', strtotime($event->start_date));
+        $event_end_date = date('M j', strtotime($event->end_date));
+        $code_start_date = date('M j', strtotime($event->code_start_date));
+        $code_end_date = date('M j', strtotime($event->code_end_date));
 
         // Get the volunteer's attendance status for the event
         $attendance_status = VolunteerStatus::where('volunteer_id', Auth::user()->volunteer_id)

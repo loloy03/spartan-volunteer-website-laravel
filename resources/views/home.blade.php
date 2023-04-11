@@ -107,9 +107,9 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid h-100">
         <div class="p-5">
-            <div class="display-5 f-montserrat mb-3">HAVE A QUESTION?</div>
+            <div class="display-5 f-montserrat mb-3 ">HAVE A QUESTION?</div>
             <div class="f-lato my-3">
                 Need an answer to a question? Contact us at
                 <div class="d-inline-block">
