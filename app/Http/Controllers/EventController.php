@@ -18,37 +18,63 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Fetch the latest 10 events from the database
-        $events = Events::latest('date')->paginate(10);
+        // Define the default sort order
+        $sort_by = 'date_desc';
+
+        // Override the sort order if the form was submitted
+        if ($request->has('sort_by')) {
+            $sort_by = $request->input('sort_by');
+        }
+
+        // Fetch the events from the database
+        $events = Events::where('date', '>', date('Y-m-d'));
+        $picked_sort = "";
+
+        // Sort the events according to the selected option
+        switch ($sort_by) {
+            case 'date_asc':
+                $events->orderBy('date', 'asc');
+                $picked_sort = "Date (oldest first)";
+                break;
+            case 'date_desc':
+                $events->orderBy('date', 'desc');
+                $picked_sort = "Date (newest first)";
+                break;
+            case 'title_asc':
+                $events->orderBy('title', 'asc');
+                $picked_sort = "Title (A-Z)";
+                break;
+            case 'title_desc':
+                $events->orderBy('title', 'desc');
+                $picked_sort = "Title (Z-A)";
+                break;
+            case 'all_events':
+                $events = Events::where('date', '<', date('Y-m-d'));
+                $picked_sort = "All Events";
+                break;
+            default:
+                $events->latest('date');
+        }
+
+        // Paginate the events
+        $events = $events->paginate(10);
 
         // Format the date of each event in the collection
         $events->getCollection()->transform(function ($event) {
-            $event->date = Carbon::parse($event->date)->format('F jS Y');
+            $event->date = Carbon::parse($event->date)->format('M j Y');
             return $event;
         });
 
-
         // Render the view with the events and the current page number
-        return view('event', compact('events'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('event', compact('events', 'picked_sort'))
+            ->with('i', ($events->currentPage() - 1) * $events->perPage());
     }
 
 
-    // public function check_attendance_status($volunteer_id,$event_id)
-    // {
-    //     $attendance_status = VolunteerStatus::where('volunteer_id', $volunteer_id)
-    //     ->where('event_id', $event_id)
-    //     ->value('attendance_status');
-
-    //     return $attendance_status;
-    // }
 
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
