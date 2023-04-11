@@ -1,6 +1,6 @@
 .home-pic {
     position: relative;
-    height: 600px;
+    height: 100vh;
   }
   
 
@@ -23,7 +23,7 @@
     left: 2%; /* align to the left */
     transform: translate(0, -50%);
     color: white;
-    text-align: center;
+    text-align:left;
     z-index: 1;
 }
 
@@ -71,4 +71,8 @@
 
 .icon-img {
   width: 30px;
+}
+
+.home-card-pic{
+  width: 100%;
 }
