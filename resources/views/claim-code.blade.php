@@ -35,21 +35,33 @@
             </div>
             <div class="col-lg-6 p-4 my-auto">
                 <div class="box-border-shadow-bt-red p-3">
-                    <div class=" text-muted d-inline-block fs-10 ">{{ strtoupper($date) }} </div>
                     <div class="f-montserrat">
-                        <div class="fs-4">CLAIM CODE</div>
-                        <div class="d-inline-block">KIND OF RACES TO BE CLAIM:</div>
-                        <div class="d-inline-block text-success"> {{ strtoupper($race_type) }} </div>
-                        <div class="block">
-                            <div class="d-inline-block ">STATUS: </div>
-                            <div class="text-success d-inline-block {{ $status == 'pending' ? 'text-warning' : '' }}">
-                                {{ strtoupper($status) }}</div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class=" text-muted d-inline-block fs-10 ">{{ strtoupper($date) }} </div>
+                                <div class="fs-4 mb-3">CLAIM CODE</div>
+                            </div>
+                            <div class="col-lg-6 my-auto">
+                                <div class="d-block">
+                                    <div class=" f-lato d-inline-block">KIND OF RACE TO BE CLAIM:</div>
+                                    <div class="d-inline-block text-danger"> {{ strtoupper($race_type) }} </div>
+                                </div>
+                                <div class=" f-lato d-inline-block ">STATUS: </div>
+                                <div class="text-success d-inline-block {{ $status == 'pending' ? 'text-warning' : '' }}">
+                                    {{ strtoupper($status) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="f-lato text-muted mt-4 {{ $status != 'available' ? 'd-none' : '' }} ">PLEASE WAIT
+                            FOR YOUR CODE</div>
+                        <div class=" {{ $race_code == null ? 'd-none' : '' }}">
+                            <div class="f-lato text-muted mt-4 fs-10 mb-2">YOUR CODE IS:</div>
+                            <div class="f-montserrat display-5 border border-danger rounded text-center p-1">
+                                {{ $race_code }} </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
     </div>
 @endsection
