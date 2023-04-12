@@ -43,12 +43,17 @@ class ClaimCodeController extends Controller
             ->where('event_id', $event->event_id)
             ->value('status');
 
+        $race_type = RaceCode::where('volunteer_id', Auth::user()->volunteer_id)
+            ->where('event_id', $event->event_id)
+            ->value('race_type');
+
         // Pass event data and status variables to the 
         return view('claim-code', compact(
             'event',
             'date',
             'today',
             'status',
+            'race_type'
         ));
     }
 }

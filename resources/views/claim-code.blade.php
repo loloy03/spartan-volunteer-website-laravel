@@ -38,8 +38,13 @@
                     <div class=" text-muted d-inline-block fs-10 ">{{ strtoupper($date) }} </div>
                     <div class="f-montserrat">
                         <div class="fs-4">CLAIM CODE</div>
-                        <div class="d-inline-block ">STATUS: </div>
-                        <div class="text-success d-inline-block {{$status == "pending" ? 'text-warning' : ''}}"> {{ strtoupper($status) }}</div>
+                        <div class="d-inline-block">KIND OF RACES TO BE CLAIM:</div>
+                        <div class="d-inline-block text-success"> {{ strtoupper($race_type) }} </div>
+                        <div class="block">
+                            <div class="d-inline-block ">STATUS: </div>
+                            <div class="text-success d-inline-block {{ $status == 'pending' ? 'text-warning' : '' }}">
+                                {{ strtoupper($status) }}</div>
+                        </div>
                     </div>
                 </div>
             </div>
