@@ -42,4 +42,6 @@ Route::get('/claim_code/{event}', [App\Http\Controllers\ClaimCodeController::cla
 
 Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
 
+Route::post('/claim_code.upload_receipt', [App\Http\Controllers\ClaimCodeController::class, 'upload_receipt'])->name('claim_code.upload_receipt');
+
 

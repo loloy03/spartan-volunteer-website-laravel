@@ -13,6 +13,40 @@ class ClaimCodeController extends Controller
 {
 
 
+    public function upload_receipt(Request $request)
+    {
+        // Validate the uploaded file
+        $validatedData = $request->validate([
+            'volunteer_id' => 'required|numeric',
+            'event_id' => 'required|numeric',
+            'photo' => 'required',
+        ]);
+
+        // Get the uploaded file
+        $file = $request->file('photo');
+
+        // Set a unique file name based on the current timestamp and the file extension
+        $fileName = time() . '.' . $file->getClientOriginalExtension();
+
+
+        $raceCode = RaceCode::where('volunteer_id', $validatedData['volunteer_id'])
+            ->where('event_id', $validatedData['event_id'])
+            ->first();
+
+        // If found, set attendance_status to "cancelled" and save changes
+        if ($raceCode) {
+            $raceCode->receipt = $fileName;
+            $raceCode->status = "paid";
+            $raceCode->save();
+        }
+
+
+        // Save the file to the "images" folder in the public directory
+        $file->move(public_path('images'), $fileName);
+
+        // Redirect back to the previous page with a success message
+        return redirect()->back()->with('success', 'Receipt uploaded successfully.');
+    }
 
     public function store_race_type(Request $request)
     {
@@ -59,6 +93,9 @@ class ClaimCodeController extends Controller
             ->where('event_id', $event->event_id)
             ->value('race_code');
 
+        $remarks = RaceCode::where('volunteer_id', Auth::user()->volunteer_id)
+            ->where('event_id', $event->event_id)
+            ->value('remarks');
 
         // Pass event data and status variables to the 
         return view('claim-code', compact(
@@ -67,7 +104,8 @@ class ClaimCodeController extends Controller
             'today',
             'status',
             'race_type',
-            'race_code'
+            'race_code',
+            'remarks'
         ));
     }
 }
