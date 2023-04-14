@@ -12,14 +12,23 @@
             <div class="col-lg-8">
                 <div class="mx-5">
                     <div class="f-montserrat display-5 my-5">SETTINGS</div>
+                    @if (session('success'))
+                        <div class="alert alert-success p-2 mt-2">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <div class="box-border-shadow-bt-red mb-5">
                         <div class="f-montserrat h4 m-4">PROFILE</div>
                         <div class="mx-5">
                             <div class="row">
                                 <div class="col-lg-6 my-auto">
                                     <div class="text-center">
-                                        <img class="w-75" src="{{ asset('/images/spartan-logo-favicon.png') }}"
-                                            alt="">
+                                        @if (Auth::user()->profile_picture == null)
+                                            <img class="w-75" src="{{ asset('/images/spartan-logo-favicon.png') }}">
+                                        @else
+                                            <img class="w-75 mb-5" src="{{ asset('images/' . Auth::user()->profile_picture) }}"
+                                                alt="">
+                                        @endif
                                     </div>
 
                                     <i class="fa-solid fa-id-card d-inline-block"></i>
@@ -41,7 +50,7 @@
                                     <div class="f-lato text-muted">Contact Number</div>
                                     <div
                                         class="f-montserrat mb-2 {{ Auth::user()->contact_number == null ? 'text-warning' : '' }}">
-                                        {{ Auth::user()->contact_number == null ? 'No contact number assigned yet' : Auth::user()->birthdate }}
+                                        {{ Auth::user()->contact_number == null ? 'No contact number assigned yet' : Auth::user()->contact_number }}
                                     </div>
 
                                     <div class="f-lato text-muted">Email Address</div>
@@ -49,7 +58,8 @@
                                         {{ Auth::user()->email }} </>
                                     </div>
                                 </div>
-                                <button class="button f-montserrat text-center w-50 mx-auto mb-3">EDIT PROFILE</button>
+                                <button class="button f-montserrat text-center w-50 mx-auto mb-3"
+                                    onclick="window.location='{{ route('profile.edit') }}'">EDIT PROFILE</button>
                             </div>
                         </div>
                     </div>

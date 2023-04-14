@@ -42,6 +42,8 @@ Route::get('/claim_code/{event}', [App\Http\Controllers\ClaimCodeController::cla
 
 Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
 
+Route::get('/profile_edit', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+
+Route::post('/profile_update', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+
 Route::post('/claim_code.upload_receipt', [App\Http\Controllers\ClaimCodeController::class, 'upload_receipt'])->name('claim_code.upload_receipt');
-
-
