@@ -12,11 +12,13 @@
             <div class="col-lg-8">
                 <div class="mx-5">
                     <div class="f-montserrat display-5 my-5">SETTINGS</div>
+
                     @if (session('success'))
                         <div class="alert alert-success p-2 mt-2">
                             {{ session('success') }}
                         </div>
                     @endif
+
                     <div class="box-border-shadow-bt-red mb-5">
                         <div class="f-montserrat h4 m-4">PROFILE</div>
                         <div class="mx-5">
@@ -26,7 +28,7 @@
                                         @if (Auth::user()->profile_picture == null)
                                             <img class="w-75" src="{{ asset('/images/spartan-logo-favicon.png') }}">
                                         @else
-                                            <img class="w-75 mb-5" src="{{ asset('images/' . Auth::user()->profile_picture) }}"
+                                            <img width="200" height="200" class="mb-5 rounded-circle" src="{{ asset('images/' . Auth::user()->profile_picture) }}"
                                                 alt="">
                                         @endif
                                     </div>

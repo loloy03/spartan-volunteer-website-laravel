@@ -20,12 +20,17 @@
                                 <div class="row">
                                     <div class="col-lg-6 my-auto">
                                         <div class="text-center mb-auto">
-                                            <img class="w-75" src="{{ asset('/images/spartan-logo-favicon.png') }}"
-                                                alt="">
+                                            @if (Auth::user()->profile_picture == null)
+                                                <img class="w-75" src="{{ asset('/images/spartan-logo-favicon.png') }}">
+                                            @else
+                                                <img width="200" height="200" class="mb-5 rounded-circle"
+                                                    src="{{ asset('images/' . Auth::user()->profile_picture) }}"
+                                                    alt="">
+                                            @endif
                                         </div>
-
                                         <div class="f-lato text-muted">Upload Profile Picture</div>
-                                        <input type="file" name="photo" id="photo" class="form-control mb-4">
+                                        <input type="file" name="photo" id="photo" class="form-control mb-4"
+                                            value="{{ Auth::user()->profile_picture }}">
                                         <i class="fa-solid fa-id-card d-inline-block"></i>
                                         <div class="f-lato text-muted d-inline-block">Volunteer Id</div>
                                         <div class="f-montserrat mb-2"> <b> {{ Auth::user()->volunteer_id }} </b> </div>
@@ -49,15 +54,23 @@
                                         <div class="f-lato text-muted">Email Address</div>
                                         <div class="f-montserrat">{{ Auth::user()->email }}</div>
                                         <button type="submit"
-                                            class="button f-montserrat text-center w-50 mx-auto mb-3 w-100 mt-4">UPDATE
-                                            PROFILE</button>
+                                            class="button f-montserrat text-center w-50 mx-auto mb-1 w-100 mt-4">UPDATE
+                                            PROFILE
+                                        </button>
+
+                                        <button type="button" onclick="window.location='{{ route('profile.show') }}'"
+                                            class="button f-montserrat text-center w-50 mx-auto mb-3 w-100"> CANCEL
+                                        </button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-2"></div>
+    </div>
+    <div class="col-lg-2"></div>
     </div>
     </div>
     {{-- script for date picker --}}
