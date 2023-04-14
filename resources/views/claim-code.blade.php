@@ -40,6 +40,7 @@
                                 <div class=" text-muted d-inline-block fs-10 ">{{ strtoupper($date) }} </div>
                                 <div class="fs-4 mb-3">CLAIM CODE</div>
                             </div>
+
                             <div class="col-lg-6 my-auto">
                                 <div class="d-block">
                                     <div class=" f-lato d-inline-block">KIND OF RACE TO BE CLAIM:</div>

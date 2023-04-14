@@ -36,15 +36,19 @@
                     <div class="col-lg-6 f-montserrat p-2">
                         <div class="bg-light-gray">
                             <!-- Image Button - on click redirect to view-event page -->
-                            <button class="image-container"
-                                onclick="window.location='{{ route('view-event', $event->event_id) }}'">
-                                <img src="/images/events/{{ $event->event_pic }}" class="fixed-size-img">
-                                <!-- Image Text Overlay -->
-                                <div class="image-text p-2">
-                                    <p class="fs-6">{{ strtoupper($event->date) }}</p>
-                                </div>
-                            </button>
-
+                            <button class="image-container" 
+                            @if(Auth::check()) 
+                                onclick="window.location='{{ route('view-event', $event->event_id) }}'"> 
+                            @else 
+                                onclick="window.location='{{ route('login') }}'"> 
+                            @endif 
+                            <img src="/images/events/{{ $event->event_pic }}" class="fixed-size-img">
+                            <!-- Image Text Overlay -->
+                            <div class="image-text p-2">
+                                <p class="fs-6">{{ strtoupper($event->date) }}</p>
+                            </div>
+                        </button>
+                        
                             <!-- Event Details -->
                             <div class="p-4">
                                 <div class="d-block fs-4">
