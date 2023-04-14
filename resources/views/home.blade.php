@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="home-pic">
+    <div class="home-pic h-100vh">
         <div class="container-fluid">
             <img src="{{ asset('/images/spartan-home-pic.jpg') }}" alt="home-pic">
             <div class="text-overlay">
@@ -22,7 +22,8 @@
     <div class="container-fluid">
         <div class="p-5">
             <div class="display-5 f-montserrat mb-3">VOLUNTEER PERKS</div>
-            <div class="f-lato">Along with the awesome feeling of helping your fellow Spartans, there are some sweet perks
+            <div class="f-lato">Along with the awesome feeling of helping your fellow Spartans, there are some sweet
+                perks
                 to being a Spartan Volunteer.
             </div>
             <div class="row">
@@ -30,7 +31,8 @@
                     <div class="p-4">
                         <img class="home-card-pic" src="{{ asset('/images/spartan-home-card-pic-1.jpg') }}" alt="home-pic">
                         <div class="f-lato">
-                            Free entry to a volunteer heat in a Sprint 5K, City 5K, Stadion 5K, Super 10K or Beast 21K in
+                            Free entry to a volunteer heat in a Sprint 5K, City 5K, Stadion 5K, Super 10K or Beast 21K
+                            in
                             the
                             Philippines
                         </div>
@@ -56,7 +58,7 @@
             </div>
         </div>
     </div>
-    <div class="home-pic">
+    <div class="home-pic h-100vh">
         <img src="{{ asset('/images/spartan-home-pic-dark.jpg') }}" alt="home-pic">
         <div class="text-overlay">
             <div class="f-montserrat display-6">
@@ -68,47 +70,113 @@
             </div>
         </div>
     </div>
+
     <div class="container-fluid">
         <div class="p-5">
-            <div class="row">
-                <div class="col-lg-5">
-                    <img src="{{ asset('/images/spartan-home-pic2.jpg') }}" alt="">
-                    <div class="text-overlay">
-                        <div class="f-montserrat display-6">
-                            {{ __('BECOME UNBREAKABLE') }}
+            <div class="display-5 f-montserrat mb-3">VOLUNTEER ROLES</div>
+            <div class="row px-3">
+                <div class="col-lg-6 mt-4">
+                    <div class="bg-light-gray p-5 h-100">
+                        <div class="f-montserrat h2">
+                            ON-COURSE
+                        </div>
+                        <div class="f-lato mt-4">
+                            Help our build crew on race days by instructing and motivating racers through the course. You
+                            will be responsible for serving as our eyes and ears on the course, including reporting any
+                            injuries by radio to our medical team (training provided on site).
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-7 p-5 my-auto">
-                    <div class="f-montserrat">
-                        <div class="display-5">
-                            {{ __('ABOUT SPARTAN RACE') }}
+                <div class="col-lg-6 mt-4">
+                    <div class="bg-light-gray p-5 h-100">
+                        <div class="f-montserrat h2">
+                            FESTIVAL
                         </div>
-                        <div class="h4 mt-4 text-danger">
-                            {{ __('SPARTAN MISSION') }}
+                        <div class="f-lato mt-4">
+                            Assist our Festival Team at the finish line, start corral, bag check, merchandise and throughout
+                            the festival. Be ready to give lots of high-fives!
                         </div>
-                        <div class="f-lato h5">
-                            <div class="mt-4">
-                                {{ __('Every human can become unbreakable. They’ve simply forgotten how. We deconstruct modern-day comforts by tapping into an ancient methodology built on doing hard shit.') }}
-                            </div>
-                            <div class="mt-4">
-                                {{ __('Every human can become unbreakable. They’ve simply forgotten how. We deconstruct modern-day comforts by tapping into an ancient methodology built on doing hard shit.') }}
-                            </div>
-                            <div class="mt-4">
-                                {{ __('Every human can become unbreakable. They’ve simply forgotten how. We deconstruct modern-day comforts by tapping into an ancient methodology built on doing hard shit.') }}
-                            </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-4">
+                    <div class="bg-light-gray p-5 h-100">
+                        <div class="f-montserrat h2">
+                            REGISTRATION
                         </div>
-                        <div class="my-4">
-                            <button type="button" class="view-spartan-button"
-                                onclick="window.location='{{ route('event') }}'">{{ __('VIEW SPARTAN PAGE') }}</button>
+                        <div class="f-lato mt-4">
+                            Help our Registration Staff greet, check-in and answer questions for racers and spectators. This
+                            job requires the use of a Spartan computer. You will receive training for the first 30-minutes
+                            of your volunteer shift by our Registration Lead.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mt-4">
+                    <div class="bg-light-gray p-5 h-100">
+                        <div class="f-montserrat h2">
+                            OBSTACLE OFFICIALS
+                        </div>
+                        <div class="f-lato mt-4">
+                            Ensure all elite & age group competitors complete obstacles in accordance to the rules and
+                            enforce the penalties if they don’t. Help maintain the current and future integrity of the
+                            sport! You will use both photo and video equipment.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mt-4">
+                    <div class="bg-light-gray p-5 h-100">
+                        <div class="f-montserrat h2">
+                            PRE-RUNNER
+                        </div>
+                        <div class="f-lato mt-4">
+                            Run the course pre-race to ensure weather (or animals!) have not disrupt the course overnight.
+                            NOTE: as some mornings are dark, we ask that you bring your own headlamp. Upon completion, you
+                            will be reassigned to on-course until the end of your shift.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mt-4">
+                    <div class="bg-light-gray p-5 h-100">
+                        <div class="f-montserrat h2">
+                            PRE/POST RACE
+                        </div>
+                        <div class="f-lato mt-4">
+                            Help basecamp build obstacles on course, setup tents & fence lines, along with other race
+                            critical festival tasks. All Load In, Build & Load Out volunteers are provided with a homemade
+                            meal for lunch, and a $50 merch credit for use at our online store.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mt-4">
+                    <div class="bg-light-gray p-5 h-100">
+                        <div class="f-montserrat h2">
+                            KIDS RACE
+                        </div>
+                        <div class="f-lato mt-4">
+                            Assist our Kids Race team on race day(s) with overall production and safety of the Kids Race
+                            event. Encourage our little Spartans through the course!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mt-4">
+                    <div class="bg-light-gray p-5 h-100">
+                        <div class="f-montserrat h2">
+                            CHOOSE YOUR SHIFT
+                        </div>
+                        <div class="f-lato mt-4">
+                            Meet the community
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container-fluid h-100">
-        <div class="p-5">
+    <div class="container-fluid ">
+        <div class="p-5 mt-5">
             <div class="display-5 f-montserrat mb-3 ">HAVE A QUESTION?</div>
             <div class="f-lato my-3">
                 Need an answer to a question? Contact us at

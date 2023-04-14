@@ -16,8 +16,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/event', [App\Http\Controllers\EventController::class, 'index'])->name('event');
 
 
+//proctected routes
 Route::middleware(['auth', 'verified'])->group(function () {
-    // Your protected routes here
 
     Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
 
