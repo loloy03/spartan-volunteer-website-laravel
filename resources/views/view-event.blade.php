@@ -124,8 +124,8 @@
                             STATUS: {{ $code_status }}
                         </div>
                         <button
-                            {{-- class="my-auto view-event-btn f-montserrat {{ $code_status == 'NOT AVAILABLE' || $attendance_status == 'joining' ? 'view-event-btn-disabled' : '' }}"
-                            {{ $code_status == 'NOT AVAILABLE' ? 'disabled' : '' }}  --}}
+                            class="my-auto view-event-btn f-montserrat {{ $code_status == 'NOT AVAILABLE' || $attendance_status == 'joining' ? 'view-event-btn-disabled' : '' }}"
+                            {{ $code_status == 'NOT AVAILABLE' ? 'disabled' : '' }} 
                             data-bs-toggle="collapse"
                             data-bs-target="#view" aria-controls="navbarSupportedContent" aria-expanded="false"
                             aria-label="{{ __('Toggle navigation') }}">See Races</button>
