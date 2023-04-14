@@ -91,11 +91,16 @@
                                     @auth
                                         <a class="dropdown-item text-white" href="{{ route('profile.show') }}">
                                             {{ __('Profile') }} </a>
+                                        <div class="dropdown-divider"></div>
+                                    @else
+                                        <a class="dropdown-item text-white" href="{{ route('login') }}">
+                                            {{ __('Login') }} </a>
+                                        <div class="dropdown-divider"></div>
                                     @endauth
 
                                     <a class="dropdown-item text-white" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                                    document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -103,6 +108,7 @@
                                         @csrf
                                     </form>
                                 </div>
+
                             </li>
                         @endguest
                     </ul>
