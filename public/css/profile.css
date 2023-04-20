@@ -1,7 +1,6 @@
 .box-border-shadow-bt-red {
     box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.1);
     border-top: 5px solid red;
-    border-radius: 10px;
 }
 
 .button {

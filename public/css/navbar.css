@@ -1,25 +1,40 @@
+@import url(//db.onlinewebfonts.com/c/2206d6cc490084998d531e8c1b2cbb4a?family=Druk+Wide+Bold);
 
+/* druk wide font */
 
+.f-druk-wide {
+    font-family: "Druk Wide Bold";
+    src: url("//db.onlinewebfonts.com/t/2206d6cc490084998d531e8c1b2cbb4a.eot");
+    src: url("//db.onlinewebfonts.com/t/2206d6cc490084998d531e8c1b2cbb4a.eot?#iefix")
+            format("embedded-opentype"),
+        url("//db.onlinewebfonts.com/t/2206d6cc490084998d531e8c1b2cbb4a.woff2")
+            format("woff2"),
+        url("//db.onlinewebfonts.com/t/2206d6cc490084998d531e8c1b2cbb4a.woff")
+            format("woff"),
+        url("//db.onlinewebfonts.com/t/2206d6cc490084998d531e8c1b2cbb4a.ttf")
+            format("truetype"),
+        url("//db.onlinewebfonts.com/t/2206d6cc490084998d531e8c1b2cbb4a.svg#Druk Wide Bold")
+            format("svg");
+}
 /* montserrat font */
 .f-montserrat {
     font-family: "Montserrat", sans-serif;
     font-weight: 700;
-  }
+}
 
 /* lato font */
-.f-lato{
+.f-lato {
     font-family: "Lato", sans-serif;
     font-weight: 400;
 }
 
 .navbar-nav {
-
     font-family: "Montserrat", sans-serif;
     font-weight: 700;
 }
 
 .bottom-transition {
-    border-bottom: 3px solid ;
+    border-bottom: 3px solid;
     transition: border-bottom-color 0.3s ease-in-out;
 }
 
@@ -27,13 +42,13 @@
     border-bottom-color: white;
 }
 
-.bg-black{
+.bg-black {
     color: black;
 }
-.navbar-spartan-logo-size{
+.navbar-spartan-logo-size {
     width: 120px;
 }
 
-.h-100vh{
+.h-100vh {
     height: 100vh;
 }

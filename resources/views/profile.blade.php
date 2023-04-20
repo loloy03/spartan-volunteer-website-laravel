@@ -11,7 +11,7 @@
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
                 <div class="mx-5">
-                    <div class="f-montserrat display-5 my-5">SETTINGS</div>
+                    <div class="f-druk-wide display-5 my-5">SETTINGS</div>
 
                     @if (session('success'))
                         <div class="alert alert-success p-2 mt-2">

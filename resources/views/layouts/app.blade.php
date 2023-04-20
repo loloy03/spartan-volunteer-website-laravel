@@ -20,6 +20,8 @@
     <!--Font Awesome CDN-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
 
+    <link href="//db.onlinewebfonts.com/c/2206d6cc490084998d531e8c1b2cbb4a?family=Druk+Wide+Bold" rel="stylesheet" type="text/css"/>
+
     <!--Css files-->
     <link rel="stylesheet" href="{{ asset('/css/navbar.css') }}">
     @yield('import-css')
@@ -90,7 +92,7 @@
                                 <div class="dropdown-menu dropdown-menu-end bg-dark" aria-labelledby="navbarDropdown">
                                     @auth
                                         <a class="dropdown-item text-white" href="{{ route('profile.show') }}">
-                                            {{ __('Profile') }} </a>
+                                            {{ __('PROFILE') }} </a>
                                         <div class="dropdown-divider"></div>
                                     @else
                                         <a class="dropdown-item text-white" href="{{ route('login') }}">
@@ -101,7 +103,7 @@
                                     <a class="dropdown-item text-white" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('LOGOUT') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

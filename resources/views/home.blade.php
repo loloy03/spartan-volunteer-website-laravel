@@ -21,7 +21,7 @@
     </div>
     <div class="container-fluid">
         <div class="p-5">
-            <div class="display-5 f-montserrat mb-3">VOLUNTEER PERKS</div>
+            <div class="display-5 f-druk-wide mb-3">VOLUNTEER PERKS</div>
             <div class="f-lato">Along with the awesome feeling of helping your fellow Spartans, there are some sweet
                 perks
                 to being a Spartan Volunteer.
@@ -73,7 +73,7 @@
 
     <div class="container-fluid">
         <div class="p-5">
-            <div class="display-5 f-montserrat mb-3">VOLUNTEER ROLES</div>
+            <div class="display-5 f-druk-wide my-5">VOLUNTEER ROLES</div>
             <div class="row px-3">
                 <div class="col-lg-6 mt-4">
                     <div class="bg-light-gray p-5 h-100">
@@ -177,7 +177,7 @@
     </div>
     <div class="container-fluid ">
         <div class="p-5 mt-5">
-            <div class="display-5 f-montserrat mb-3 ">HAVE A QUESTION?</div>
+            <div class="display-5 f-druk-wide mb-3 ">HAVE A QUESTION?</div>
             <div class="f-lato my-3">
                 Need an answer to a question? Contact us at
                 <div class="d-inline-block">

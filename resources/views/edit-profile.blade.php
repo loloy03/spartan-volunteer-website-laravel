@@ -11,7 +11,7 @@
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
                 <div class="mx-5">
-                    <div class="f-montserrat display-5 my-5">SETTINGS</div>
+                    <div class="f-druk-wide display-5 my-5">SETTINGS</div>
                     <div class="box-border-shadow-bt-red mb-5">
                         <div class="f-montserrat h4 m-4">PROFILE</div>
                         <div class="mx-5">

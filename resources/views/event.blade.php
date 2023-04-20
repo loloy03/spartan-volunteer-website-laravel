@@ -7,7 +7,7 @@
 
 @section('content')
     <div class="container-fluid p-5">
-        <div class="f-montserrat display-6">
+        <div class="f-druk-wide display-6">
             @if ($picked_sort == 'RECENT EVENTS')
                 {{ __('RECENTS EVENTS') }}
             @else
