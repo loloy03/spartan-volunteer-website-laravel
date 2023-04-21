@@ -1,4 +1,0 @@
----
-things to do:
-    -how to put different kinds of races in claiming code
-    
