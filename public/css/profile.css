@@ -18,3 +18,15 @@
     color: red;
     transition: 0.7s;
 }
+
+.fs-12{
+    font-size: 12px;
+}
+
+
+/* media queries */
+@media screen and (max-width: 600px) {
+  #email{
+    font-size: 12px;
+  }
+}

@@ -56,8 +56,8 @@
                                     </div>
 
                                     <div class="f-lato text-muted">Email Address</div>
-                                    <div class="f-montserrat">
-                                        {{ Auth::user()->email }} </>
+                                    <div class="f-montserrat" id="email">
+                                        {{ Auth::user()->email }}
                                     </div>
                                 </div>
                                 <button class="button f-montserrat text-center w-50 mx-auto mb-3"

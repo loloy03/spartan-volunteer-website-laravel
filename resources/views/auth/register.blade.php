@@ -8,7 +8,7 @@
 <div class="container-fluid">
     <div class="row">
 
-        <div class="col-lg-8">
+        <div class="col-lg-8 h-100vh">
             <img src="{{ asset('/images/spartan-register-pic.jpg') }}" alt="">
         </div>
 

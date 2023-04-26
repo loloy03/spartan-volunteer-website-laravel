@@ -20,7 +20,8 @@
     <!--Font Awesome CDN-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
 
-    <link href="//db.onlinewebfonts.com/c/2206d6cc490084998d531e8c1b2cbb4a?family=Druk+Wide+Bold" rel="stylesheet" type="text/css"/>
+    <link href="//db.onlinewebfonts.com/c/2206d6cc490084998d531e8c1b2cbb4a?family=Druk+Wide+Bold" rel="stylesheet"
+        type="text/css" />
 
     <!--Css files-->
     <link rel="stylesheet" href="{{ asset('/css/navbar.css') }}">
@@ -45,7 +46,7 @@
                     <img class="navbar-spartan-logo-size" src="{{ asset('/images/spartan-logo-with-word.png') }}"
                         alt="Logo Image">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -63,13 +64,13 @@
 
                         @guest
                             @if (Route::has('login'))
-                                <li class="nav-item bottom-transition">
+                                <li class="nav-item bottom-transition mt-2">
                                     <a class="nav-link text-light" href="{{ route('login') }}">{{ __('LOGIN') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
-                                <li class="nav-item bottom-transition">
+                                <li class="nav-item bottom-transition mt-2">
                                     <a class="nav-link text-light" href="{{ route('register') }}">{{ __('REGISTER') }}</a>
                                 </li>
                             @endif
