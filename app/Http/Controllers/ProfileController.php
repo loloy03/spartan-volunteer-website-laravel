@@ -15,12 +15,43 @@ class ProfileController extends Controller
     }
 
 
-    public function edit()
+    public function volunteer_info_edit()
     {
         return view('edit-profile');
     }
 
-    public function update(Request $request)
+    public function address_edit()
+    {
+        return view('edit-address');
+    }
+
+    public function address_update(Request $request)
+    {
+        // Validate the input data
+        $validatedData = $request->validate([
+            'street_add' => 'required',
+            'country' => 'required',
+            'city' => 'required',
+            'zip' => 'required',
+            'second_add' => 'required',
+        ]);
+
+        // Get the authenticated user
+        $user = Auth::user();
+
+        // Update the user's profile with the new data
+        $user->street_add = $validatedData['street_add'];
+        $user->country = $validatedData['country'];
+        $user->city = $validatedData['city'];
+        $user->zip = $validatedData['zip'];
+        $user->second_add = $validatedData['second_add'];
+        $user->save();
+
+        // Redirect the user back to their profile page with a success message
+        return redirect()->route('profile.show')->with('success', 'Address updated successfully.');
+    }
+
+    public function volunteer_info_update(Request $request)
     {
         // Validate the input data
         $validatedData = $request->validate([
@@ -56,6 +87,6 @@ class ProfileController extends Controller
         $user->save();
 
         // Redirect the user back to their profile page with a success message
-        return redirect()->route('profile.show')->with('success', 'Profile updated successfully.');
+        return redirect()->route('profile.show')->with('success', 'Volunteer Info updated successfully.');
     }
 }
