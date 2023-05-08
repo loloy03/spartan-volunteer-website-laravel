@@ -7,7 +7,7 @@
 
 @section('content')
     <div class="container-fluid ">
-        <div class="row my-5">
+        <div class="row h-100vh">
 
             <div class="col-lg-6 my-auto position-relative">
                 <!-- Display the event picture -->
@@ -18,7 +18,7 @@
                 <img class="overlay-image" src="{{ asset('/images/spartan-logo-with-word.png') }}">
             </div>
 
-            <div class="col-lg-6 p-4">
+            <div class="col-lg-6 p-4 my-auto">
                 <div class="f-montserrat">
                     <!-- Date of the event, converted to uppercase -->
                     <div class="text-muted pt-2">{{ strtoupper($date) }}</div>

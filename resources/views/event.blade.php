@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid p-5">
+    <div class="container-fluid p-5 h-100vh">
         <div class="f-druk-wide display-6">
             @if ($picked_sort == 'RECENT EVENTS')
                 {{ __('RECENTS EVENTS') }}
@@ -61,13 +61,12 @@
                     </div>
                 @endforeach
             @else
-                <div class="col-lg-12 f-montserrat p-2">
-                    <div class="bg-light-gray text-center my-5">
+                <div class="col-lg-12 f-montserrat p-2 mt-5">
+                    <div class="bg-light-gray text-center">
                         <p class="fs-4 pt-4 pb-4">NO EVENTS AVAILABLE</p>
                     </div>
                 </div>
             @endif
-
         </div>
     </div>
 @endsection
