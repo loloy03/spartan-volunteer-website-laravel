@@ -81,12 +81,12 @@
                         </div>
                         <div class="f-lato text-muted">Zip Code</div>
                         <div class="f-montserrat mb-2 {{ Auth::user()->zip == null ? 'text-warning' : '' }}">
-                            {{ Auth::user()->zip == null ? 'No Zip Code assigned yet' : Auth::user()->zip}}
+                            {{ Auth::user()->zip == null ? 'No Zip Code assigned yet' : Auth::user()->zip }}
                         </div>
 
                         <div class="f-lato text-muted">Complete Secondary Address</div>
                         <div class="f-montserrat mb-2  {{ Auth::user()->second_add == null ? 'text-warning' : '' }}">
-                            {{ Auth::user()->second_add == null ? 'No second address assigned yet' : Auth::user()->second_add}}
+                            {{ Auth::user()->second_add == null ? 'No second address assigned yet' : Auth::user()->second_add }}
                         </div>
                         <div class="text-center">
                             <button class="button f-montserrat w-50 mt-5 mb-3"
@@ -98,28 +98,18 @@
                 <div class="box-border-shadow-bt-red mb-5">
                     <div class="f-montserrat h4 m-4">EMERGENCY CONTACT</div>
                     <div class="mx-5">
-                        <div class="f-lato text-muted">Race Credits</div>
-                        <div class="f-montserrat mb-2"> {{ Auth::user()->r_credits }} </div>
-                        <div class="f-lato text-muted">First Name</div>
-                        <div class="f-montserrat mb-2"> {{ Auth::user()->first_name }} </div>
-                        <div class="f-lato text-muted">Last Name</div>
-                        <div class="f-montserrat  mb-2"> {{ Auth::user()->last_name }} </div>
-                        <div class="f-lato text-muted ">Birthdate</div>
-                        <div class="f-montserrat mb-2  {{ Auth::user()->birthdate == null ? 'text-warning' : '' }}">
-                            {{ Auth::user()->birthdate == null ? 'No birthdate assigned yet' : Auth::user()->birthdate }}
+                        <div class="f-lato text-muted ">Contact Person</div>
+                        <div
+                            class="f-montserrat mb-2  {{ Auth::user()->emergency_contact_name == null ? 'text-warning' : '' }}">
+                            {{ Auth::user()->emergency_contact_name == null ? 'No contact person assigned yet' : Auth::user()->emergency_contact_name }}
                         </div>
                         <div class="f-lato text-muted">Contact Number</div>
-                        <div class="f-montserrat mb-2 {{ Auth::user()->contact_number == null ? 'text-warning' : '' }}">
-                            {{ Auth::user()->contact_number == null ? 'No contact number assigned yet' : Auth::user()->contact_number }}
-                        </div>
-
-                        <div class="f-lato text-muted">Email Address</div>
-                        <div class="f-montserrat" id="email">
-                            {{ Auth::user()->email }}
+                        <div class="f-montserrat mb-2 {{ Auth::user()->emergency_number == null ? 'text-warning' : '' }}">
+                            {{ Auth::user()->emergency_number == null ? 'No emergency number assigned yet' : Auth::user()-> emergency_number }}
                         </div>
                         <div class="text-center">
                             <button class="button f-montserrat w-50 mt-5 mb-3"
-                                onclick="window.location='{{ route('volunteer_info_edit') }}'">EDIT CONTACT</button>
+                                onclick="window.location='{{ route('contact_edit') }}'">EDIT CONTACT</button>
                         </div>
                     </div>
                 </div>

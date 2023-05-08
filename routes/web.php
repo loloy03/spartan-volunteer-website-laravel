@@ -26,10 +26,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/volunteer_info_update', [App\Http\Controllers\ProfileController::class, 'volunteer_info_update'])->name('volunteer_info.update');
 
 
-
     Route::get('/address_edit', [App\Http\Controllers\ProfileController::class, 'address_edit'])->name('address_edit');
 
     Route::post('/address_update', [App\Http\Controllers\ProfileController::class, 'address_update'])->name('address_update');
+    
+
+    Route::get('/contact_edit', [App\Http\Controllers\ProfileController::class, 'contact_edit'])->name('contact_edit');
+
+    Route::post('/contact_update', [App\Http\Controllers\ProfileController::class, 'contact_update'])->name('contact_update');
 
 
 

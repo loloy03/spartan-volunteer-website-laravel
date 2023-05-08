@@ -25,6 +25,31 @@ class ProfileController extends Controller
         return view('edit-address');
     }
 
+    public function contact_edit()
+    {
+        return view('edit-contact');
+    }
+
+    public function contact_update(Request $request)
+    {
+        // Validate the input data
+        $validatedData = $request->validate([
+            'emergency_contact_name' => 'required',
+            'emergency_number' => 'required',
+        ]);
+
+        // Get the authenticated user
+        $user = Auth::user();
+
+        // Update the user's profile with the new data
+        $user->emergency_contact_name = $validatedData['emergency_contact_name'];
+        $user->emergency_number = $validatedData['emergency_number'];
+        $user->save();
+
+        // Redirect the user back to their profile page with a success message
+        return redirect()->route('profile.show')->with('success', 'Emergency Contact updated successfully.');
+    }
+
     public function address_update(Request $request)
     {
         // Validate the input data
