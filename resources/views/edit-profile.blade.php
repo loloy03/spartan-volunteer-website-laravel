@@ -49,6 +49,9 @@
                                     <div class="f-lato text-muted">Contact Number</div>
                                     <input class="form-control mb-2" type="text" name="contact_number"
                                         id="contact_number" value="{{ Auth::user()->contact_number }}">
+                                    <div class="f-lato text-muted">Occupation</div>
+                                    <input class="form-control mb-2" type="text" name="occupation"
+                                        id="occupation" value="{{ Auth::user()->occupation }}">
                                     <div class="f-lato text-muted">Email Address</div>
                                     <div class="f-montserrat">{{ Auth::user()->email }}</div>
                                     <button type="submit"

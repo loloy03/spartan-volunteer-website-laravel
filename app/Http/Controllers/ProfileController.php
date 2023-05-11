@@ -84,6 +84,7 @@ class ProfileController extends Controller
             'last_name' => 'required|string|max:255',
             'selected_date' => 'required|date',
             'contact_number' => 'required',
+            'occupation' => 'required',
         ]);
 
         // Get the authenticated user

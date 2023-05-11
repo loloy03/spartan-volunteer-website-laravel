@@ -53,6 +53,12 @@
                                     {{ Auth::user()->contact_number == null ? 'No contact number assigned yet' : Auth::user()->contact_number }}
                                 </div>
 
+                                <div class="f-lato text-muted">Occupation</div>
+                                <div
+                                    class="f-montserrat mb-2 {{ Auth::user()->occupation == null ? 'text-warning' : '' }}">
+                                    {{ Auth::user()->occupation == null ? 'No occupation assigned yet' : Auth::user()->occupation }}
+                                </div>
+
                                 <div class="f-lato text-muted">Email Address</div>
                                 <div class="f-montserrat" id="email">
                                     {{ Auth::user()->email }}
@@ -105,7 +111,7 @@
                         </div>
                         <div class="f-lato text-muted">Contact Number</div>
                         <div class="f-montserrat mb-2 {{ Auth::user()->emergency_number == null ? 'text-warning' : '' }}">
-                            {{ Auth::user()->emergency_number == null ? 'No emergency number assigned yet' : Auth::user()-> emergency_number }}
+                            {{ Auth::user()->emergency_number == null ? 'No emergency number assigned yet' : Auth::user()->emergency_number }}
                         </div>
                         <div class="text-center">
                             <button class="button f-montserrat w-50 mt-5 mb-3"
