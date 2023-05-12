@@ -1,0 +1,130 @@
+/* Override Default Bootstrap Label Color*/
+label {
+    color: rgb(33, 37, 41) !important;
+}
+
+.container {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+button {
+    font-family: Montserrat !important;
+    font-weight: 700 !important;
+}
+
+.event-form, .event-input {
+    text-align: center;
+    align-items: center;
+}
+
+.datepicker input {
+    border: none;
+    box-sizing: border-box;
+    outline: 0;
+    padding: .75rem;
+    position: relative;
+    width: 100%;
+}
+
+/* Override Default Bootstrap Input Border Color*/
+.form-control {
+    border: 2px solid black  !important;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+}
+
+.image-area {
+    position: relative;
+    border: 2px solid black;
+    width: 480px;
+    height: 360px;
+    background: var(--grey);
+    margin-bottom: 30px;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.upload-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.image-file:hover *{
+    background-color: #d9d9d9;
+}
+
+.image-area img:hover {
+    opacity: 0.5;
+}
+
+.image-area .icon {
+    font-size: 100px;
+}
+
+.image-area h3 {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.image-area img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 100;
+}
+
+.remove-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#removeImg {
+    position: absolute;
+    z-index: 200;
+}
+  
+.li-categ {
+    display: inline-flex !important;
+    padding: 5px !important;
+    border: 2px solid black !important;
+    margin: 5px; 
+    font-family: Montserrat;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    font-style: normal !important;
+}
+
+.role-label {
+    text-align: right;
+}
+
+.role-input {
+    align-items: center;
+}

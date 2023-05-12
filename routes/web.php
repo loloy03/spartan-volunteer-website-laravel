@@ -1,7 +1,10 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AdministratorController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\StaffController;
+use App\Http\Controllers\VolunteerController;
 
 // Home page
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -35,8 +38,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/contact_update', [App\Http\Controllers\ProfileController::class, 'contact_update'])->name('contact_update');
 
-
-
     // Show event details
     Route::get('view-event/{event}', [App\Http\Controllers\EventController::class, 'show'])->name('view-event');
 
@@ -64,3 +65,49 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/claim_code.upload_receipt', [App\Http\Controllers\ClaimCodeController::class, 'upload_receipt'])->name('claim_code.upload_receipt');
 });
+
+Route::get('/home-sample', function() {
+    return view('home-sample');
+});
+
+// ADMIN ROUTES
+// Middleware: admin
+// IMPORTANT: It seems using Administrator instead of Admin is preferable
+
+// Admin Signup
+Route::get('/admin-signup', [AdministratorController::class, 'create'])->middleware('guest');
+Route::post('/admin-signup', [AdministratorController::class, 'store'])->middleware('guest');
+
+// Admin Login
+Route::get('/admin-login', [AdministratorController::class, 'login'])->middleware('guest');
+Route::post('/admin-login', [AdministratorController::class, 'authenticate'])->middleware('guest');
+
+//Route::get('/logout', [AdminController::class, 'logout'])->middleware('auth');
+
+// Create Event
+Route::get('/create-event', [EventController::class, 'create']);
+Route::post('/create-event', [EventController::class, 'store']);
+
+// Admin-Validate and Distribute Volunteer Race Code Claim
+Route::get('/distribute-code', [VolunteerController::class, 'listOfVerifiedVolunteers']);
+
+
+
+// STAFF ROUTES
+// Middleware: staff
+
+// Staff Signup
+Route::get('/staff-signup', [StaffController::class, 'create'])->middleware('guest');
+Route::post('/staff-signup', [StaffController::class, 'store'])->middleware('guest');
+
+// Staff Login
+Route::get('/staff-login', [StaffController::class, 'login'])->middleware('guest');
+Route::post('/staff-login', [StaffController::class, 'authenticate'])->middleware('guest');
+
+// Staff-Give Volunteer Role
+// input staff_id, event_id, and staff_role/staff_status
+Route::get('/add-volunteer', [VolunteerController::class, 'listOfConfirmedVolunteers']);
+
+// Staff-Validate Volunteer Attendance
+// input staff_id, event_id, and staff_role/staff_status
+Route::get('/check-attendance', [VolunteerController::class, 'listOfPendingVolunteers']);

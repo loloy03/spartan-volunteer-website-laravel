@@ -5,13 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Races extends Model
+class EventRole extends Model
 {
-    public $table = 'races';//accessing the event table
+    use HasFactory;
+
+    public $table = 'event_role';//accessing the event table
 
     protected $primaryKey = 'event_id'; //changing the primary key
 
     public $timestamps = false; //disabling laravel's eloquent timestamps
 
-    PUBLIC $guarded = [];
+    protected $guarded = [];
 }

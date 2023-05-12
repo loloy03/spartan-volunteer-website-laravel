@@ -1,0 +1,71 @@
+.custom-table {
+    min-width: 900px;
+}
+
+.table thead tr,
+.table thead th {
+    font-family: Montserrat;
+    border-top: none;
+    border-bottom: none !important;
+    text-align: center;
+}
+
+.table tbody th,
+.table tbody td {
+    padding-bottom: 20px;
+    text-align: center;
+    padding-top: 20px;
+    font-weight: 300;
+}
+
+.table tbody tr {
+    font-family: Lato;
+    border-radius: 7px;
+    overflow: hidden;
+    -webkit-transition: .3s all ease;
+    -o-transition: .3s all ease;
+    transition: .3s all ease;
+}
+
+.table tbody tr th,
+.table tbody tr td {
+    border: none;
+    -webkit-transition: .3s all ease;
+    -o-transition: .3s all ease;
+    transition: .3s all ease;
+}
+
+.table tbody tr th:first-child,
+.table tbody tr td:first-child {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.table tbody tr th:last-child,
+.table tbody tr td:last-child {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.custom-table tbody tr.active th,
+.custom-table tbody tr.active td,
+.custom-table tbody tr:hover th,
+.custom-table tbody tr:hover td {
+    color: #fff;
+    background: #F44336;
+}
+
+.checkbox {
+    transform: scale(1.5);
+}
+
+.checkbox:hover {
+    cursor:pointer;
+    transform: scale(2);
+}
+
+.checkbox:checked {
+    transform: scale(2);
+}
+
+

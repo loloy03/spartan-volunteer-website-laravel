@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Events;
+use App\Models\Staff;
+use App\Services\CreateEventService;
 use App\Models\VolunteerStatus;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -72,12 +74,11 @@ class EventController extends Controller
             ->with('i', ($events->currentPage() - 1) * $events->perPage());
     }
 
-
-
-
     public function create()
     {
-        //
+        $categories = config('spartanfiles.event-categories');
+        $staffs = Staff::select('staff_id', 'first_name', 'last_name')->paginate(15);
+        return view('admin.create-event', compact('categories', 'staffs'));
     }
 
     /**
@@ -85,7 +86,14 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
+        DB::transaction(function () use ($request) {
+            $eventService = new CreateEventService();
+            $eventService->createEvent($request);
+        });
+
+        // add flash notification for feedback
+        return redirect('/event');
     }
 
 
