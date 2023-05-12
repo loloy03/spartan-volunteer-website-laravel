@@ -59,8 +59,7 @@
                             </div>
                             <div class="mt-4">
                                 <div class="d-inline-block">
-                                    {{$event->date}}
-                                    {{$today}}
+                                    
                                     <form method="POST" action="{{ route('join_as_volunteer.check_in') }}">
                                         @csrf
                                         <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">

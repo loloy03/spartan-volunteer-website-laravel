@@ -110,6 +110,7 @@ class ProfileController extends Controller
         $user->last_name = $validatedData['last_name'];
         $user->birthdate = date('Y-m-d', strtotime($validatedData['selected_date']));
         $user->contact_number = $validatedData['contact_number'];
+        $user->occupation = $validatedData['occupation'];
         $user->save();
 
         // Redirect the user back to their profile page with a success message
