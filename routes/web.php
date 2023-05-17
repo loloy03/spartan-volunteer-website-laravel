@@ -24,6 +24,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
 
+    Route::get('/history', [App\Http\Controllers\HistoryController::class, 'show'])->name('history.show');
+
     Route::get('/volunteer_info_edit', [App\Http\Controllers\ProfileController::class, 'volunteer_info_edit'])->name('volunteer_info_edit');
 
     Route::post('/volunteer_info_update', [App\Http\Controllers\ProfileController::class, 'volunteer_info_update'])->name('volunteer_info.update');
