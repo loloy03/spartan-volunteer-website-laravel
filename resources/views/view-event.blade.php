@@ -7,7 +7,7 @@
 
 @section('content')
     <div class="container-fluid ">
-        <div class="row h-100vh">
+        <div class="row">
 
             <div class="col-lg-6 my-auto position-relative">
                 <!-- Display the event picture -->
@@ -125,8 +125,7 @@
                         </div>
                         <button
                             class="my-auto view-event-btn f-montserrat {{ $code_status == 'NOT AVAILABLE' || $attendance_status == 'joining' ? 'view-event-btn-disabled' : '' }}"
-                            {{ $code_status == 'NOT AVAILABLE' ? 'disabled' : '' }} 
-                            data-bs-toggle="collapse"
+                            {{ $code_status == 'NOT AVAILABLE' ? 'disabled' : '' }} data-bs-toggle="collapse"
                             data-bs-target="#view" aria-controls="navbarSupportedContent" aria-expanded="false"
                             aria-label="{{ __('Toggle navigation') }}">See Races</button>
 
@@ -137,7 +136,14 @@
                         </div>
 
                         <div class="f-lato text-muted fs-10 mb-2">PICK ONLY ONE RACE TO CLAIM CODE</div>
-
+                        <div class="d-block">
+                            <div class="f-lato text-muted fs-10  d-inline-block">YOUR RACE CREDITS: </div>
+                            <div class="f-lato text-muted fs-10 d-inline-block ">{{ Auth::user()->r_credits }}</div>
+                        </div>
+                        <div
+                            class="f-lato text-muted fs-10 mb-2 text-warning {{ Auth::user()->r_credits != 0 ? 'd-none' : '' }}">
+                            <div class="text-danger"> YOU DONT HAVE ENOUGH RACE CREDITS </div>
+                        </div>
 
                         <div class="f-lato mt-1">
                             <form method="POST" action="{{ route('claim_code.store_race') }}">
@@ -145,20 +151,44 @@
 
                                 @foreach ($races as $race)
                                     <div>
-                                        <input type="radio" name="race_type" value="{{ $race->type_of_race }}"
-                                            id="{{ $race->type_of_race }}">
-                                        <label for="{{ $race->type_of_race }}">
-                                            {{ strtoupper($race->type_of_race) }}</label>
+                                        <input type="radio" name="race_id" value="{{ $race->race_id }}"
+                                            id="{{ $race->race_id }}">
+                                        <label for="{{ $race->race_type }}">{{ strtoupper($race->race_type) }}</label>
+                                    </div>
+                                    <div id="dropdownDiv_{{ $race->race_id }}" style="display: none;">
+                                        @for ($i = 1; $i <= 10; $i++)
+                                            @if ($race->race_id == $i)
+                                                {{ $r_credit_value - $race->price }}
+                                                {{ $race->price }}
+                                            @endif
+                                        @endfor
+
                                     </div>
                                 @endforeach
+
+                                <script>
+                                    // JavaScript/jQuery
+                                    $(document).ready(function() {
+                                        $('input[name="race_type"]').on('change', function() {
+                                            var selectedRaceType = $(this).val();
+                                            $('[id^="dropdownDiv_"]').hide(); // Hide all dropdown divs
+                                            $('#dropdownDiv_' + selectedRaceType)
+                                                .show(); // Show the specific dropdown div for the selected race type
+                                        });
+                                    });
+                                </script>
+
 
                                 <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
                                 <input type="hidden" name="event_id" value="{{ $event->event_id }}">
                                 <div class="f-montserrat mt-4">
-                                    <button type="submit" class=" view-event-btn">Claim Race</button>
+                                    <button type="submit" {{Auth::user()->r_credits == 0 ? 'disabled' : ''}}
+                                        class=" view-event-btn {{ Auth::user()->r_credits == 0 ? 'view-event-btn-disabled' : '' }} ">Claim
+                                        Race</button>
                                 </div>
+                            </form>
                         </div>
-                        </form>
+
                     </div>
                 </div>
             </div>

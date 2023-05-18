@@ -36,7 +36,7 @@ class ClaimCodeController extends Controller
         // If found, set attendance_status to "cancelled" and save changes
         if ($raceCode) {
             $raceCode->receipt = $fileName;
-            $raceCode->status = "paid";
+            $raceCode->status = "pending";
             $raceCode->save();
         }
 
@@ -48,24 +48,46 @@ class ClaimCodeController extends Controller
         return redirect()->back()->with('success', 'Receipt uploaded successfully.');
     }
 
+
+    public function confirm(Request $request)
+    {
+        // Validate the uploaded file
+        $validatedData = $request->validate([
+            'volunteer_id' => 'required|numeric',
+            'event_id' => 'required|numeric',
+        ]);
+
+        $raceCode = RaceCode::where('volunteer_id', $validatedData['volunteer_id'])
+            ->where('event_id', $validatedData['event_id'])
+            ->first();
+
+        
+        if ($raceCode) {
+            
+            $raceCode->status = "pending";
+            $raceCode->save();
+        }
+
+        // Redirect back to the previous page with a success message
+        return redirect()->back()->with('success', 'Receipt uploaded successfully.');
+    }
+
     public function store_race_type(Request $request)
     {
         // Validate the input data
         $validatedData = $request->validate([
             'volunteer_id' => 'required|numeric',
             'event_id' => 'required|numeric',
-            'race_type' => 'required'
+            'race_id' => 'required'
         ]);
 
-        // Delete all existing races for the current event when the volunteer picked a race
-        Races::where('event_id', $validatedData['event_id'])->delete();
 
         // Create a new RaceCode object and set its properties
         $race_code = new RaceCode();
         $race_code->volunteer_id = $validatedData['volunteer_id'];
         $race_code->event_id = $validatedData['event_id'];
-        $race_code->race_type = $validatedData['race_type'];
-        $race_code->status = 'pending';
+        $race_code->race_id = $validatedData['race_id'];
+        $race_code->status = 'checking';
         $race_code->save();
 
         // Redirect the user back to the previous page
@@ -81,31 +103,22 @@ class ClaimCodeController extends Controller
         // Check if today's date is within the event start and end date
         $today = date('Y-m-d');
 
-        $status = RaceCode::where('volunteer_id', Auth::user()->volunteer_id)
-            ->where('event_id', $event->event_id)
-            ->value('status');
-
-        $race_type = RaceCode::where('volunteer_id', Auth::user()->volunteer_id)
+        // Retrieve the race type for the event
+        $race_type = RaceCode::join('race_types', 'race_code.race_id', '=', 'race_types.race_id')
             ->where('event_id', $event->event_id)
             ->value('race_type');
 
-        $race_code = RaceCode::where('volunteer_id', Auth::user()->volunteer_id)
+        $race_price = RaceCode::join('race_types', 'race_code.race_id', '=', 'race_types.race_id')
             ->where('event_id', $event->event_id)
-            ->value('race_code');
+            ->value('price');
 
-        $remarks = RaceCode::where('volunteer_id', Auth::user()->volunteer_id)
-            ->where('event_id', $event->event_id)
-            ->value('remarks');
+        // Retrieve the races_code
+        $race_code = RaceCode::where('event_id', $event->event_id)->first();
 
-        // Pass event data and status variables to the 
-        return view('claim-code', compact(
-            'event',
-            'date',
-            'today',
-            'status',
-            'race_type',
-            'race_code',
-            'remarks'
-        ));
+        $r_credit_value = 3500;
+
+        // Pass event data, date, today's date, race type, and races to the view
+        return view('claim-code', compact('event', 'date', 'today', 'race_type', 'race_code', 'race_price','r_credit_value'));
     }
+
 }

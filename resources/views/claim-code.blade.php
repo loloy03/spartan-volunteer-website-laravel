@@ -43,21 +43,53 @@
 
                             <div class="col-lg-6 my-auto">
                                 <div class="d-block">
-                                    <div class=" f-lato d-inline-block">KIND OF RACE TO BE CLAIM:</div>
-                                    <div class="d-inline-block text-danger"> {{ strtoupper($race_type) }} </div>
+                                    <div class="f-lato d-inline-block">KIND OF RACE TO BE CLAIM:</div>
+                                    <div class="d-inline-block text-danger">{{ strtoupper($race_type) }}</div>
                                 </div>
-                                <div class=" f-lato d-inline-block ">STATUS: </div>
-                                <div class="text-success d-inline-block {{ $status == 'pending' ? 'text-warning' : '' }}">
-                                    {{ strtoupper($status) }}
+                                <div class="{{ $race_code->status == 'checking' ? 'd-none' : '' }}">
+                                    <div class="f-lato d-inline-block">STATUS:</div>
+                                    <div
+                                        class="text-success d-inline-block {{ $race_code->status == 'pending' ? 'text-warning' : '' }}">
+                                        {{ strtoupper($race_code->status) }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        {{-- if the user need to pay --}}
-                        <div class="f-montserrat text-muted mt-4 {{ $status != 'unpaid' ? 'd-none' : '' }} ">
-                            <div class="d-inline-block">REMARKS:</div>
-                            {{ $remarks }}
 
+
+                        {{-- if the user need to pay --}}
+                        <div
+                            class="f-montserrat text-muted mt-4 {{ $race_price < 0 || $race_code->status != 'checking' ? 'd-none' : '' }} ">
+
+                            <div class="mb-4">
+                                <div class="block">
+                                    Reminder:
+                                </div>
+                                <div class="block">
+                                    * The equivalent of 1 Free Race Credit is P3,500.
+                                </div>
+                                <div class="block">
+                                    * If you select a race with an amount exceeding P3,500, you will be required to pay the
+                                    remaining balance.
+                                </div>
+                            </div>
+
+                            <div class="d-block">
+                                <div class="d-inline-block">Race Price: </div>
+                                {{ $race_price }}
+                            </div>
+                            <div class="d-block">
+                                <div class="d-inline-block">Race Credit Value: </div>
+                                {{ $r_credit_value }}
+                            </div>
+                            <div class="d-block">
+                                <div class="d-inline-block">You need to pay: </div>
+                                {{ $race_price - $r_credit_value }}
+                            </div>
+                        </div>
+
+                        <div class="{{ $race_price - $r_credit_value == 0 || $race_code->status != 'checking' ? 'd-none' : '' }}">
                             <div class="f-lato fs-10 mt-4">PLEASE SEND YOUR RECEIPT HERE:</div>
                             @if (session('success'))
                                 <div class="alert alert-success p-2 mt-2">
@@ -72,25 +104,47 @@
                                 <input type="hidden" name="event_id" value="{{ $event->event_id }}">
                                 <input type="file" name="photo" id="photo" class="form-control">
                                 <div class="text-center">
-                                    <input type="submit" value="Upload" class="view-event-btn f-montserrat mt-2">
+                                    <input type="submit" value="Upload and Confirm Claim Code" class="view-event-btn f-montserrat mt-2">
                                 </div>
                             </form>
                         </div>
 
-                        {{-- display if the status is available  --}}
-                        <div class="f-montserrat text-muted mt-4 {{ $status != 'available' ? 'd-none' : '' }} ">
-                            PLEASE WAIT FOR YOUR CODE
+                        <div class="{{ $race_price - $r_credit_value != 0 || $race_code->status != 'checking' ? 'd-none' : '' }}">
+                            <form method="POST" action="{{ route('claim_code.confirm') }}"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
+                                <input type="hidden" name="event_id" value="{{ $event->event_id }}">
+                                <div class="text-center">
+                                    <input type="submit" value="Confirm Claim Code"
+                                        class="view-event-btn f-montserrat mt-2">
+                                </div>
+                            </form>
                         </div>
+                    </div>
 
-                        {{-- if the race code is available --}}
-                        <div class=" {{ $race_code == null ? 'd-none' : '' }}">
-                            <div class="f-lato text-muted mt-4 fs-10 mb-2">YOUR CODE IS:</div>
-                            <div class="f-montserrat display-5 border border-danger rounded text-center p-1">
-                                {{ $race_code }} </div>
-                        </div>
+                    {{-- display if the status is pending  --}}
+                    <div class="f-montserrat text-muted mt-4 {{ $race_code->status != 'pending' ? 'd-none' : '' }} ">
+                        PLEASE WAIT FOR THE ADMIN TO VERIFY YOUR CLAIM RACE
+                    </div>
+
+                    {{-- display if the status is available  --}}
+                    <div class="f-montserrat text-muted mt-4 {{ $race_code->status != 'claimed' ? 'd-none' : '' }} ">
+                        PLEASE WAIT FOR YOUR CODE
+                    </div>
+
+
+                    {{-- if the race code is available --}}
+                    <div class=" {{ $race_code->race_code == null || $race_code->status != 'released' ? 'd-none' : '' }}">
+                        <div class="f-lato text-muted mt-4 fs-10 mb-2">YOUR CODE IS:</div>
+                        <div class="f-montserrat display-5 border border-danger rounded text-center p-1">
+                            {{ $race_code->race_code }} </div>
+                        <div class="f-lato text-muted mt-4 mb-2">Code Expiration:
+                            {{ $race_code->race_code_expiration }}</div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection
