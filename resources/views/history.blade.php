@@ -19,12 +19,13 @@
                 @endif
 
 
-                <div class="box-border-shadow-bt-red mb-5 pb-4">
+                <div class="box-border-shadow-bt-red pb-4">
                     <div class="f-montserrat h4 m-4">JOINED EVENTS</div>
                     <div class="mx-3 mb-3">
-                        <div class="bg-light-gray f-lato">
-                            @foreach ($joined_events as $event)
-                                <div class="row p-3 mb-4">
+
+                        @foreach ($joined_events as $event)
+                            <div class="p-3">
+                                <div class="row p-3 bg-light-gray f-lato">
                                     <div class="col-lg-6 my-auto">
                                         <div class="d-block">
                                             {{-- format the date --}}
@@ -73,31 +74,22 @@
                                             </div>
                                             {{ $event->check_out }}
                                         </div>
-                                        <div class="d-block">
-                                            <div class="d-inline-block f-montserrat">
-                                                Race Credit Claimed in the Event:
-                                            </div>
-                                            1
-                                        </div>
                                     </div>
                                 </div>
-                            @endforeach
-                        </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
 
 
-                <div class="box-border-shadow-bt-red mb-5 pb-4">
+                <div class="box-border-shadow-bt-red my-5 pb-4">
                     <div class="f-montserrat h4 m-4">CLAIMED CODE EVENTS</div>
                     <div class="mx-3 mb-3">
-                        <div class="bg-light-gray f-lato">
-                            @foreach ($joined_events as $event)
-                                <div class="row p-3 mb-4">
+
+                        @foreach ($claimed_code_events as $event)
+                            <div class="p-3">
+                                <div class="row p-3 bg-light-gray f-lato">
                                     <div class="col-lg-6 my-auto">
-                                        <div class="d-block">
-                                            {{-- format the date --}}
-                                            {{ date('M j, Y', strtotime($event->date)) }}
-                                        </div>
 
                                         <div class="d-block">
                                             <div class="fs-3 f-montserrat">
@@ -108,43 +100,36 @@
                                             <img src="/images/icons/pin-icon.png" width="15px">
                                             {{ $event->location }}
                                         </div>
-
-
                                     </div>
+
                                     <div class="col-lg-6 my-auto pt-3">
 
                                         <div class="d-block">
                                             <div class="d-inline-block f-montserrat">
-                                                Staff:
+                                                Type of Race:
                                             </div>
                                             {{-- staff first name --}}
-                                            {{ $event->first_name }}
+                                            {{ ucfirst($event->race_type) }}
+                                        </div>
+
+                                        <div class="d-block">
+                                            <div class="d-inline-block f-montserrat">
+                                                Race Code:
+                                            </div>
+                                            {{-- event status --}}
+                                            {{ ucfirst($event->race_code) }}
                                         </div>
 
                                         <div class="d-block">
                                             <div class="d-inline-block f-montserrat">
                                                 Status:
                                             </div>
-                                            {{-- event status --}}
-                                            {{ ucfirst($event->attendance_status) }}
-                                        </div>
-
-                                        <div class="d-block">
-                                            <div class="d-inline-block f-montserrat">
-                                                Checked In Time:
-                                            </div>
-                                            {{ $event->check_in }}
-                                        </div>
-                                        <div class="d-block">
-                                            <div class="d-inline-block f-montserrat">
-                                                Checked Out Time:
-                                            </div>
-                                            {{ $event->check_out }}
+                                            {{ ucfirst($event->status) }}
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
-                        </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
