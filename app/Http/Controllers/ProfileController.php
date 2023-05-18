@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Volunteer;
+use App\Models\VolunteerStatus;
+use App\Models\RaceCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,8 +12,22 @@ class ProfileController extends Controller
 {
     public function show(Volunteer $volunteer)
     {
+        $joining_events = VolunteerStatus::leftJoin('event', 'volunteer_status.event_id', '=', 'event.event_id')
+            ->leftJoin('staff', 'volunteer_status.staff_id', '=', 'staff.staff_id')
+            ->where('volunteer_id', Auth::user()->volunteer_id)
+            ->where('attendance_status', '!=', 'validated')
+            ->get();
+
+        $claiming_code_events = RaceCode::leftJoin('event', 'race_code.event_id', '=', 'event.event_id')
+            ->leftJoin('race_types', 'race_code.race_id', '=', 'race_types.race_id')
+            ->where('race_code.volunteer_id', Auth::user()->volunteer_id)
+            ->where('race_code.status','!=' ,'released')
+            ->get();
+
+
+
         // Pass event data and status variables to the view
-        return view('profile');
+        return view('profile', compact('joining_events','claiming_code_events'));
     }
 
 
@@ -114,4 +130,5 @@ class ProfileController extends Controller
         // Redirect the user back to their profile page with a success message
         return redirect()->route('profile.show')->with('success', 'Volunteer Info updated successfully.');
     }
+
 }
