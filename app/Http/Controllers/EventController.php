@@ -113,11 +113,6 @@ class EventController extends Controller
         $code_start_date = $event->code_start_date;
         $code_end_date = $event->code_end_date;
 
-        // Format event and code start/end dates to Month Day format
-        $event_start_date = date('M j', strtotime($event->start_date));
-        $event_end_date = date('M j', strtotime($event->end_date));
-        $code_start_date = date('M j', strtotime($event->code_start_date));
-        $code_end_date = date('M j', strtotime($event->code_end_date));
 
 
         if (Auth::guard('staff')->check() || Auth::guard('admin')->check()) {
@@ -131,7 +126,8 @@ class EventController extends Controller
                 'code_start_date',
                 'code_end_date',
                 'races'
-            ));
+            )
+            );
         }
 
         // Initialize variables to hold event and code status
@@ -180,9 +176,16 @@ class EventController extends Controller
         $races = Races::join('race_types', 'races.race_id', '=', 'race_types.race_id')
             ->where('event_id', $event->event_id)->get();
 
+        // Format event and code start/end dates to Month Day format
+        $event_start_date = date('M j', strtotime($event->start_date));
+        $event_end_date = date('M j', strtotime($event->end_date));
+        $code_start_date = date('M j', strtotime($event->code_start_date));
+        $code_end_date = date('M j', strtotime($event->code_end_date));
+
         return view(
             'view-event',
             compact(
+
                 'event',
                 'date',
                 'event_status',
