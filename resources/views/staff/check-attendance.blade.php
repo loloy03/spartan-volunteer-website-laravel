@@ -27,9 +27,9 @@
                 <table class="table custom-table" id="table">
                     <thead>
                         <tr>
-                            <th class="col">PICTURE PROOF</th>
-                            <th class="col">STATUS</th>
-                            <th class="col">NAME</th>
+                            <th class="col no-sort">PICTURE PROOF</th>
+                            <th class="col no-sort">STATUS</th>
+                            <th class="col def-sort">NAME</th>
                             <th class="col">EVENT</th>
                             <th class="col">CHECK-IN</th>
                             <th class="col">CHECK-OUT</th>
