@@ -20,8 +20,8 @@
             <form method="GET" action="{{ route('event') }}" class="d-inline-block">
                 <select name="sort_by" onchange="this.form.submit()">
                     <option value="" disabled selected> {{ $picked_sort }} </option>
-                    <option value="avail_events">AVAILABLE EVENTS</option>
                     <option value="date_asc">DATE (WILL START SOON)</option>
+                    <option value="avail_events">AVAILABLE EVENTS</option>
                     <option value="date_desc">DATE (NEWEST FIRST)</option>
                     <option value="title_asc">TITLE (A-Z)</option>
                     <option value="title_desc">TITLE (Z-A)</option>
