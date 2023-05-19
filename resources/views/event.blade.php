@@ -52,9 +52,19 @@
                                 <div class="d-block fs-4">
                                     {{ strtoupper($event->title) }}
                                 </div>
-                                <div class="d-inline-block fs-10 pt-4">
-                                    <img src="/images/icons/pin-icon.png" width="15px">
-                                    {{ strtoupper($event->location) }}
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <div class="d-inline-block fs-10 pt-4">
+                                            <img src="/images/icons/pin-icon.png" width="15px">
+                                            {{ strtoupper($event->location) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 my-auto">
+                                        <button class="p-1 mt-3 w-100 view-event-button"
+                                            onclick="window.location='{{ route('view-event', $event->event_id) }}'">
+                                            View Event
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
