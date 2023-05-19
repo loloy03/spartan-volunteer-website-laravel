@@ -33,7 +33,6 @@ class ClaimCodeController extends Controller
             ->where('event_id', $validatedData['event_id'])
             ->first();
 
-        // If found, set attendance_status to "cancelled" and save changes
         if ($raceCode) {
             $raceCode->receipt = $fileName;
             $raceCode->status = "pending";
@@ -61,9 +60,8 @@ class ClaimCodeController extends Controller
             ->where('event_id', $validatedData['event_id'])
             ->first();
 
-        
+
         if ($raceCode) {
-            
             $raceCode->status = "pending";
             $raceCode->save();
         }
@@ -71,6 +69,33 @@ class ClaimCodeController extends Controller
         // Redirect back to the previous page with a success message
         return redirect()->back()->with('success', 'Receipt uploaded successfully.');
     }
+
+
+    public function cancel(Request $request)
+    {
+        // Validate the input data
+        $validatedData = $request->validate([
+            'volunteer_id' => 'required|numeric',
+            'event_id' => 'required|numeric',
+        ]);
+
+        // Find the existing race code in the database
+        $race_code = RaceCode::where([
+            'volunteer_id' => $validatedData['volunteer_id'],
+            'event_id' => $validatedData['event_id'],
+        ])->first();
+
+        if ($race_code) {
+            // Delete the race code from the database
+            $race_code->delete();
+        }
+
+        // Redirect the user back to the previous page
+        return redirect(route('view-event', $request->event_id));
+    }
+
+
+
 
     public function store_race_type(Request $request)
     {
@@ -118,7 +143,7 @@ class ClaimCodeController extends Controller
         $r_credit_value = 3500;
 
         // Pass event data, date, today's date, race type, and races to the view
-        return view('claim-code', compact('event', 'date', 'today', 'race_type', 'race_code', 'race_price','r_credit_value'));
+        return view('claim-code', compact('event', 'date', 'today', 'race_type', 'race_code', 'race_price', 'r_credit_value'));
     }
 
 }

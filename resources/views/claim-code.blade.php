@@ -89,7 +89,8 @@
                             </div>
                         </div>
 
-                        <div class="{{ $race_price - $r_credit_value == 0 || $race_code->status != 'checking' ? 'd-none' : '' }}">
+                        <div
+                            class="{{ $race_price - $r_credit_value == 0 || $race_code->status != 'checking' ? 'd-none' : '' }}">
                             <div class="f-lato fs-10 mt-4">PLEASE SEND YOUR RECEIPT HERE:</div>
                             @if (session('success'))
                                 <div class="alert alert-success p-2 mt-2">
@@ -104,14 +105,26 @@
                                 <input type="hidden" name="event_id" value="{{ $event->event_id }}">
                                 <input type="file" name="photo" id="photo" class="form-control">
                                 <div class="text-center">
-                                    <input type="submit" value="Upload and Confirm Claim Code" class="view-event-btn f-montserrat mt-2">
+                                    <input type="submit" value="Upload and Confirm Claim Code"
+                                        class="view-event-btn f-montserrat mt-2">
+                                </div>
+                            </form>
+
+                            <form method="POST" action="{{ route('claim_code.cancel') }}"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
+                                <input type="hidden" name="event_id" value="{{ $event->event_id }}">
+                                <div class="text-center">
+                                    <input type="submit" value="Cancel"
+                                        class="view-event-btn f-montserrat mt-2">
                                 </div>
                             </form>
                         </div>
 
-                        <div class="{{ $race_price - $r_credit_value != 0 || $race_code->status != 'checking' ? 'd-none' : '' }}">
-                            <form method="POST" action="{{ route('claim_code.confirm') }}"
-                                enctype="multipart/form-data">
+                        <div
+                            class="{{ $race_price - $r_credit_value != 0 || $race_code->status != 'checking' ? 'd-none' : '' }}">
+                            <form method="POST" action="{{ route('claim_code.confirm') }}" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
                                 <input type="hidden" name="event_id" value="{{ $event->event_id }}">
