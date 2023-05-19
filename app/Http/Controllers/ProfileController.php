@@ -53,8 +53,8 @@ class ProfileController extends Controller
     {
         // Validate the input data
         $validatedData = $request->validate([
-            'emergency_contact_name' => 'required',
-            'emergency_number' => 'required',
+            'emergency_contact_name' => 'nullable',
+            'emergency_number' => 'nullable',
         ]);
 
         // Get the authenticated user
@@ -73,11 +73,11 @@ class ProfileController extends Controller
     {
         // Validate the input data
         $validatedData = $request->validate([
-            'street_add' => 'required',
-            'country' => 'required',
-            'city' => 'required',
-            'zip' => 'required',
-            'second_add' => 'required',
+            'street_add' => 'nullable',
+            'country' => 'nullable',
+            'city' => 'nullable',
+            'zip' => 'nullable',
+            'second_add' => 'nullable',
         ]);
 
         // Get the authenticated user
@@ -101,35 +101,12 @@ class ProfileController extends Controller
         $validatedData = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'selected_date' => 'required|date',
-            'contact_number' => 'required',
+            'selected_date' => 'nullable|date',
+            'contact_number' => 'nullable',
         ]);
 
         // Get the authenticated user
         $user = Auth::user();
-
-        // Convert the updated_at and created_at timestamps to Carbon instances
-        $updatedDate = Carbon::parse($user->updated_at);
-        $createdDate = Carbon::parse($user->created_at);
-
-        // Calculate the allowed update date (30 days after the last update or registration)
-        $allowedUpdateDate = $updatedDate ?? $createdDate;
-
-        // Set the allowed update date as the current date if both timestamps are null
-        if ($allowedUpdateDate === null) {
-            $allowedUpdateDate = now();
-        } else {
-            $allowedUpdateDate = $allowedUpdateDate->addDays(30);
-        }
-
-        // Check if the current date is within the allowed update period
-        if (now()->lt($allowedUpdateDate)) {
-            // Calculate the remaining days until the next update is allowed
-            $remainingDays = now()->diffInDays($allowedUpdateDate);
-
-            // Redirect the user back to their profile page with an error message
-            return redirect()->route('profile.show')->with('error', 'You can update your information again in ' . $remainingDays . ' days.');
-        }
 
         // Rest of the code for updating the user's profile
         if ($request->hasFile('photo')) {
