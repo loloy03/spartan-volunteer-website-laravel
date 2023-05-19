@@ -17,6 +17,120 @@
                         {{ session('success') }}
                     </div>
                 @endif
+                @if (session('error'))
+                    <div class="alert alert-danger p-2 mt-2">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                <div class="box-border-shadow-bt-red mb-5">
+                    <div class="f-montserrat h4 m-4">MY ONGOING EVENTS</div>
+                    <div class="mx-5">
+                        <div class="f-montserrat">
+                            JOINING EVENTS
+                        </div>
+                        @if ($joining_events->count() > 0)
+                            @foreach ($joining_events as $event)
+                                <div class="p-3">
+                                    <div class="row p-3 bg-light-gray f-lato">
+                                        <div class="col-lg-6 my-auto">
+
+                                            <div class="d-block">
+                                                <div class="fs-3 f-montserrat">
+                                                    {{ $event->title }}
+                                                </div>
+                                            </div>
+                                            <div class="d-block">
+                                                <img src="/images/icons/pin-icon.png" width="15px">
+                                                {{ $event->location }}
+                                            </div>
+
+                                        </div>
+                                        <div class="col-lg-6 my-auto pt-3">
+
+                                            <div class="d-block">
+                                                <div class="d-inline-block f-montserrat">
+                                                    Event Date:
+                                                </div>
+                                                {{ date('M j, Y', strtotime($event->date)) }}
+                                            </div>
+                                            <div class="d-block">
+                                                <div class="d-inline-block f-montserrat">
+                                                    Staff:
+                                                </div>
+                                                {{-- staff first name --}}
+                                                {{ $event->first_name }}
+                                            </div>
+
+                                            <div class="d-block">
+                                                <div class="d-inline-block f-montserrat">
+                                                    Status:
+                                                </div>
+                                                {{-- event status --}}
+                                                {{ ucfirst($event->attendance_status) }}
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="col-lg-12 f-montserrat p-2">
+                                <div class="bg-light-gray text-center">
+                                    <p class="fs-4 pt-4 pb-4">NO EVENTS</p>
+                                </div>
+                            </div>
+                        @endif
+
+                        <div class="f-montserrat">
+                            CLAIMING CODE
+                        </div>
+                        @if ($claiming_code_events->count() > 0)
+                            @foreach ($claiming_code_events as $event)
+                                <div class="p-3">
+                                    <div class="row p-3 bg-light-gray f-lato">
+                                        <div class="col-lg-6 my-auto">
+
+                                            <div class="d-block">
+                                                <div class="fs-3 f-montserrat">
+                                                    {{ $event->title }}
+                                                </div>
+                                            </div>
+                                            <div class="d-block">
+                                                <img src="/images/icons/pin-icon.png" width="15px">
+                                                {{ $event->location }}
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6 my-auto pt-3">
+
+                                            <div class="d-block">
+                                                <div class="d-inline-block f-montserrat">
+                                                    Type of Race:
+                                                </div>
+                                                {{-- staff first name --}}
+                                                {{ ucfirst($event->race_type) }}
+                                            </div>
+
+                                            <div class="d-block">
+                                                <div class="d-inline-block f-montserrat">
+                                                    Status:
+                                                </div>
+                                                {{ ucfirst($event->status) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="col-lg-12 f-montserrat p-2">
+                                <div class="bg-light-gray text-center">
+                                    <p class="fs-4 pt-4 pb-4">NO EVENTS</p>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                </div>
 
                 <div class="box-border-shadow-bt-red mb-5">
                     <div class="f-montserrat h4 m-4">VOLUNTEER INFO</div>
@@ -44,7 +158,8 @@
                                 <div class="f-lato text-muted">Last Name</div>
                                 <div class="f-montserrat  mb-2"> {{ Auth::user()->last_name }} </div>
                                 <div class="f-lato text-muted ">Birthdate</div>
-                                <div class="f-montserrat mb-2  {{ Auth::user()->birthdate == null ? 'text-warning' : '' }}">
+                                <div
+                                    class="f-montserrat mb-2  {{ Auth::user()->birthdate == null ? 'text-warning' : '' }}">
                                     {{ Auth::user()->birthdate == null ? 'No birthdate assigned yet' : Auth::user()->birthdate }}
                                 </div>
                                 <div class="f-lato text-muted">Contact Number</div>
@@ -105,7 +220,7 @@
                         </div>
                         <div class="f-lato text-muted">Contact Number</div>
                         <div class="f-montserrat mb-2 {{ Auth::user()->emergency_number == null ? 'text-warning' : '' }}">
-                            {{ Auth::user()->emergency_number == null ? 'No emergency number assigned yet' : Auth::user()-> emergency_number }}
+                            {{ Auth::user()->emergency_number == null ? 'No emergency number assigned yet' : Auth::user()->emergency_number }}
                         </div>
                         <div class="text-center">
                             <button class="button f-montserrat w-50 mt-5 mb-3"

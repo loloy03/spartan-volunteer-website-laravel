@@ -7,7 +7,7 @@
 
 @section('content')
     <div class="container-fluid ">
-        <div class="row h-100vh">
+        <div class="row">
 
             <div class="col-lg-6 my-auto position-relative">
                 <!-- Display the event picture -->

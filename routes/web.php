@@ -25,6 +25,8 @@ Route::get('/event', [App\Http\Controllers\EventController::class, 'index'])->na
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
 
+    Route::get('/history', [App\Http\Controllers\HistoryController::class, 'show'])->name('history.show');
+
     Route::get('/volunteer_info_edit', [App\Http\Controllers\ProfileController::class, 'volunteer_info_edit'])->name('volunteer_info_edit');
 
     Route::post('/volunteer_info_update', [App\Http\Controllers\ProfileController::class, 'volunteer_info_update'])->name('volunteer_info.update');
@@ -65,6 +67,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/claim_code/{event}', [App\Http\Controllers\ClaimCodeController::class, 'show'])->name('claim_code.show');
 
     Route::post('/claim_code.upload_receipt', [App\Http\Controllers\ClaimCodeController::class, 'upload_receipt'])->name('claim_code.upload_receipt');
+
+    Route::post('/claim_code.confirm', [App\Http\Controllers\ClaimCodeController::class, 'confirm'])->name('claim_code.confirm');
 });
 
 Route::middleware(['auth:staff'])->group(function () {

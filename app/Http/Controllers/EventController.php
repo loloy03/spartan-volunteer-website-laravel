@@ -161,6 +161,9 @@ class EventController extends Controller
             ->where('event_id', $event->event_id)
             ->value('status');
 
+        //race credit value
+        $r_credit_value = 3500;
+
 
         // If volunteer has cancelled their attendance, update event and code status accordingly
         if ($attendance_status == 'cancelled') {
@@ -174,20 +177,25 @@ class EventController extends Controller
         }
 
 
-        $races = Races::where('event_id', $event->event_id)->get();
+        $races = Races::join('race_types', 'races.race_id', '=', 'race_types.race_id')
+            ->where('event_id', $event->event_id)->get();
 
-        return view('view-event', compact(
-            'event',
-            'date',
-            'event_status',
-            'event_start_date',
-            'event_end_date',
-            'code_start_date',
-            'code_end_date',
-            'code_status',
-            'attendance_status',
-            'races'
-        ));
+        return view(
+            'view-event',
+            compact(
+                'event',
+                'date',
+                'event_status',
+                'event_start_date',
+                'event_end_date',
+                'code_start_date',
+                'code_end_date',
+                'code_status',
+                'attendance_status',
+                'races',
+                'r_credit_value'
+            )
+        );
     }
 
     public function getEventTitle($eventId)

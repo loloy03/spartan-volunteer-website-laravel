@@ -38,6 +38,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-6 p-4 my-auto">
                 <div class="box-border-shadow-bt-red p-3">
                     <div class="row">
@@ -78,8 +79,8 @@
                                         <input type="hidden" name="event_id" value="{{ $event->event_id }}">
                                         <!-- Cancel registration button -->
                                         <button type="submit"
-                                            class="view-event-btn f-montserrat {{ $event->date != $today || $check_in == null || $check_out != null ? 'view-event-btn-disabled' : '' }}"
-                                            {{ $event->date != $today || $check_in == null || $check_out != null ? 'disabled' : '' }}>
+                                            class="view-event-btn f-montserrat {{ $event->date != $today || $proof_of_checkout == null || $check_out != null ? 'view-event-btn-disabled' : '' }}"
+                                            {{ $event->date != $today || $proof_of_checkout == null || $check_out != null ? 'disabled' : '' }}>
                                             Check Out
                                         </button>
                                     </form>
@@ -111,24 +112,51 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class=" {{ $check_out == null ? 'd-none' : '' }}">
+                            <div class="mt-5 {{ $check_in == null ? 'd-none' : '' }}">
                                 <div class="px-4">
-                                    <div class="f-montserrat mt-1">PHOTO IN THE EVENT: </div>
-                                    <div class="w-100"><img class="fixed-size-img"
-                                            src="{{ asset('images/' . $proof_of_checkout) }}" alt="Uploaded photo"></div>
+                                    <div class="f-montserrat ">PHOTO IN THE EVENT: </div>
+                                    <div>
+                                        Preview:
+                                    </div>
+                                    <div class="text-center mt-2">
+                                        <img id="preview" src="#" alt="Preview"
+                                            style="display: none; max-width: 200px;">
+                                    </div>
+                                    <div class="w-100 {{ $proof_of_checkout == null ? 'd-none' : '' }}"><img
+                                            class="fixed-size-img" src="{{ asset('images/' . $proof_of_checkout) }}"
+                                            alt="Uploaded photo"></div>
                                     <form method="POST" action="{{ route('join_as_volunteer.upload_photo') }}"
                                         enctype="multipart/form-data">
                                         @csrf
                                         <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
                                         <input type="hidden" name="event_id" value="{{ $event->event_id }}">
                                         <div class="mt-3 {{ $proof_of_checkout != null ? 'd-none' : '' }}">
-                                            <input type="file" name="photo" id="photo" class="form-control">
-                                            <div class="text-center">
+                                            <input type="file" name="photo" id="photo" class="form-control"
+                                                onchange="previewPhoto(event)">
+
+                                            <div class="text-center mt-2">
                                                 <input type="submit" value="Upload"
                                                     class="view-event-btn f-montserrat mt-2">
                                             </div>
                                         </div>
                                     </form>
+
+                                    <script>
+                                        function previewPhoto(event) {
+                                            var input = event.target;
+                                            var preview = document.getElementById('preview');
+                                            preview.style.display = input.files && input.files[0] ? 'block' : 'none';
+
+                                            if (input.files && input.files[0]) {
+                                                var reader = new FileReader();
+                                                reader.onload = function(e) {
+                                                    preview.src = e.target.result;
+                                                }
+                                                reader.readAsDataURL(input.files[0]);
+                                            }
+                                        }
+                                    </script>
+
                                 </div>
                             </div>
                         </div>

@@ -95,6 +95,9 @@
                                         <a class="dropdown-item text-white" href="{{ route('profile.show') }}">
                                             {{ __('PROFILE') }} </a>
                                         <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item text-white" href="{{ route('history.show') }}">
+                                            {{ __('HISTORY') }} </a>
+                                        <div class="dropdown-divider"></div>
                                     @else
                                         <a class="dropdown-item text-white" href="{{ route('login') }}">
                                             {{ __('Login') }} </a>
