@@ -53,7 +53,7 @@
                     <img class="navbar-spartan-logo-size" src="{{ asset('/images/spartan-logo-with-word.png') }}"
                         alt="Logo Image">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                <button class="navbar-toggler bg-white" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -71,13 +71,13 @@
 
                         @guest
                             @if (Route::has('login'))
-                                <li class="nav-item bottom-transition">
+                                <li class="nav-item bottom-transition mt-2">
                                     <a class="nav-link text-light" href="{{ route('login') }}">{{ __('LOGIN') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
-                                <li class="nav-item bottom-transition">
+                                <li class="nav-item bottom-transition mt-2">
                                     <a class="nav-link text-light" href="{{ route('register') }}">{{ __('REGISTER') }}</a>
                                 </li>
                             @endif
@@ -167,6 +167,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </body>
 

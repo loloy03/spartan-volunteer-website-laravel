@@ -12,52 +12,110 @@ class VolunteerController extends Controller
 {
     // IMPORTANT: STAFF ROLE
     // list of volunteers that are available to be given a role
-    public function listOfConfirmedVolunteers() {
-        $volunteers = Volunteer::select('volunteer.first_name', 'volunteer.last_name', 'event.title', 
-        'volunteer_status.attendance_status')
-                        ->join('volunteer_status', 'volunteer.volunteer_id', '=', 'volunteer_status.volunteer_id')
-                        ->join('event', 'volunteer_status.event_id', '=', 'event.event_id')
-                        ->whereNull('volunteer_status.role')
-                        ->where('volunteer_status.attendance_status', 'confirmed')
-                        ->paginate(20);
-        
-        return view('staff.add-volunteer', compact('volunteers'));
+    public function listOfConfirmedVolunteers($eventId)
+    {
+        // NOTE: SHOULD PUT THIS IN OWN CONTROLLER AND PASS TO VIEW VIA ROUTES
+        $event = Events::where('event_id', $eventId)->get();
+
+        $volunteers = Volunteer::select(
+            'volunteer.first_name',
+            'volunteer.last_name',
+            'event.title',
+            'volunteer_status.event_id',
+            'volunteer_status.attendance_status'
+        )   
+            ->join('volunteer_status', 'volunteer.volunteer_id', '=', 'volunteer_status.volunteer_id')
+            ->join('event', 'volunteer_status.event_id', '=', 'event.event_id')
+            ->whereNull('volunteer_status.role')
+            ->where('volunteer_status.event_id', $eventId)
+            ->where('volunteer_status.attendance_status', 'confirmed')
+            ->paginate(20);
+
+        return view('staff.add-volunteer', compact('volunteers', 'event'));
+    }
+
+    // Update list of volunteers with the current Staff's role
+    // If current Staff role for the event is Registration, Staff can update 
+    // volunteer role to Registration
+    public function updateConfirmedVolunteers(Request $request, $eventId)
+    {
+        $staffId = auth()->guard('staff')->user()->staff_id;
     }
 
     // IMPORTANT: STAFF ROLE
     // list of volunteers that have 'finished' their volunteer hours
     // to be validated by staff
     // NOTE: change event_id as argument
-    public function listOfPendingVolunteers() {
-        $volunteers = Volunteer::select('volunteer.volunteer_id', 'volunteer.first_name', 'volunteer.last_name', 'event.title', 'volunteer_status.role',
-        'volunteer_status.attendance_status', 'volunteer_status.check_in', 'volunteer_status.check_out', 
-        'volunteer_status.proof_of_checkout')
-                        ->join('volunteer_status', 'volunteer.volunteer_id', '=', 'volunteer_status.volunteer_id')
-                        ->join('event', 'volunteer_status.event_id', '=', 'event.event_id')
-                        ->where('volunteer_status.attendance_status', 'confirmed')
-                        ->whereNotNull('volunteer_status.role')
-                        ->whereNotNull('volunteer_status.check_in')
-                        ->whereNotNull('volunteer_status.check_out')
-                        ->paginate(20);
+    public function listOfPendingVolunteers($eventId)
+    {
+        $event = Events::where('event_id', $eventId)->get();
 
-        return view('staff.check-attendance', compact('volunteers'));
+        $volunteers = Volunteer::select(
+            'volunteer.volunteer_id',
+            'volunteer.first_name',
+            'volunteer.last_name',
+            'event.title',
+            'volunteer_status.event_id',
+            'volunteer_status.role',
+            'volunteer_status.attendance_status',
+            'volunteer_status.check_in',
+            'volunteer_status.check_out',
+            'volunteer_status.proof_of_checkout'
+        )
+            ->join('volunteer_status', 'volunteer.volunteer_id', '=', 'volunteer_status.volunteer_id')
+            ->join('event', 'volunteer_status.event_id', '=', 'event.event_id')
+            ->where('volunteer_status.attendance_status', 'confirmed')
+            ->where('event.event_id', $eventId)
+            ->whereNotNull('volunteer_status.role')
+            ->whereNotNull('volunteer_status.check_in')
+            ->whereNotNull('volunteer_status.check_out')
+            ->paginate(20);
+
+        return view('staff.check-attendance', compact('volunteers', 'event'));
     }
-    
+
+    // Updates the listOfPendingVolunteers()
+    // Updates attendance_status to CHECKED or VALIDATED
+    public function updatePendingVolunteers(Request $request, $eventId)
+    {
+        $volunteerStatus = $request->input('volunteer-status');
+        $staffId = auth()->guard('staff')->user()->staff_id;
+
+        if($volunteerStatus) {
+            foreach($volunteerStatus as $volunteerId => $status) {
+                VolunteerStatus::updateOrInsert(
+                    ['volunteer_id' => $volunteerId],
+                    ['attendance_status' => $status, 'staff_id' => $staffId]
+                );
+            }
+            //dd($volunteerStatuses);
+        }
+        return redirect('/'.$eventId.'/check-attendance');
+    }
+
     // IMPORTANT!: ADMIN ROLE
     // list of volunteers that have verified their attendance
     // they are now eligible to claim their free race codes
     // NOTE: checked === verified
-    public function listofVerifiedVolunteers() {
-        $volunteers = Volunteer::select('volunteer.first_name', 'volunteer.last_name', 'event.title', 'volunteer_status.role',
-        'volunteer_status.attendance_status', 'volunteer_status.check_in', 'volunteer_status.check_out', 
-        'volunteer_status.proof_of_checkout')
-                        ->join('volunteer_status', 'volunteer.volunteer_id', '=', 'volunteer_status.volunteer_id')
-                        ->join('event', 'volunteer_status.event_id', '=', 'event.event_id')
-                        ->where('volunteer_status.attendance_status', 'checked')
-                        ->whereNotNull('volunteer_status.role')
-                        ->whereNotNull('volunteer_status.check_in')
-                        ->whereNotNull('volunteer_status.check_out')
-                        ->paginate(20);
+    public function listofVerifiedVolunteers()
+    {
+        $volunteers = Volunteer::select(
+            'volunteer.first_name',
+            'volunteer.last_name',
+            'event.title',
+            'volunteer_status.role',
+            'volunteer_status.attendance_status',
+            'volunteer_status.check_in',
+            'volunteer_status.check_out',
+            'volunteer_status.proof_of_checkout'
+        )
+            ->join('volunteer_status', 'volunteer.volunteer_id', '=', 'volunteer_status.volunteer_id')
+            ->join('event', 'volunteer_status.event_id', '=', 'event.event_id')
+            ->where('volunteer_status.attendance_status', 'checked')
+            ->whereNotNull('volunteer_status.role')
+            ->whereNotNull('volunteer_status.check_in')
+            ->whereNotNull('volunteer_status.check_out')
+            ->paginate(20);
         return view('admin.distribute-code', compact('volunteers'));
     }
 }
