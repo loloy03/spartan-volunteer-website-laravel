@@ -17,6 +17,11 @@
                         {{ session('success') }}
                     </div>
                 @endif
+                @if (session('error'))
+                    <div class="alert alert-danger p-2 mt-2">
+                        {{ session('error') }}
+                    </div>
+                @endif
 
                 <div class="box-border-shadow-bt-red mb-5">
                     <div class="f-montserrat h4 m-4">MY ONGOING EVENTS</div>
