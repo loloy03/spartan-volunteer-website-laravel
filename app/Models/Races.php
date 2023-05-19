@@ -13,5 +13,5 @@ class Races extends Model
 
     public $timestamps = false; //disabling laravel's eloquent timestamps
 
-    PUBLIC $guarded = [];
+    public $guarded = [];
 }

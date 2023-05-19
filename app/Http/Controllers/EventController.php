@@ -77,7 +77,7 @@ class EventController extends Controller
     public function create()
     {
         $categories = config('spartanfiles.event-categories');
-        $staffs = Staff::select('staff_id', 'first_name', 'last_name')->paginate(15);
+        $staffs = Staff::select('staff_id', 'first_name', 'last_name')->paginate(5);
         return view('admin.create-event', compact('categories', 'staffs'));
     }
 
@@ -86,7 +86,7 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        // dd($request->all());
         DB::transaction(function () use ($request) {
             $eventService = new CreateEventService();
             $eventService->createEvent($request);
@@ -113,6 +113,27 @@ class EventController extends Controller
         $code_start_date = $event->code_start_date;
         $code_end_date = $event->code_end_date;
 
+        // Format event and code start/end dates to Month Day format
+        $event_start_date = date('M j', strtotime($event->start_date));
+        $event_end_date = date('M j', strtotime($event->end_date));
+        $code_start_date = date('M j', strtotime($event->code_start_date));
+        $code_end_date = date('M j', strtotime($event->code_end_date));
+
+
+        if (Auth::guard('staff')->check() || Auth::guard('admin')->check()) {
+            $races = Races::where('event_id', $event->event_id)->get();
+
+            return view('view-event', compact(
+                'event',
+                'date',
+                'event_start_date',
+                'event_end_date',
+                'code_start_date',
+                'code_end_date',
+                'races'
+            ));
+        }
+
         // Initialize variables to hold event and code status
         $event_status = '';
         $code_status = '';
@@ -130,12 +151,6 @@ class EventController extends Controller
         } else {
             $code_status = 'AVAILABLE';
         }
-
-        // Format event and code start/end dates to Month Day format
-        $event_start_date = date('M j', strtotime($event->start_date));
-        $event_end_date = date('M j', strtotime($event->end_date));
-        $code_start_date = date('M j', strtotime($event->code_start_date));
-        $code_end_date = date('M j', strtotime($event->code_end_date));
 
         // Get the volunteer's attendance status for the event
         $attendance_status = VolunteerStatus::where('volunteer_id', Auth::user()->volunteer_id)
@@ -183,4 +198,34 @@ class EventController extends Controller
         );
     }
 
+    public function getEventTitle($eventId)
+    {
+        $eventTitle = Events::where('event_id', $eventId)->get('title');
+        return $eventTitle->first()->title;
+    }
+
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Events $event)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Events $event)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Events $event)
+    {
+        //
+    }
 }

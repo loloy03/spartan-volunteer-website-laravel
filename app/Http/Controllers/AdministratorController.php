@@ -34,13 +34,13 @@ class AdministratorController extends Controller
 
     //
     // Render the Admin-Login Page
-    public function login() {
+    public function showLoginForm() {
         return view('auth.admin.admin-login');
     }
 
     //
     // Login Admin
-    public function authenticate() {
+    public function login() {
         $attributes = request()->validate([
             'email' => [
                 'required',

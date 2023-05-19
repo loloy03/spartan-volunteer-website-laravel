@@ -55,6 +55,21 @@
     background: #F44336;
 }
 
+/*override dataTables default th alignment*/
+.dataTables_wrapper thead th {
+    text-align: center !important;
+}
+
+/*override dataTables default search input*/
+.dataTables_filter{
+    float: left !important;
+    margin-bottom: 1rem;
+}
+
+.toolbar {
+    float: right;
+}
+
 .checkbox {
     transform: scale(1.5);
 }

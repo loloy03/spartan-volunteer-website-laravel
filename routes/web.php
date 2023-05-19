@@ -1,10 +1,13 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\VolunteerController;
+
+use App\Http\Livewire\AddVolunteer;
 
 // Home page
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -18,10 +21,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // List events
 Route::get('/event', [App\Http\Controllers\EventController::class, 'index'])->name('event');
 
-
 //proctected routes
 Route::middleware(['auth', 'verified'])->group(function () {
-
     Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
 
     Route::get('/history', [App\Http\Controllers\HistoryController::class, 'show'])->name('history.show');
@@ -34,7 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/address_edit', [App\Http\Controllers\ProfileController::class, 'address_edit'])->name('address_edit');
 
     Route::post('/address_update', [App\Http\Controllers\ProfileController::class, 'address_update'])->name('address_update');
-    
+
 
     Route::get('/contact_edit', [App\Http\Controllers\ProfileController::class, 'contact_edit'])->name('contact_edit');
 
@@ -72,7 +73,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/claim_code.cancel', [App\Http\Controllers\ClaimCodeController::class, 'cancel'])->name('claim_code.cancel');
 });
 
-Route::get('/home-sample', function() {
+Route::middleware(['auth:staff'])->group(function () {
+    Route::get('view-event/{event}', [App\Http\Controllers\EventController::class, 'show'])->name('view-event');
+});
+
+Route::get('/home-sample', function () {
     return view('home-sample');
 });
 
@@ -85,8 +90,8 @@ Route::get('/admin-signup', [AdministratorController::class, 'create'])->middlew
 Route::post('/admin-signup', [AdministratorController::class, 'store'])->middleware('guest');
 
 // Admin Login
-Route::get('/admin-login', [AdministratorController::class, 'login'])->middleware('guest');
-Route::post('/admin-login', [AdministratorController::class, 'authenticate'])->middleware('guest');
+Route::get('/admin-login', [AdministratorController::class, 'showLoginForm'])->middleware('guest');
+Route::post('/admin-login', [AdministratorController::class, 'login'])->middleware('guest');
 
 //Route::get('/logout', [AdminController::class, 'logout'])->middleware('auth');
 
@@ -98,7 +103,6 @@ Route::post('/create-event', [EventController::class, 'store']);
 Route::get('/distribute-code', [VolunteerController::class, 'listOfVerifiedVolunteers']);
 
 
-
 // STAFF ROUTES
 // Middleware: staff
 
@@ -107,13 +111,22 @@ Route::get('/staff-signup', [StaffController::class, 'create'])->middleware('gue
 Route::post('/staff-signup', [StaffController::class, 'store'])->middleware('guest');
 
 // Staff Login
-Route::get('/staff-login', [StaffController::class, 'login'])->middleware('guest');
-Route::post('/staff-login', [StaffController::class, 'authenticate'])->middleware('guest');
+Route::get('/staff-login', [StaffController::class, 'showLoginForm'])->middleware('guest');
+Route::post('/staff-login', [StaffController::class, 'login'])->middleware('guest');
 
 // Staff-Give Volunteer Role
 // input staff_id, event_id, and staff_role/staff_status
-Route::get('/add-volunteer', [VolunteerController::class, 'listOfConfirmedVolunteers']);
+Route::get('/{event}/add-volunteer', [VolunteerController::class, 'listOfConfirmedVolunteers']);
 
 // Staff-Validate Volunteer Attendance
 // input staff_id, event_id, and staff_role/staff_status
-Route::get('/check-attendance', [VolunteerController::class, 'listOfPendingVolunteers']);
+Route::get('/{event}/check-attendance', [VolunteerController::class, 'listOfPendingVolunteers']);
+Route::post('/{event}/check-attendance', [VolunteerController::class, 'updatePendingVolunteers']);
+
+Route::get('/test-login', function () {
+    return view('test-login');
+});
+
+Route::get('/fail-login', function () {
+    return view('fail-login');
+});

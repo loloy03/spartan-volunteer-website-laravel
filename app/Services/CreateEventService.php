@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Models\Events;
-use App\Models\EventCategory;
+use App\Models\Races;
 use App\Models\StaffStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 class CreateEventService {
     public function createEvent(Request $request)
     {
-        $directory = 'images/events';
+        $directory = '/public/images/events';
         Storage::makeDirectory($directory);
 
         $image = $request->file('event_pic');
@@ -52,10 +52,10 @@ class CreateEventService {
             foreach ($categories as $category) {
                 $eventCategories[] = [
                     'event_id' => $eventId,
-                    'category' => $category
+                    'type_of_race' => $category
                 ];
             }
-            EventCategory::insert($eventCategories);
+            Races::insert($eventCategories);
         }
     }
 

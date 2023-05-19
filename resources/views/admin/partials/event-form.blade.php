@@ -151,7 +151,7 @@
             </div>
         </div>
         <div class="form-group mt-3 event-form d-grid gap-2">
-            <button type="button" name="manage-roles" class="btn btn-danger">MANAGE ROLES</button>
+            <button type="submit" name="manage-roles" class="btn btn-danger">MANAGE ROLES</button>
             <button type="button" name="cancel" class="btn btn-dark">CANCEL</button>
         </div>
     </div>

@@ -9,14 +9,14 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\DB;
 
 class StaffController extends Controller
 {
     // Show list of staff
     public function showStaffList() {
         $staffs = Staff::select('staff_id', 'first_name', 'last_name')
-        ->paginate(15);
+        ->paginate(20);
 
         return view('admin.partials.role-form', compact('staffs'));
     }
@@ -30,7 +30,7 @@ class StaffController extends Controller
     public function store(StaffSignupRequest $request) {
         $attributes = $request->validateSignup();
 
-        dd(Staff::create($attributes));
+        Staff::create($attributes);
 
         //NOTE: DEBUG
         //$user = Staff::create($attributes);
@@ -42,12 +42,12 @@ class StaffController extends Controller
     }
 
     // Render the Staff-Login Page
-    public function login() {
+    public function showLoginForm() {
         return view('auth.staff.staff-login');
     }
 
     // Login Staff
-    public function authenticate(Request $request) {
+    public function login(Request $request) {
 
         $credentials = $request->only('email', 'password');
 
@@ -61,13 +61,14 @@ class StaffController extends Controller
             ]
         ]);
 
-        // $user = Staff::where('email', $attributes['email'])->first();
-        // $login = (Hash::check($attributes['password'], $user->password));
-
-        dd(Auth::attempt(['email' => $request->email, 'password' => $request->password]));
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (Auth::guard('staff')->attempt($credentials)) {
             // $request->session()->regenerate();
-            return redirect('/home-sample');
+            
+            return redirect('test-login');
+        }
+        else{
+
+            return redirect('fail-login');
         }
 
     }

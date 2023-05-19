@@ -9,18 +9,18 @@
     <div class="container-fluid p-5 overflow-hidden">
         <div class="row justify-content-center text-center mb-4">
             <div class="col-sm-2">
-                <button class="btn">
+                <button class="btn btn-primary">
                     EXPORT LIST
                 </button>
             </div>
             <div class="col-sm-2">
-                <button class="btn">
+                <button class="btn btn-primary">
                     DISTRIBUTE CODE
                 </button>
             </div>
         </div>
-        <div class="table-responsive">
-            <table class="table">
+        <div class="table-responsive custom-table-responsive">
+            <table class="table custom-table">
                 <thead>
                     <tr>
                         <th class="col">PICTURE PROOF</th>
@@ -28,15 +28,14 @@
                         <th class="col">LAST NAME</th>
                         <th class="col">EVENT</th>
                         <th class="col">ROLE</th>
-                        {{-- REMARKS
-                            --}}
+                        {{-- REMARKS --}}
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($volunteers as $volunteer)
                         <tr scope="row" class="align-middle">
                             <td> 
-                                <button class="btn btn-outline-danger btn-modal" 
+                                <button class="btn btn-dark btn-modal" 
                                 data-bs-toggle="modal" 
                                 data-bs-target="#image"
                                 data-volunteer_photo="{{ $volunteer->proof_of_checkout }}">

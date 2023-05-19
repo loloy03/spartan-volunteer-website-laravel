@@ -13,4 +13,6 @@ class VolunteerStatus extends Model
     protected $primaryKey = 'event_id'; //changing the primary key
 
     public $timestamps = false; //disabling laravel's eloquent timestamps
+
+    public $guarded = [];
 }
