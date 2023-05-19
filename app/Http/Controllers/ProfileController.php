@@ -116,6 +116,14 @@ class ProfileController extends Controller
             // Set a unique file name based on the current timestamp and the file extension
             $fileName = time() . '.' . $file->getClientOriginalExtension();
 
+            // Remove the previous profile picture file if it exists
+            if ($user->profile_picture) {
+                $previousFilePath = public_path('images') . '/' . $user->profile_picture;
+                if (file_exists($previousFilePath)) {
+                    unlink($previousFilePath);
+                }
+            }
+
             // Save the file to the "images" folder in the public directory
             $file->move(public_path('images'), $fileName);
 
@@ -136,5 +144,5 @@ class ProfileController extends Controller
     }
 
 
-}
 
+}
