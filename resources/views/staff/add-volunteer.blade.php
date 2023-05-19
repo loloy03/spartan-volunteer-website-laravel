@@ -21,7 +21,6 @@
                         <tr>
                             <th class="col">ADD TO ROLE</th>
                             <th class="col">FIRST NAME</th>
-                            <th class="col">LAST NAME</th>
                             <th class="col">OCCUPATION</th>
                         </tr>
                     </thead>
@@ -33,9 +32,8 @@
                                         <input type="checkbox" class="form-check-input input checkbox" />
                                     </div>
                                 </td>
-                                <td> {{ ucwords($volunteer->first_name) }} </td>
-                                <td> {{ ucwords($volunteer->last_name) }} </td>
-                                {{-- <td> {{ ucwords($volunteer->occupation) }}</td> --}}
+                                <td> {{ ucwords($volunteer->first_name) . " " . ucwords($volunteer->last_name)}} </td>
+                                <td> {{ ucwords($volunteer->occupation) }}</td>
                             </tr>
                         @endforeach
                     </tbody>
