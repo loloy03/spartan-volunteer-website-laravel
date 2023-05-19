@@ -56,8 +56,6 @@
                             </div>
                         </div>
 
-
-
                         {{-- if the user need to pay --}}
                         <div
                             class="f-montserrat text-muted mt-4 {{ $race_price < 0 || $race_code->status != 'checking' ? 'd-none' : '' }} ">
@@ -97,34 +95,41 @@
                                     {{ session('success') }}
                                 </div>
                             @endif
+                            <div>
+                                Preview:
+                            </div>
+                            <div class="text-center mt-2">
+                                <img id="preview" src="#" alt="Preview" style="display: none; max-width: 100%;">
+                            </div>
+
 
                             <form method="POST" action="{{ route('claim_code.upload_receipt') }}"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
                                 <input type="hidden" name="event_id" value="{{ $event->event_id }}">
-                                <input type="file" name="photo" id="photo" class="form-control">
+                                <input type="file" name="photo" id="photo" class="form-control"
+                                    onchange="previewPhoto(event)">
                                 <div class="text-center">
                                     <input type="submit" value="Upload and Confirm Claim Code"
                                         class="view-event-btn f-montserrat mt-2">
                                 </div>
                             </form>
 
-                            <form method="POST" action="{{ route('claim_code.cancel') }}"
-                                enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('claim_code.cancel') }}" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
                                 <input type="hidden" name="event_id" value="{{ $event->event_id }}">
                                 <div class="text-center">
-                                    <input type="submit" value="Cancel"
-                                        class="view-event-btn f-montserrat mt-2">
+                                    <input type="submit" value="Cancel" class="view-event-btn f-montserrat mt-2">
                                 </div>
                             </form>
                         </div>
 
                         <div
                             class="{{ $race_price - $r_credit_value != 0 || $race_code->status != 'checking' ? 'd-none' : '' }}">
-                            <form method="POST" action="{{ route('claim_code.confirm') }}" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('claim_code.confirm') }}"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
                                 <input type="hidden" name="event_id" value="{{ $event->event_id }}">
@@ -160,4 +165,19 @@
         </div>
     </div>
     </div>
+    <script>
+        function previewPhoto(event) {
+            var input = event.target;
+            var preview = document.getElementById('preview');
+            preview.style.display = input.files && input.files[0] ? 'block' : 'none';
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 @endsection
