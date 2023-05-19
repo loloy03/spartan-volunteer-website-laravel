@@ -74,13 +74,18 @@
                             name="password" required autocomplete="new-password">
 
                         @error('password')
-                            @if ($message)
+                            @if ($message == 'The password field format is invalid.')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>The password must contain 8 characters and include a combination of uppercase
                                         letters, lowercase letters, numbers, and symbols.</strong>
                                 </span>
+                            @else
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                             @endif
                         @enderror
+
                     </div>
 
 
