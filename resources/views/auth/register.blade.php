@@ -76,7 +76,7 @@
                         @error('password')
                             @if ($message)
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>The password must contain 12 characters and include a combination of uppercase
+                                    <strong>The password must contain 8 characters and include a combination of uppercase
                                         letters, lowercase letters, numbers, and symbols.</strong>
                                 </span>
                             @endif
