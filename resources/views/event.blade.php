@@ -23,7 +23,7 @@
                     <option value="avail_events">AVAILABLE EVENTS</option>
                     <option value="date_asc">DATE (OLDEST FIRST)</option>
                     <option value="date_desc">DATE (NEWEST FIRST)</option>
-                    <option value="title_asc">TTITLE (A-Z)</option>
+                    <option value="title_asc">TITLE (A-Z)</option>
                     <option value="title_desc">TITLE (Z-A)</option>
                     <option value="recent_events">RECENT EVENTS</option>
                 </select>
