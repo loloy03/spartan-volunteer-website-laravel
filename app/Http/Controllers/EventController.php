@@ -38,7 +38,7 @@ class EventController extends Controller
         switch ($sort_by) {
             case 'date_asc':
                 $events->orderBy('date', 'asc');
-                $picked_sort = "DATE (OLDEST FIRST)";
+                $picked_sort = "DATE (WILL START SOON)";
                 break;
             case 'date_desc':
                 $events->orderBy('date', 'desc');
