@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="container-fluid p-5">
-        <form action="/{{ $event->first()->event_id }}/add-volunteer" method="POST">
+        <form action="{{ route('add-volunteer.post', $event->first()->event_id) }}" method="POST">
             @csrf
             <div>
                 <h1> EVENT: {{ $event->first()->title }} </h1>

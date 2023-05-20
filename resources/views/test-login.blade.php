@@ -8,8 +8,11 @@
 </head>
 <body>
 
+    {{ dd(auth('staff')->user()) }}
+
     <h1>
         HELLO! STAFF {{ Auth::guard('staff')->user()->first_name }}
+                        {{auth('staff')->user()->first_name}}
     </h1>
     <h4>
         {{ Auth::guard('staff')->user()->email }}

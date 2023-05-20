@@ -3,7 +3,7 @@
 // Returns a list of possible Categories
 // can be updated
 return [
-	"Sprint" => "Sprint",
+	"Sprint-key" => "Sprint-value",
 	"Super" => "Super",
 	"Beast" => "Beast",
 	"Ultra" => "Ultra",

@@ -113,12 +113,11 @@ class EventController extends Controller
         $code_start_date = $event->code_start_date;
         $code_end_date = $event->code_end_date;
 
-
-
+        // if user is staff or admin
         if (Auth::guard('staff')->check() || Auth::guard('admin')->check()) {
             $races = Races::where('event_id', $event->event_id)->get();
 
-            return view('view-event', compact(
+            return view('admin-staff-view-event', compact(
                 'event',
                 'date',
                 'event_start_date',

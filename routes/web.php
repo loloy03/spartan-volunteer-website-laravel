@@ -21,8 +21,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // List events
 Route::get('/event', [App\Http\Controllers\EventController::class, 'index'])->name('event');
 
-//proctected routes
-Route::middleware(['auth:web,staff,admin'])->group(function () {
+Route::group(['middleware' => ['auth']], function () {
+    // Route for verified volunteer
     Route::middleware(['verified'])->group(function () {
         Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
 
@@ -37,10 +37,10 @@ Route::middleware(['auth:web,staff,admin'])->group(function () {
 
         Route::post('/address_update', [App\Http\Controllers\ProfileController::class, 'address_update'])->name('address_update');
 
-
         Route::get('/contact_edit', [App\Http\Controllers\ProfileController::class, 'contact_edit'])->name('contact_edit');
 
         Route::post('/contact_update', [App\Http\Controllers\ProfileController::class, 'contact_update'])->name('contact_update');
+
 
         // Store volunteer status
         Route::post('/volunteer_status_store', [App\Http\Controllers\VolunteerStatusController::class, 'store'])->name('volunteer_status.store');
@@ -69,11 +69,16 @@ Route::middleware(['auth:web,staff,admin'])->group(function () {
         Route::post('/claim_code.confirm', [App\Http\Controllers\ClaimCodeController::class, 'confirm'])->name('claim_code.confirm');
 
         Route::post('/claim_code.cancel', [App\Http\Controllers\ClaimCodeController::class, 'cancel'])->name('claim_code.cancel');
+
+        // Show event details
+        Route::get('view-event/{event}', [EventController::class, 'show'])->name('view-event');
     });
+});
 
-    // Show event details
-    Route::get('view-event/{event}', [App\Http\Controllers\EventController::class, 'show'])->name('view-event');
-
+Route::group(['middleware' => ['staff']], function () {
+    Route::get('/test-login', function () {
+        return view('test-login');
+    });
 });
 
 Route::get('/home-sample', function () {
@@ -95,12 +100,12 @@ Route::post('/admin-login', [AdministratorController::class, 'login'])->middlewa
 //Route::get('/logout', [AdminController::class, 'logout'])->middleware('auth');
 
 // Create Event
-Route::get('/create-event', [EventController::class, 'create']);
-Route::post('/create-event', [EventController::class, 'store']);
+Route::get('/create-event', [EventController::class, 'create'])->name('create-event');
+Route::post('/create-event', [EventController::class, 'store'])->name('create-event.post');
 
 // Admin-Validate and Distribute Volunteer Race Code Claim
-Route::get('/distribute-code', [VolunteerController::class, 'listOfVerifiedVolunteers']);
-
+Route::get('/distribute-code', [VolunteerController::class, 'listOfVerifiedVolunteers'])->name('distribute-code');
+Route::get('/distribute-code', [VolunteerController::class, 'listOfVerifiedVolunteers'])->name('distribute-code.post');
 
 // STAFF ROUTES
 // Middleware: staff
@@ -115,16 +120,16 @@ Route::post('/staff-login', [StaffController::class, 'login'])->middleware('gues
 
 // Staff-Give Volunteer Role
 // input staff_id, event_id, and staff_role/staff_status
-Route::get('/{event}/add-volunteer', [VolunteerController::class, 'listOfConfirmedVolunteers']);
+Route::get('/{event}/add-volunteer', [VolunteerController::class, 'listOfConfirmedVolunteers'])->name('add-volunteer');
+Route::post('/{event}/add-volunteer', [VolunteerController::class, 'updateConfirmedVolunteers'])->name('add-volunteer.post');
 
 // Staff-Validate Volunteer Attendance
 // input staff_id, event_id, and staff_role/staff_status
-Route::get('/{event}/check-attendance', [VolunteerController::class, 'listOfPendingVolunteers']);
-Route::post('/{event}/check-attendance', [VolunteerController::class, 'updatePendingVolunteers']);
+Route::get('/{event}/check-attendance', [VolunteerController::class, 'listOfPendingVolunteers'])->name('check-attendance');
+Route::post('/{event}/check-attendance', [VolunteerController::class, 'updatePendingVolunteers'])->name('check-attendance.post');
 
-Route::get('/test-login', function () {
-    return view('test-login');
-});
+// shared by staff and admin
+Route::get('admin-staff-view-event/{event}', [EventController::class, 'show'])->name('admin-staff-view-event');
 
 Route::get('/fail-login', function () {
     return view('fail-login');
