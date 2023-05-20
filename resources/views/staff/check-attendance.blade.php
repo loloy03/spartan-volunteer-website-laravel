@@ -12,7 +12,7 @@
 
 @section('content')
     <div class="container-fluid p-5 overflow-hidden">
-        <form action="/{{ $event->first()->event_id }}/check-attendance" method="POST">
+        <form action="{{ route('check-attendance.post', $event->first()->event_id) }}" method="POST">
             @csrf
             <div>
                 <h1> EVENT: {{ $event->first()->title }} </h1>
