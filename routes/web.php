@@ -75,12 +75,6 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 
-Route::group(['middleware' => ['staff']], function () {
-    Route::get('/test-login', function () {
-        return view('test-login');
-    });
-});
-
 Route::get('/home-sample', function () {
     return view('home-sample');
 });
@@ -88,6 +82,9 @@ Route::get('/home-sample', function () {
 // ADMIN ROUTES
 // Middleware: admin
 // IMPORTANT: It seems using Administrator instead of Admin is preferable
+Route::group(['middleware' => ['admin']], function () {
+    //
+});
 
 // Admin Signup
 Route::get('/admin-signup', [AdministratorController::class, 'create'])->middleware('guest');
@@ -109,6 +106,12 @@ Route::get('/distribute-code', [VolunteerController::class, 'listOfVerifiedVolun
 
 // STAFF ROUTES
 // Middleware: staff
+Route::group(['middleware' => ['staff']], function () {
+    //
+    Route::get('/test-login', function () {
+        return view('test-login');
+    });
+});
 
 // Staff Signup
 Route::get('/staff-signup', [StaffController::class, 'create'])->middleware('guest');
