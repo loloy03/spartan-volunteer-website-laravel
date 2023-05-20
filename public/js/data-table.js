@@ -32,7 +32,7 @@ let cancelBtn = $('<button>')
     .addClass('btn btn-secondary')
     .attr('type', 'button')
     .click(function() {
-        window.location.href = '/view-event/'+ eventId
+        window.location.href = '/admin-staff-view-event/'+ eventId
     })
     .text('BACK');
 
