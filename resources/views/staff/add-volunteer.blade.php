@@ -16,6 +16,9 @@
                 <h6> LOCATION: {{ $event->first()->location }} </h6>
                 <h6> EVENT ID: {{ $event->first()->event_id }} </h6>
             </div>
+            <div>
+                <h6> COUNT: {{ count($volunteers) }} VOLUNTEERS</h3>
+            </div>
             <div class="table-responsive custom-table-responsive">
                 <table class="table custom-table" id="table">
                     <thead>
@@ -30,7 +33,9 @@
                             <tr scope="row" class="table-row align-middle">
                                 <td scope="row">
                                     <div class="form-check d-flex justify-content-center">
-                                        <input type="checkbox" class="form-check-input input checkbox" />
+                                        <input type="checkbox" class="form-check-input input checkbox" 
+                                        name="volunteer-id[]" value="{{ $volunteer->volunteer_id }}"
+                                        />
                                     </div>
                                 </td>
                                 <td> {{ ucwords($volunteer->first_name) . " " . ucwords($volunteer->last_name)}} </td>

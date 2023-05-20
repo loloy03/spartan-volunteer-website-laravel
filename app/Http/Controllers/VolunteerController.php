@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Volunteer;
 use App\Models\Events;
+use App\Models\StaffStatus;
 use App\Models\VolunteerStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +19,7 @@ class VolunteerController extends Controller
         $event = Events::where('event_id', $eventId)->get();
 
         $volunteers = Volunteer::select(
+            'volunteer.volunteer_id',
             'volunteer.first_name',
             'volunteer.last_name',
             'event.title',
@@ -39,7 +41,25 @@ class VolunteerController extends Controller
     // volunteer role to Registration
     public function updateConfirmedVolunteers(Request $request, $eventId)
     {
+        $volunteerId = $request->input('volunteer-id');
         $staffId = auth()->guard('staff')->user()->staff_id;
+        $role = StaffStatus::where('staff_id', $staffId)
+        ->where('event_id', $eventId)
+        ->get();
+
+        $volunteerRole = ucwords($role->first()->role);
+
+        if($volunteerId) {
+            foreach($volunteerId as $id) {
+                VolunteerStatus::updateOrInsert(
+                    // WHERE CLAUSE
+                    ['volunteer_id' => $id, 'event_id' => $eventId],
+                    // INSERT or UPDATE CLAUSE
+                    ['role' => $volunteerRole, 'staff_id' => $staffId],
+                );
+            }
+        }
+        return redirect('/'.$eventId.'/add-volunteer');
     }
 
     // IMPORTANT: STAFF ROLE
@@ -84,8 +104,10 @@ class VolunteerController extends Controller
         if($volunteerStatus) {
             foreach($volunteerStatus as $volunteerId => $status) {
                 VolunteerStatus::updateOrInsert(
-                    ['volunteer_id' => $volunteerId],
-                    ['attendance_status' => $status, 'staff_id' => $staffId]
+                    // WHERE CLAUSE
+                    ['volunteer_id' => $volunteerId /*, 'event_id' => $eventId*/],
+                    // INSERT or UPDATE CLAUSE
+                    ['attendance_status' => $status /*, 'staff_id' => $staffId*/]
                 );
             }
             //dd($volunteerStatuses);
