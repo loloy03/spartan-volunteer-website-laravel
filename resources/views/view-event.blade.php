@@ -34,10 +34,6 @@
 
                 {{-- Displaying event discription --}}
                 <div class="f-lato my-3">{{ $event->description }}</div>
-
-                @if (Auth::guard('staff')->check())
-                    @include ('staff.partials.view-event')
-                @else
                     <div class="box-border-shadow p-3 two-color-in-div">
                         <div class="d-flex justify-content-between f-montserrat">
                             <div class=" text-muted">BE A VOLUNTEER</div>
@@ -194,7 +190,6 @@
                             </div>
                         </div>
                     </div>
-                @endif
             </div>
         </div>
     </div>
