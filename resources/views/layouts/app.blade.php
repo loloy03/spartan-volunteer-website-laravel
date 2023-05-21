@@ -36,6 +36,7 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @livewireStyles
 </head>
 
 <body>
@@ -63,13 +64,13 @@
                         <!-- Authentication Links -->
 
                         @guest
-                            @if (Route::has('login'))
+                            @if (Route::has('login') && !Auth::guard('staff')->check() && !Auth::guard('admin')->check())
                                 <li class="nav-item bottom-transition mt-2">
                                     <a class="nav-link text-light" href="{{ route('login') }}">{{ __('LOGIN') }}</a>
                                 </li>
                             @endif
 
-                            @if (Route::has('register'))
+                            @if (Route::has('register') && !Auth::guard('staff')->check() && !Auth::guard('admin')->check())
                                 <li class="nav-item bottom-transition mt-2">
                                     <a class="nav-link text-light" href="{{ route('register') }}">{{ __('REGISTER') }}</a>
                                 </li>
@@ -117,6 +118,12 @@
 
                             </li>
                         @endguest
+                        @admin
+                            @include('admin.partials.navbar-admin')
+                        @endadmin
+                        @staff
+                            @include('staff.partials.navbar-staff')
+                        @endstaff
                     </ul>
                 </div>
             </div>
@@ -165,6 +172,7 @@
         </div>
 
     </div>
+    @livewireScripts
 </body>
 
 </html>

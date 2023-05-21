@@ -37,14 +37,17 @@
                         <div class="bg-light-gray">
                             <!-- Image Button - on click redirect to view-event page -->
                             <button class="image-container"
-                                @if (Auth::check()) onclick="window.location='{{ route('view-event', $event->event_id) }}'"> 
-                            @else 
-                                onclick="window.location='{{ route('login') }}'"> @endif
-                                <img src="/images/events/{{ $event->event_pic }}" class="fixed-size-img">
-                                <!-- Image Text Overlay -->
-                                <div class="image-text p-2">
-                                    <p class="fs-6">{{ strtoupper($event->date) }}</p>
-                                </div>
+                                @if (Auth::check()) 
+                                    onclick="window.location='{{ route('view-event', $event->event_id) }}'"> 
+                                @elseif (Auth::guard('staff')->check())
+                                    onclick="window.location='{{ route('admin-staff-view-event', $event->event_id) }}'">
+                                @else 
+                                    onclick="window.location='{{ route('login') }}'"> @endif
+                                    <img src="/images/events/{{ $event->event_pic }}" class="fixed-size-img">
+                                    <!-- Image Text Overlay -->
+                                    <div class="image-text p-2">
+                                        <p class="fs-6">{{ strtoupper($event->date) }}</p>
+                                    </div>
                             </button>
 
                             <!-- Event Details -->

@@ -1,4 +1,4 @@
-@extends('layouts.auth-navbar')
+@extends('layouts.app')
 
 @section('import-css')
     <!-- Import the custom event.css file -->

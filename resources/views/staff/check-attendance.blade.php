@@ -1,4 +1,4 @@
-@extends('layouts.auth-navbar')
+@extends('layouts.app')
 
 @section('import-js')
     
@@ -12,7 +12,7 @@
 
 @section('content')
     <div class="container-fluid p-5 overflow-hidden">
-        <form action="/{{ $event->first()->event_id }}/check-attendance" method="POST">
+        <form action="{{ route('check-attendance.post', $event->first()->event_id) }}" method="POST">
             @csrf
             <div>
                 <h1> EVENT: {{ $event->first()->title }} </h1>
@@ -27,9 +27,9 @@
                 <table class="table custom-table" id="table">
                     <thead>
                         <tr>
-                            <th class="col">PICTURE PROOF</th>
-                            <th class="col">STATUS</th>
-                            <th class="col">NAME</th>
+                            <th class="col no-sort">PICTURE PROOF</th>
+                            <th class="col no-sort">STATUS</th>
+                            <th class="col def-sort">NAME</th>
                             <th class="col">EVENT</th>
                             <th class="col">CHECK-IN</th>
                             <th class="col">CHECK-OUT</th>

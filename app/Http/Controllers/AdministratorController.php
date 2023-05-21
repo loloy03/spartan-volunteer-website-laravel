@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminSignupRequest;
 use App\Http\Requests\AuthSignupRequest;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Administrator;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -22,11 +23,7 @@ class AdministratorController extends Controller
     public function store(AdminSignupRequest $request) {
         $attributes = $request->validateSignup();
         
-        //NOTE: DEBUG
-        // consider using save() instead of create()
         Administrator::create($attributes);
-        //auth()->login($user);
-        //dd($user);
 
         // add that flash thing: ->with
         return redirect('/admin-login');
@@ -40,19 +37,28 @@ class AdministratorController extends Controller
 
     //
     // Login Admin
-    public function login() {
-        $attributes = request()->validate([
+    public function login(Request $request) {
+        $credentials = $request->only('email', 'password');
+
+        $credentials = $request->validate([
             'email' => [
                 'required',
-                Rule::exists('admin', 'email')
+                // Potential Security Concern: Rule::exists('staff', 'email')
             ],
             'password' => [
-                'required'
+                'required',
             ]
         ]);
 
-        if(auth()->attempt($attributes)) {
-            return redirect('/home-sample');
+        if (Auth::guard('admin')->attempt($credentials)) {
+            // $request->session()->regenerate();
+            
+            return redirect('test-login');
         }
+        else{
+
+            return redirect('fail-login');
+        }
+
     }
 }

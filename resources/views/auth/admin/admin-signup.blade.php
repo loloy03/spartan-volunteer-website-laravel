@@ -1,4 +1,4 @@
-@extends('layouts.auth-navbar')
+@extends('layouts.app')
 
 @section('import-css')
 <link rel="stylesheet" href="{{ asset('/css/admin/admin-auth.css') }}">

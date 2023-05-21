@@ -5,11 +5,11 @@ let table = new DataTable('#table', {
     dom: '<"toolbar">frtip',
     // default sort: index 2, asc order
     // index 2 = name
-    order: [[2, 'asc']],
+    order: [[1, 'asc'], [2 ,'asc']],
     columnDefs: [
         {
             // first 2 columns cannot be sorted
-            targets: [0, 1],
+            targets: "no-sort",
             orderable: false
         }
     ]
@@ -32,7 +32,7 @@ let cancelBtn = $('<button>')
     .addClass('btn btn-secondary')
     .attr('type', 'button')
     .click(function() {
-        window.location.href = '/view-event/'+ eventId
+        window.location.href = '/admin-staff-view-event/'+ eventId
     })
     .text('BACK');
 
