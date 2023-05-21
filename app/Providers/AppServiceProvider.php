@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,7 +21,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // uses bootstrap to design laravel page pagination
         Paginator::useBootstrap();
+
+        // custom blade components: @staff & @admin
+        Blade::if('staff', function () {
+            return auth()->guard('staff')->check();
+        });
+
+        Blade::if('admin', function () {
+            return auth()->guard('admin')->check();
+        });
     }
 }
