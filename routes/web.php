@@ -16,7 +16,11 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Auth::routes(['verify' => true]);
 
 // Home page (authenticated)
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/home', function() {
+    return view('home');
+})->name('home');
 
 // List events
 Route::get('/event', [App\Http\Controllers\EventController::class, 'index'])->name('event');
@@ -75,15 +79,12 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 
-Route::get('/home-sample', function () {
-    return view('home-sample');
-});
-
 // ADMIN ROUTES
 // Middleware: admin
 // IMPORTANT: It seems using Administrator instead of Admin is preferable
 Route::group(['middleware' => ['admin']], function () {
     //
+    
 });
 
 // Admin Signup
