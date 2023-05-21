@@ -45,7 +45,7 @@ class VolunteerController extends Controller
         $staffId = auth()->guard('staff')->user()->staff_id;
         $role = StaffStatus::where('staff_id', $staffId)
         ->where('event_id', $eventId)
-        ->get();
+        ->first();
 
         $volunteerRole = ucwords($role->first()->role);
 
@@ -69,7 +69,13 @@ class VolunteerController extends Controller
     public function listOfPendingVolunteers($eventId)
     {
         $event = Events::where('event_id', $eventId)->get();
+        $staffId = auth()->guard('staff')->user()->staff_id;
+        $role = StaffStatus::where('staff_id', $staffId)
+        ->where('event_id', $eventId)
+        ->first();
 
+        $staffRole = $volunteerRole = ucwords($role->first()->role);
+        
         $volunteers = Volunteer::select(
             'volunteer.volunteer_id',
             'volunteer.first_name',
@@ -86,11 +92,11 @@ class VolunteerController extends Controller
             ->join('event', 'volunteer_status.event_id', '=', 'event.event_id')
             ->where('volunteer_status.attendance_status', 'confirmed')
             ->where('event.event_id', $eventId)
-            ->whereNotNull('volunteer_status.role')
+            ->where('volunteer_status.role', $staffRole)
             ->whereNotNull('volunteer_status.check_in')
             ->whereNotNull('volunteer_status.check_out')
             ->paginate(20);
-
+        // dd($volunteers);
         return view('staff.check-attendance', compact('volunteers', 'event'));
     }
 
