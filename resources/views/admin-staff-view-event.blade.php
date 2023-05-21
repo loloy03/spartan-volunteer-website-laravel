@@ -35,11 +35,14 @@
                 {{-- Displaying event discription --}}
                 <div class="f-lato my-3">{{ $event->description }}</div>
 
-                @if (Auth::guard('staff')->check())
+                @staff 
+                {{-- (Auth::guard('staff')->check()) --}}
                     @include ('staff.partials.view-event')
-                @elseif (Auth::guard('admin')->check())
+                @endstaff 
+                @admin
+                {{-- (Auth::guard('admin')->check()) --}}
                     @include ('admin.partials.view-event')
-                @endif
+                @endadmin
             </div>
         </div>
     </div>
