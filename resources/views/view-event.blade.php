@@ -46,6 +46,56 @@
                         </div>
                         <div class="d-flex justify-content-between {{ $attendance_status == 'joining' ? 'd-none' : '' }}">
                             <!-- Display the status of the event -->
+                <div class="box-border-shadow p-3 two-color-in-div">
+                    <div class="d-flex justify-content-between f-montserrat">
+                        <div class="text-muted">BE A VOLUNTEER</div>
+                        <div class="fs-13">{{ strtoupper($event_start_date) . ' - ' . strtoupper($event_end_date) }}</div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="f-montserrat fs-4">JOIN AS VOLUNTEER</div>
+                        <div class="f-lato mb-auto text-muted text-end fs-10">START AND END DATE OF REGISTRATION</div>
+                    </div>
+
+                    <div class="d-flex justify-content-between {{ $attendance_status == 'joining' ? 'd-none' : '' }}">
+                        <!-- Display the status of the event -->
+                        <div
+                            class="text-success f-lato mb-auto fs-13 {{ $event_status == 'NOT AVAILABLE' || $event_status == 'VOLUNTEER CANCELLED' ? ' text-danger' : '' }}">
+                            STATUS: {{ $event_status }}
+                        </div>
+
+                        <!-- Form to join the event as a volunteer -->
+                        <form id="joinForm" method="POST" action="{{ route('volunteer_status.store') }}">
+                            @csrf
+                            <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
+                            <input type="hidden" name="volunteer_fullname"
+                                value="{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}">
+                            <input type="hidden" name="event_id" value="{{ $event->event_id }}">
+                            <button type="button" id="joinButton"
+                                class="my-auto view-event-btn f-montserrat {{ $event_status == 'NOT AVAILABLE' || $event_status == 'VOLUNTEER CANCELLED' ? 'view-event-btn-disabled' : '' }}"
+                                {{ $event_status == 'NOT AVAILABLE' || $event_status == 'VOLUNTEER CANCELLED' ? 'disabled' : '' }}>
+                                Join Now
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Confirmation modal -->
+                    <div id="confirmationModal" class="modal fade f-lato" tabindex="-1" role="dialog">
+                        <div class="modal-dialog box-border-shadow" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h6 class="modal-title">Are you sure you want to join?</h6>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="view-event-btn" data-dismiss="modal">No</button>
+                                    <button type="button" id="confirmJoinButton" class="view-event-btn">Yes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="{{ $attendance_status != 'joining' ? 'd-none' : '' }}">
+                        <!-- Registration confirmation status -->
+                        <div class="d-flex justify-content-between mt-2">
                             <div
                                 class="text-success f-lato mb-auto fs-13 {{ $event_status == 'NOT AVAILABLE' || $event_status == 'VOLUNTEER CANCELLED' ? ' text-danger' : '' }}">
                                 STATUS: {{ $event_status }}
@@ -177,8 +227,6 @@
                                             });
                                         });
                                     </script>
-
-
                                     <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
                                     <input type="hidden" name="event_id" value="{{ $event->event_id }}">
                                     <div class="f-montserrat mt-4">
@@ -188,9 +236,43 @@
                                     </div>
                                 </form>
                             </div>
+                                <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
+                                <input type="hidden" name="event_id" value="{{ $event->event_id }}">
+                                <div class="f-montserrat mt-4">
+                                    <button type="submit" {{ Auth::user()->r_credits == 0 ? 'disabled' : '' }}
+                                        class=" view-event-btn {{ Auth::user()->r_credits == 0 ? 'view-event-btn-disabled' : '' }} ">Claim
+                                        Race</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
             </div>
         </div>
     </div>
+    <script>
+        // Function to handle the confirmation modal
+        function confirmJoin() {
+            $('#confirmationModal').modal('show');
+        }
+
+        // Function to handle the "Yes" button click
+        function confirmJoinYes() {
+            $('#confirmationModal').modal('hide');
+            document.getElementById('joinForm').submit(); // Submit the form
+        }
+
+        // Function to handle the "No" button click
+        function confirmJoinNo() {
+            $('#confirmationModal').modal('hide');
+        }
+
+        // Add event listener to the Join Now button
+        document.getElementById('joinButton').addEventListener('click', confirmJoin);
+
+        // Add event listener to the "Yes" button in the confirmation modal
+        document.getElementById('confirmJoinButton').addEventListener('click', confirmJoinYes);
+
+        // Add event listener to the "No" button in the confirmation modal
+        document.querySelector('#confirmationModal .btn-secondary').addEventListener('click', confirmJoinNo);
+    </script>
 @endsection
