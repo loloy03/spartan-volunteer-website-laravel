@@ -85,8 +85,8 @@ Route::group(['middleware' => ['admin']], function () {
 });
 
 // Admin Signup
-Route::get('/admin-signup', [AdministratorController::class, 'create'])->middleware('guest');
-Route::post('/admin-signup', [AdministratorController::class, 'store'])->middleware('guest');
+// Route::get('/admin-signup', [AdministratorController::class, 'create'])->middleware('guest');
+// Route::post('/admin-signup', [AdministratorController::class, 'store'])->middleware('guest');
 
 // Admin Login
 Route::get('/admin-login', [AdministratorController::class, 'showLoginForm'])->middleware('guest');
@@ -112,13 +112,12 @@ Route::group(['middleware' => ['staff']], function () {
 });
 
 // Staff Signup
-Route::get('/staff-signup', [StaffController::class, 'create'])->middleware('guest');
-Route::post('/staff-signup', [StaffController::class, 'store'])->middleware('guest');
+// Route::get('/staff-signup', [StaffController::class, 'create'])->middleware('guest');
+// Route::post('/staff-signup', [StaffController::class, 'store'])->middleware('guest');
 
 // Staff Login
 Route::get('/staff-login', [StaffController::class, 'showLoginForm'])->middleware('guest');
-// Route::post('/staff-login', [StaffController::class, 'login'])->middleware('guest');
-Route::post('/staff-login', [StaffLoginController::class, 'login'])->name('staff.login');
+Route::post('/staff-login', [StaffController::class, 'login'])->middleware('guest');
 
 // Staff-Give Volunteer Role
 // input staff_id, event_id, and staff_role/staff_status
