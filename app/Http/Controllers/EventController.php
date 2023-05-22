@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\VolunteerStatusController;
 use App\Models\RaceCode;
+use App\Models\RaceCredit;
 use App\Models\Races;
 use Illuminate\Console\Scheduling\Event;
 use Illuminate\Support\Facades\DB;
@@ -117,15 +118,17 @@ class EventController extends Controller
         if (Auth::guard('staff')->check() || Auth::guard('admin')->check()) {
             $races = Races::where('event_id', $event->event_id)->get();
 
-            return view('admin-staff-view-event', compact(
-                'event',
-                'date',
-                'event_start_date',
-                'event_end_date',
-                'code_start_date',
-                'code_end_date',
-                'races'
-            )
+            return view(
+                'admin-staff-view-event',
+                compact(
+                    'event',
+                    'date',
+                    'event_start_date',
+                    'event_end_date',
+                    'code_start_date',
+                    'code_end_date',
+                    'races'
+                )
             );
         }
 
@@ -181,6 +184,11 @@ class EventController extends Controller
         $code_start_date = date('M j', strtotime($event->code_start_date));
         $code_end_date = date('M j', strtotime($event->code_end_date));
 
+        $race_credit = RaceCredit::where('volunteer_id', Auth::user()->volunteer_id)
+            ->where('status', '=', 'unclaimed')
+            ->get();
+        $race_credit_quantity = $race_credit->count();
+
         return view(
             'view-event',
             compact(
@@ -195,7 +203,8 @@ class EventController extends Controller
                 'code_status',
                 'attendance_status',
                 'races',
-                'r_credit_value'
+                'r_credit_value',
+                'race_credit_quantity'
             )
         );
     }

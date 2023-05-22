@@ -181,7 +181,7 @@
                         <div class="f-lato text-muted fs-10 mb-2">PICK ONLY ONE RACE TO CLAIM CODE</div>
                         <div class="d-block">
                             <div class="f-lato text-muted fs-10  d-inline-block">YOUR RACE CREDITS: </div>
-                            <div class="f-lato text-muted fs-10 d-inline-block ">{{ Auth::user()->r_credits }}</div>
+                            <div class="f-lato text-muted fs-10 d-inline-block ">{{ $race_credit_quantity }}</div>
                         </div>
                         <div
                             class="f-lato text-muted fs-10 mb-2 text-warning {{ Auth::user()->r_credits != 0 ? 'd-none' : '' }}">
@@ -225,7 +225,7 @@
                                 <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
                                 <input type="hidden" name="event_id" value="{{ $event->event_id }}">
                                 <div class="f-montserrat mt-4">
-                                    <button type="submit" {{ Auth::user()->r_credits == 0 ? 'disabled' : '' }}
+                                    <button type="submit" {{ Auth::user()->race_credit_quantity == 0 ? 'disabled' : '' }}
                                         class=" view-event-btn {{ Auth::user()->r_credits == 0 ? 'view-event-btn-disabled' : '' }} ">Claim
                                         Race</button>
                                 </div>
