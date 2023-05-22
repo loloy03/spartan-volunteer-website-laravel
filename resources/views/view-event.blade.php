@@ -52,7 +52,6 @@
                             STATUS: {{ $event_status }}
                         </div>
 
-                        <!-- Form to join the event as a volunteer -->
                         <form id="joinForm" method="POST" action="{{ route('volunteer_status.store') }}">
                             @csrf
                             <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
@@ -101,19 +100,49 @@
                             </form>
                         </div>
 
-                        <!-- Registration confirmation info and cancel button -->
-                        <div class="d-flex justify-content-between pt-1">
-                            <div class="f-lato mb-auto text-muted text-start fs-10 w-25">TO BE PART OF THE TEAM YOU NEED TO
-                                CONFIRM REGISTRATION</div>
+                        <!-- Confirmation modal -->
+                        <div id="confirmationModal" class="modal fade f-lato" tabindex="-1" role="dialog">
+                            <div class="modal-dialog box-border-shadow" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h6 class="modal-title">Confirm Join</h6>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                        <button type="button" id="confirmJoinButton" class="btn btn-primary">Yes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                            <form method="POST" action="{{ route('volunteer_status.cancelled') }}">
+                        <!-- Cancellation modal -->
+                        <div id="cancellationModal" class="modal fade f-lato" tabindex="-1" role="dialog">
+                            <div class="modal-dialog box-border-shadow" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h6 class="modal-title">Are you sure you want to cancel? You will not be able to
+                                            join again, and you will not be able to claim a code for this event.</h6>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" id="confirmCancelBtn" class="view-event-btn">Yes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between pt-1">
+                            <div class="f-lato mb-auto text-muted text-start fs-10 w-25">
+                                TO BE PART OF THE TEAM YOU NEED TO CONFIRM REGISTRATION
+                            </div>
+
+                            <form id="cancelForm" method="POST" action="{{ route('volunteer_status.cancelled') }}">
                                 @csrf
                                 <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
                                 <input type="hidden" name="event_id" value="{{ $event->event_id }}">
                                 <!-- Cancel registration button -->
-                                <button
+                                <button type="button" id="ConfirmCancel"
                                     class="my-auto view-event-btn f-montserrat {{ $event_status == 'NOT AVAILABLE' ? 'view-event-btn-disabled' : '' }}"
-                                    {{ $event_status == 'NOT AVAILABLE' ? 'disabled' : '' }}>
+                                    {{ $event_status == 'NOT AVAILABLE' ? 'disabled' : '' }} onclick="confirmCancel()">
                                     Cancel Registration
                                 </button>
                             </form>
@@ -210,18 +239,18 @@
         </div>
     </div>
     <script>
-        // Function to handle the confirmation modal
+        // Function to handle the confirmation modal for join
         function confirmJoin() {
             $('#confirmationModal').modal('show');
         }
 
-        // Function to handle the "Yes" button click
+        // Function to handle the "Yes" button click for join
         function confirmJoinYes() {
             $('#confirmationModal').modal('hide');
             document.getElementById('joinForm').submit(); // Submit the form
         }
 
-        // Function to handle the "No" button click
+        // Function to handle the "No" button click for join
         function confirmJoinNo() {
             $('#confirmationModal').modal('hide');
         }
@@ -229,10 +258,27 @@
         // Add event listener to the Join Now button
         document.getElementById('joinButton').addEventListener('click', confirmJoin);
 
-        // Add event listener to the "Yes" button in the confirmation modal
+        // Add event listener to the "Yes" button in the confirmation modal for join
         document.getElementById('confirmJoinButton').addEventListener('click', confirmJoinYes);
 
-        // Add event listener to the "No" button in the confirmation modal
-        document.querySelector('#confirmationModal .view-event-btn').addEventListener('click', confirmJoinNo);
+        // Add event listener to the "No" button in the confirmation modal for join
+        document.querySelector('#confirmationModal .btn-secondary').addEventListener('click', confirmJoinNo);
+
+
+
+
+        // Function to handle the confirmation modal for cancel
+        function confirmCancel() {
+            $('#cancellationModal').modal('show');
+        }
+
+        // Function to handle the "Yes" button click for cancel
+        function confirmCancelYes() {
+            $('#cancellationModal').modal('hide');
+            document.getElementById('cancelForm').submit();
+        }
+
+        // Add event listener to the "Yes" button in the confirmation modal for cancel
+        document.getElementById('confirmCancelBtn').addEventListener('click', confirmCancelYes);
     </script>
 @endsection
