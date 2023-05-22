@@ -102,20 +102,20 @@ class StaffLoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    // protected function sendLoginResponse(Request $request)
-    // {
-    //     $request->session()->regenerate();
+    protected function sendLoginResponse(Request $request)
+    {
+        $request->session()->regenerate();
 
-    //     $this->clearLoginAttempts($request);
+        $this->clearLoginAttempts($request);
 
-    //     if ($response = $this->authenticated($request, $this->guard()->user())) {
-    //         return $response;
-    //     }
+        if ($response = $this->authenticated($request, $this->guard()->user())) {
+            return $response;
+        }
 
-    //     return $request->wantsJson()
-    //                 ? new JsonResponse([], 204)
-    //                 : redirect()->intended($this->redirectPath());
-    // }
+        return $request->wantsJson()
+                    ? new JsonResponse([], 204)
+                    : redirect()->intended($this->redirectPath());
+    }
 
     /**
      * The user has been authenticated.
