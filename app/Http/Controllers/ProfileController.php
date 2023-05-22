@@ -18,8 +18,9 @@ class ProfileController extends Controller
         $joining_events = VolunteerStatus::leftJoin('event', 'volunteer_status.event_id', '=', 'event.event_id')
             ->leftJoin('staff', 'volunteer_status.staff_id', '=', 'staff.staff_id')
             ->where('volunteer_id', Auth::user()->volunteer_id)
-            ->where('attendance_status', '!=', 'validated')
+            ->whereNotIn('attendance_status', ['validated', 'cancelled'])
             ->get();
+
 
         $claiming_code_events = RaceCode::leftJoin('event', 'race_code.event_id', '=', 'event.event_id')
             ->leftJoin('race_types', 'race_code.race_id', '=', 'race_types.race_id')

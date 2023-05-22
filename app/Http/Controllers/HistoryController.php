@@ -17,8 +17,12 @@ class HistoryController extends Controller
         $joined_events = VolunteerStatus::leftJoin('event', 'volunteer_status.event_id', '=', 'event.event_id')
             ->leftJoin('staff', 'volunteer_status.staff_id', '=', 'staff.staff_id')
             ->where('volunteer_id', Auth::user()->volunteer_id)
-            ->where('attendance_status', '=', 'validated')
+            ->where(function ($query) {
+                $query->where('attendance_status', 'validated')
+                    ->orWhere('attendance_status', 'cancelled');
+            })
             ->get();
+
 
 
         $claimed_code_events = RaceCode::leftJoin('event', 'race_code.event_id', '=', 'event.event_id')
