@@ -184,10 +184,13 @@ class EventController extends Controller
         $code_start_date = date('M j', strtotime($event->code_start_date));
         $code_end_date = date('M j', strtotime($event->code_end_date));
 
-        $race_credit = RaceCredit::where('volunteer_id', Auth::user()->volunteer_id)
+        $race_credit_quantity = RaceCredit::where('volunteer_id', Auth::user()->volunteer_id)
             ->where('status', '=', 'unclaimed')
-            ->get();
-        $race_credit_quantity = $race_credit->count();
+            ->count();
+
+        $race_credits = RaceCredit::where('volunteer_id', Auth::user()->volunteer_id)
+        ->where('status', '=', 'unclaimed')
+        ->get();
 
         return view(
             'view-event',
@@ -204,7 +207,8 @@ class EventController extends Controller
                 'attendance_status',
                 'races',
                 'r_credit_value',
-                'race_credit_quantity'
+                'race_credit_quantity',
+                'race_credits'
             )
         );
     }

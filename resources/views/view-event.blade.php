@@ -17,7 +17,11 @@
                 <!-- Add an overlay image on top of the event picture -->
                 <img class="overlay-image" src="{{ asset('/images/spartan-logo-with-word.png') }}">
             </div>
-
+            @if (session('error'))
+                <div class="alert alert-danger p-2 mt-2">
+                    {{ session('error') }}
+                </div>
+            @endif
             <div class="col-lg-6 p-4 my-auto">
                 <div class="f-montserrat">
                     <!-- Date of the event, converted to uppercase -->
@@ -180,12 +184,12 @@
 
                         <div class="f-lato text-muted fs-10 mb-2">PICK ONLY ONE RACE TO CLAIM CODE</div>
                         <div class="d-block">
-                            <div class="f-lato text-muted fs-10  d-inline-block">YOUR RACE CREDITS: </div>
-                            <div class="f-lato text-muted fs-10 d-inline-block ">{{ $race_credit_quantity }}</div>
+                            <div class="f-lato text-muted fs-10 d-inline-block">YOUR RACE CREDITS:</div>
+                            <div class="f-lato text-muted fs-10 d-inline-block">{{ $race_credit_quantity }}</div>
                         </div>
                         <div
-                            class="f-lato text-muted fs-10 mb-2 text-warning {{ Auth::user()->r_credits != 0 ? 'd-none' : '' }}">
-                            <div class="text-danger"> YOU DONT HAVE ENOUGH RACE CREDITS </div>
+                            class="f-lato text-muted fs-10 mb-2 text-warning {{ $race_credit_quantity != 0 ? 'd-none' : '' }}">
+                            <div class="text-danger">YOU DON'T HAVE ENOUGH RACE CREDITS</div>
                         </div>
 
                         <div class="f-lato mt-1">
@@ -195,47 +199,40 @@
                                 @foreach ($races as $race)
                                     <div>
                                         <input type="radio" name="race_id" value="{{ $race->race_id }}"
-                                            id="{{ $race->race_id }}">
+                                            id="{{ $race->race_id }}" class="race-radio">
                                         <label for="{{ $race->race_type }}">{{ strtoupper($race->race_type) }}</label>
-                                    </div>
-                                    <div id="dropdownDiv_{{ $race->race_id }}" style="display: none;">
-                                        @for ($i = 1; $i <= 10; $i++)
-                                            @if ($race->race_id == $i)
-                                                {{ $r_credit_value - $race->price }}
-                                                {{ $race->price }}
-                                            @endif
-                                        @endfor
-
                                     </div>
                                 @endforeach
 
-                                <script>
-                                    // JavaScript/jQuery
-                                    $(document).ready(function() {
-                                        $('input[name="race_type"]').on('change', function() {
-                                            var selectedRaceType = $(this).val();
-                                            $('[id^="dropdownDiv_"]').hide(); // Hide all dropdown divs
-                                            $('#dropdownDiv_' + selectedRaceType)
-                                                .show(); // Show the specific dropdown div for the selected race type
-                                        });
-                                    });
-                                </script>
-
+                                <div class="f-montserrat mt-5 w-50">
+                                    SELECT UNCLAIMED RACE CREDIT
+                                </div>
+                                <select class="form-select w-50" id="raceCreditDropdown" name="credit_id">
+                                    <option value="" selected disabled>Select Race Credit</option>
+                                    @foreach ($race_credits as $race_credit)
+                                        <option value="{{ $race_credit->credit_id }}">
+                                            Credit ID: {{ $race_credit->credit_id }},
+                                            Expiration Date: {{ date('M j, Y', strtotime($race_credit->exp_date)) }}
+                                        </option>
+                                    @endforeach
+                                </select>
 
                                 <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
                                 <input type="hidden" name="event_id" value="{{ $event->event_id }}">
                                 <div class="f-montserrat mt-4">
-                                    <button type="submit" {{ Auth::user()->race_credit_quantity == 0 ? 'disabled' : '' }}
-                                        class=" view-event-btn {{ Auth::user()->r_credits == 0 ? 'view-event-btn-disabled' : '' }} ">Claim
+                                    <button type="submit" {{ $race_credit_quantity == 0 ? 'disabled' : '' }}
+                                        class="view-event-btn {{ $race_credit_quantity == 0 ? 'view-event-btn-disabled' : '' }}">Claim
                                         Race</button>
                                 </div>
                             </form>
-                        </div>
 
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <script>
         // Function to handle the confirmation modal for join
@@ -266,12 +263,23 @@
         }
 
         // Function to handle the "Yes" button click for cancel
-        function confirmCancelYes() { 
+        function confirmCancelYes() {
             $('#cancellationModal').modal('hide');
             document.getElementById('cancelForm').submit();
         }
 
         // Add event listener to the "Yes" button in the confirmation modal for cancel
         document.getElementById('confirmCancelBtn').addEventListener('click', confirmCancelYes);
+
+        // JavaScript/jQuery
+        $(document).ready(function() {
+            $('input[name="race_type"]').on('change', function() {
+                var selectedRaceType = $(this).val();
+                $('[id^="dropdownDiv_"]').hide(); // Hide all dropdown divs
+                $('#dropdownDiv_' + selectedRaceType)
+                    .show(); // Show the specific dropdown div for the selected race type
+            });
+
+        });
     </script>
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Events;
 use App\Models\RaceCode;
+use App\Models\RaceCredit;
 use App\Models\Races;
 use App\Models\VolunteerStatus;
 use Illuminate\Http\Request;
@@ -103,8 +104,15 @@ class ClaimCodeController extends Controller
         $validatedData = $request->validate([
             'volunteer_id' => 'required|numeric',
             'event_id' => 'required|numeric',
-            'race_id' => 'required'
+            'race_id' => 'required',
+            'credit_id' => 'required'
         ]);
+
+
+        //changing the unclaimed to claimed
+        RaceCredit::where('volunteer_id', Auth::user()->volunteer_id)
+            ->where('credit_id', $validatedData['credit_id'])
+            ->update(['status' => 'claimed']);
 
 
         // Create a new RaceCode object and set its properties
@@ -112,6 +120,7 @@ class ClaimCodeController extends Controller
         $race_code->volunteer_id = $validatedData['volunteer_id'];
         $race_code->event_id = $validatedData['event_id'];
         $race_code->race_id = $validatedData['race_id'];
+        $race_code->credit_id = $validatedData['credit_id'];
         $race_code->status = 'checking';
         $race_code->save();
 
