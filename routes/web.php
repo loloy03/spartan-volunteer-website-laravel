@@ -6,6 +6,7 @@ use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\VolunteerController;
+use App\Http\Controllers\Auth\StaffLoginController;
 
 use App\Http\Livewire\AddVolunteer;
 
@@ -16,11 +17,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Auth::routes(['verify' => true]);
 
 // Home page (authenticated)
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/home', function() {
-    return view('home');
-})->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // List events
 Route::get('/event', [App\Http\Controllers\EventController::class, 'index'])->name('event');
@@ -120,7 +117,8 @@ Route::post('/staff-signup', [StaffController::class, 'store'])->middleware('gue
 
 // Staff Login
 Route::get('/staff-login', [StaffController::class, 'showLoginForm'])->middleware('guest');
-Route::post('/staff-login', [StaffController::class, 'login'])->middleware('guest');
+// Route::post('/staff-login', [StaffController::class, 'login'])->middleware('guest');
+Route::post('/staff-login', [StaffLoginController::class, 'login'])->name('staff.login');
 
 // Staff-Give Volunteer Role
 // input staff_id, event_id, and staff_role/staff_status
@@ -135,6 +133,3 @@ Route::post('/{event}/check-attendance', [VolunteerController::class, 'updatePen
 // shared by staff and admin
 Route::get('admin-staff-view-event/{event}', [EventController::class, 'show'])->name('admin-staff-view-event');
 
-Route::get('/fail-login', function () {
-    return view('fail-login');
-});
