@@ -78,8 +78,6 @@ class VolunteerController extends Controller
         ->first();
 
         $staffRole = ucwords($role->role);
-
-        // dd($event, $staffId, $staffRole);
         
         $volunteers = Volunteer::select(
             'volunteer.volunteer_id',
