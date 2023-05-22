@@ -2,11 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\StaffController;
 use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\Auth\StaffLoginController;
+use App\Http\Controllers\Auth\AdministratorLoginController;
+
 
 use App\Http\Livewire\AddVolunteer;
 
@@ -89,8 +89,8 @@ Route::group(['middleware' => ['admin']], function () {
 // Route::post('/admin-signup', [AdministratorController::class, 'store'])->middleware('guest');
 
 // Admin Login
-Route::get('/admin-login', [AdministratorController::class, 'showLoginForm'])->middleware('guest');
-Route::post('/admin-login', [AdministratorController::class, 'login'])->middleware('guest');
+Route::get('/admin-login', [AdministratorLoginController::class, 'showLoginForm']);
+Route::post('/admin-login', [AdministratorLoginController::class, 'login']);
 
 //Route::get('/logout', [AdminController::class, 'logout'])->middleware('auth');
 
