@@ -22,6 +22,7 @@ class VolunteerController extends Controller
             'volunteer.volunteer_id',
             'volunteer.first_name',
             'volunteer.last_name',
+            'volunteer.occupation',
             'event.title',
             'volunteer_status.event_id',
             'volunteer_status.attendance_status'
@@ -72,12 +73,13 @@ class VolunteerController extends Controller
         $event = Events::where('event_id', $eventId)->get();
         $staffId = auth()->guard('staff')->user()->staff_id;
 
-        $role = StaffStatus::select('role')
-        ->where('staff_id', $staffId)
+        $role = StaffStatus::where('staff_id', $staffId)
         ->where('event_id', $eventId)
         ->first();
 
-        $staffRole = ucwords($role);
+        $staffRole = ucwords($role->role);
+
+        // dd($event, $staffId, $staffRole);
         
         $volunteers = Volunteer::select(
             'volunteer.volunteer_id',
@@ -99,7 +101,7 @@ class VolunteerController extends Controller
             // ->whereNotNull('volunteer_status.check_in')
             // ->whereNotNull('volunteer_status.check_out')
             ->paginate(20);
-        // dd($volunteers);
+        //dd($volunteers);
         return view('staff.check-attendance', compact('volunteers', 'event'));
     }
 
