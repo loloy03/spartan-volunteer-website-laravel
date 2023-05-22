@@ -74,7 +74,6 @@
                                     <h6 class="modal-title">Are you sure you want to join?</h6>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="view-event-btn" data-dismiss="modal">No</button>
                                     <button type="button" id="confirmJoinButton" class="view-event-btn">Yes</button>
                                 </div>
                             </div>
@@ -261,19 +260,13 @@
         // Add event listener to the "Yes" button in the confirmation modal for join
         document.getElementById('confirmJoinButton').addEventListener('click', confirmJoinYes);
 
-        // Add event listener to the "No" button in the confirmation modal for join
-        document.querySelector('#confirmationModal .btn-secondary').addEventListener('click', confirmJoinNo);
-
-
-
-
         // Function to handle the confirmation modal for cancel
         function confirmCancel() {
             $('#cancellationModal').modal('show');
         }
 
         // Function to handle the "Yes" button click for cancel
-        function confirmCancelYes() {
+        function confirmCancelYes() { 
             $('#cancellationModal').modal('hide');
             document.getElementById('cancelForm').submit();
         }
