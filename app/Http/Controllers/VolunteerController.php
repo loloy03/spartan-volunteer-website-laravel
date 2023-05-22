@@ -43,6 +43,7 @@ class VolunteerController extends Controller
     {
         $volunteerId = $request->input('volunteer-id');
         $staffId = auth()->guard('staff')->user()->staff_id;
+        
         $role = StaffStatus::where('staff_id', $staffId)
         ->where('event_id', $eventId)
         ->first();
@@ -70,11 +71,13 @@ class VolunteerController extends Controller
     {
         $event = Events::where('event_id', $eventId)->get();
         $staffId = auth()->guard('staff')->user()->staff_id;
-        $role = StaffStatus::where('staff_id', $staffId)
+
+        $role = StaffStatus::select('role')
+        ->where('staff_id', $staffId)
         ->where('event_id', $eventId)
         ->first();
 
-        $staffRole = $volunteerRole = ucwords($role->first()->role);
+        $staffRole = ucwords($role);
         
         $volunteers = Volunteer::select(
             'volunteer.volunteer_id',
