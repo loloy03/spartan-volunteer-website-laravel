@@ -116,8 +116,8 @@ Route::group(['middleware' => ['staff']], function () {
 // Route::post('/staff-signup', [StaffController::class, 'store'])->middleware('guest');
 
 // Staff Login
-Route::get('/staff-login', [StaffController::class, 'showLoginForm'])->middleware('guest');
-Route::post('/staff-login', [StaffController::class, 'login'])->middleware('guest');
+Route::get('/staff-login', [StaffLoginController::class, 'showLoginForm']);
+Route::post('/staff-login', [StaffLoginController::class, 'login']);
 
 // Staff-Give Volunteer Role
 // input staff_id, event_id, and staff_role/staff_status
