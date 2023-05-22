@@ -32,9 +32,10 @@
                         @if ($joining_events->count() > 0)
                             @foreach ($joining_events as $event)
                                 <div class="p-3">
-                                    <div class="row p-3 bg-light-gray f-lato">
-                                        <div class="col-lg-6 my-auto">
-
+                                    <div class="row p-3 bg-light-gray f-lato view-history-hover" type="button"
+                                        class="w-100 border-0"
+                                        onclick="window.location='{{ route('view-event', $event->event_id) }}'">
+                                        <div class="col-lg-6 my-auto ">
                                             <div class="d-block">
                                                 <div class="fs-3 f-montserrat">
                                                     {{ $event->title }}
@@ -44,10 +45,8 @@
                                                 <img src="/images/icons/pin-icon.png" width="15px">
                                                 {{ $event->location }}
                                             </div>
-
                                         </div>
                                         <div class="col-lg-6 my-auto pt-3">
-
                                             <div class="d-block">
                                                 <div class="d-inline-block f-montserrat">
                                                     Event Date:
@@ -61,7 +60,6 @@
                                                 {{-- staff first name --}}
                                                 {{ $event->first_name }}
                                             </div>
-
                                             <div class="d-block">
                                                 <div class="d-inline-block f-montserrat">
                                                     Status:
@@ -69,9 +67,9 @@
                                                 {{-- event status --}}
                                                 {{ ucfirst($event->attendance_status) }}
                                             </div>
-
                                         </div>
                                     </div>
+
                                 </div>
                             @endforeach
                         @else
@@ -88,7 +86,9 @@
                         @if ($claiming_code_events->count() > 0)
                             @foreach ($claiming_code_events as $event)
                                 <div class="p-3">
-                                    <div class="row p-3 bg-light-gray f-lato">
+                                    <div class="row p-3 bg-light-gray f-lato view-history-hover" type="button"
+                                        class="w-100 border-0"
+                                        onclick="window.location='{{ route('view-event', $event->event_id) }}'">
                                         <div class="col-lg-6 my-auto">
 
                                             <div class="d-block">
