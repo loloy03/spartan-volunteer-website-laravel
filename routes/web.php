@@ -7,9 +7,6 @@ use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\Auth\StaffLoginController;
 use App\Http\Controllers\Auth\AdministratorLoginController;
 
-
-use App\Http\Livewire\AddVolunteer;
-
 // Home page
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
