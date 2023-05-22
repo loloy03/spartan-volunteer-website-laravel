@@ -93,8 +93,8 @@ class VolunteerController extends Controller
             ->where('volunteer_status.attendance_status', 'confirmed')
             ->where('event.event_id', $eventId)
             ->where('volunteer_status.role', $staffRole)
-            ->whereNotNull('volunteer_status.check_in')
-            ->whereNotNull('volunteer_status.check_out')
+            // ->whereNotNull('volunteer_status.check_in')
+            // ->whereNotNull('volunteer_status.check_out')
             ->paginate(20);
         // dd($volunteers);
         return view('staff.check-attendance', compact('volunteers', 'event'));

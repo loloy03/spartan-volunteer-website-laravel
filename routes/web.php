@@ -6,6 +6,7 @@ use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\VolunteerController;
+use App\Http\Controllers\Auth\StaffLoginController;
 
 use App\Http\Livewire\AddVolunteer;
 
@@ -16,11 +17,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Auth::routes(['verify' => true]);
 
 // Home page (authenticated)
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/home', function() {
-    return view('home');
-})->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // List events
 Route::get('/event', [App\Http\Controllers\EventController::class, 'index'])->name('event');
@@ -88,8 +85,8 @@ Route::group(['middleware' => ['admin']], function () {
 });
 
 // Admin Signup
-Route::get('/admin-signup', [AdministratorController::class, 'create'])->middleware('guest');
-Route::post('/admin-signup', [AdministratorController::class, 'store'])->middleware('guest');
+// Route::get('/admin-signup', [AdministratorController::class, 'create'])->middleware('guest');
+// Route::post('/admin-signup', [AdministratorController::class, 'store'])->middleware('guest');
 
 // Admin Login
 Route::get('/admin-login', [AdministratorController::class, 'showLoginForm'])->middleware('guest');
@@ -115,8 +112,8 @@ Route::group(['middleware' => ['staff']], function () {
 });
 
 // Staff Signup
-Route::get('/staff-signup', [StaffController::class, 'create'])->middleware('guest');
-Route::post('/staff-signup', [StaffController::class, 'store'])->middleware('guest');
+// Route::get('/staff-signup', [StaffController::class, 'create'])->middleware('guest');
+// Route::post('/staff-signup', [StaffController::class, 'store'])->middleware('guest');
 
 // Staff Login
 Route::get('/staff-login', [StaffController::class, 'showLoginForm'])->middleware('guest');
@@ -135,6 +132,3 @@ Route::post('/{event}/check-attendance', [VolunteerController::class, 'updatePen
 // shared by staff and admin
 Route::get('admin-staff-view-event/{event}', [EventController::class, 'show'])->name('admin-staff-view-event');
 
-Route::get('/fail-login', function () {
-    return view('fail-login');
-});
