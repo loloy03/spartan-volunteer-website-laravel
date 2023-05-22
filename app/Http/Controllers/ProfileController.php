@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Volunteer;
 use App\Models\VolunteerStatus;
 use App\Models\RaceCode;
+use App\Models\RaceCredit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -28,10 +29,13 @@ class ProfileController extends Controller
             ->where('race_code.status', '!=', 'released')
             ->get();
 
-
+        $race_credit = RaceCredit::where('volunteer_id', Auth::user()->volunteer_id)
+            ->where('status','=','unclaimed')
+            ->get();
+        $race_credit_quantity = $race_credit->count();
 
         // Pass event data and status variables to the view
-        return view('profile', compact('joining_events', 'claiming_code_events'));
+        return view('profile', compact('joining_events', 'claiming_code_events','race_credit_quantity'));
     }
 
 

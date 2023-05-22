@@ -152,7 +152,7 @@
                             </div>
                             <div class="col-lg-6 mb-5">
                                 <div class="f-lato text-muted">Race Credits</div>
-                                <div class="f-montserrat mb-2"> {{ Auth::user()->r_credits }} </div>
+                                <div class="f-montserrat mb-2"> {{ $race_credit_quantity }} </div>
                                 <div class="f-lato text-muted">First Name</div>
                                 <div class="f-montserrat mb-2"> {{ Auth::user()->first_name }} </div>
                                 <div class="f-lato text-muted">Last Name</div>
