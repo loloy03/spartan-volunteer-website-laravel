@@ -6,6 +6,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\Auth\StaffLoginController;
 use App\Http\Controllers\Auth\AdministratorLoginController;
+use App\Http\Controllers\DashboardController;
 
 // Home page
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -78,7 +79,7 @@ Route::group(['middleware' => ['auth']], function () {
 // IMPORTANT: It seems using Administrator instead of Admin is preferable
 Route::group(['middleware' => ['admin']], function () {
     //
-    
+    Route::get('/admin-dashboard', [DashboardController::class, 'showAdminDashboard']);
 });
 
 // Admin Signup
@@ -106,6 +107,8 @@ Route::group(['middleware' => ['staff']], function () {
     Route::get('/test-login', function () {
         return view('test-login');
     });
+
+    Route::get('/staff-dashboard', [DashboardController::class, 'showStaffDashboard']);
 });
 
 // Staff Signup
