@@ -98,10 +98,12 @@
                             <div>
                                 Preview:
                             </div>
+                            @error('photo')
+                                <div class="alert alert-danger p-2 mt-2">{{ $message }}</div>
+                            @enderror
                             <div class="text-center mt-2">
                                 <img id="preview" src="#" alt="Preview" style="display: none; max-width: 100%;">
                             </div>
-
 
                             <form method="POST" action="{{ route('claim_code.upload_receipt') }}"
                                 enctype="multipart/form-data">
@@ -126,10 +128,10 @@
                             </form>
                         </div>
 
+
                         <div
                             class="{{ $race_price - $r_credit_value != 0 || $race_code->status != 'checking' ? 'd-none' : '' }}">
-                            <form method="POST" action="{{ route('claim_code.confirm') }}"
-                                enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('claim_code.confirm') }}" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
                                 <input type="hidden" name="event_id" value="{{ $event->event_id }}">
