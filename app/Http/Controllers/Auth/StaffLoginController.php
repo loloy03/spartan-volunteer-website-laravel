@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\RedirectsUsers;
+// use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\JsonResponse;
 
@@ -137,12 +137,12 @@ class StaffLoginController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    // protected function sendFailedLoginResponse(Request $request)
-    // {
-    //     throw ValidationException::withMessages([
-    //         $this->username() => [trans('auth.failed')],
-    //     ]);
-    // }
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        throw ValidationException::withMessages([
+            $this->username() => [trans('auth.failed')],
+        ]);
+    }
 
     /**
      * Get the login username to be used by the controller.
@@ -196,6 +196,11 @@ class StaffLoginController extends Controller
     protected function guard()
     {
         return Auth::guard('staff');
+    }
+
+    protected function redirectPath()
+    {
+        return 'staff/staff-dashboard';
     }
 
 }
