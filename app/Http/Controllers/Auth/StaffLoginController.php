@@ -200,7 +200,7 @@ class StaffLoginController extends Controller
 
     protected function redirectPath()
     {
-        return 'staff/staff-dashboard';
+        return '/staff-dashboard';
     }
 
 }

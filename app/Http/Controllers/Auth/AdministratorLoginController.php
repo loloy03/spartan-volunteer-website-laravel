@@ -205,6 +205,6 @@ class AdministratorLoginController extends Controller
 
     protected function redirectPath()
     {
-        return 'admin/admin-dashboard';
+        return '/admin-dashboard';
     }
 }
