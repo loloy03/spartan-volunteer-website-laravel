@@ -90,7 +90,7 @@ Route::group(['middleware' => ['admin']], function () {
 Route::get('/admin-login', [AdministratorLoginController::class, 'showLoginForm']);
 Route::post('/admin-login', [AdministratorLoginController::class, 'login']);
 
-//Route::get('/logout', [AdminController::class, 'logout'])->middleware('auth');
+Route::post('/admin-logout', [AdministratorLoginController::class, 'logout']);
 
 // Create Event
 Route::get('/create-event', [EventController::class, 'create'])->name('create-event');
@@ -118,6 +118,8 @@ Route::group(['middleware' => ['staff']], function () {
 // Staff Login
 Route::get('/staff-login', [StaffLoginController::class, 'showLoginForm']);
 Route::post('/staff-login', [StaffLoginController::class, 'login']);
+
+Route::post('/staff-logout', [StaffLoginController::class, 'logout']);
 
 // Staff-Give Volunteer Role
 // input staff_id, event_id, and staff_role/staff_status

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
-// use Illuminate\Foundation\Auth\RedirectsUsers;
+use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\JsonResponse;
 
@@ -119,7 +119,7 @@ class AdministratorLoginController extends Controller
 
         return $request->wantsJson()
                     ? new JsonResponse([], 204)
-                    : redirect()->intended($this->redirectPath());
+                    : redirect()->intended('/admin-dashboard');
     }
 
     /**
@@ -179,7 +179,7 @@ class AdministratorLoginController extends Controller
 
         return $request->wantsJson()
             ? new JsonResponse([], 204)
-            : redirect('/');
+            : redirect('/admin-login');
     }
 
     /**

@@ -114,7 +114,7 @@ class StaffLoginController extends Controller
 
         return $request->wantsJson()
                     ? new JsonResponse([], 204)
-                    : redirect()->intended($this->redirectPath());
+                    : redirect()->intended('/staff-dashboard');
     }
 
     /**
@@ -174,7 +174,7 @@ class StaffLoginController extends Controller
 
         return $request->wantsJson()
             ? new JsonResponse([], 204)
-            : redirect('/');
+            : redirect('/staff-login');
     }
 
     /**
