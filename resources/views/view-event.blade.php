@@ -22,6 +22,11 @@
                     {{ session('error') }}
                 </div>
             @endif
+            @if (session('success'))
+                <div class="alert alert-success p-2 mt-2">
+                    {{ session('success') }}
+                </div>
+            @endif
             <div class="col-lg-6 p-4 my-auto">
                 <div class="f-montserrat">
                     <!-- Date of the event, converted to uppercase -->
@@ -174,12 +179,24 @@
                             class="my-auto view-event-btn f-montserrat {{ $code_status == 'NOT AVAILABLE' || $attendance_status == 'joining' ? 'view-event-btn-disabled' : '' }}"
                             {{ $code_status == 'NOT AVAILABLE' ? 'disabled' : '' }} data-bs-toggle="collapse"
                             data-bs-target="#view" aria-controls="navbarSupportedContent" aria-expanded="false"
-                            aria-label="{{ __('Toggle navigation') }}">See Races</button>
+                            aria-label="{{ __('Toggle navigation') }}">Claim Now</button>
 
                     </div>
-                    <div class="mt-4 collapse" id="view">
+                    <div class="mt-4 collapse bg-white p-4" id="view">
                         <div class="f-montserrat">
-                            AVAILABLE RACES
+                            1. SELECT AVAILABLE RACES
+                        </div>
+                        <div class="mb-4">
+                            <div class="block">
+                                Reminder:
+                            </div>
+                            <div class="block">
+                                * The equivalent of 1 Free Race Credit is P3,500.
+                            </div>
+                            <div class="block">
+                                * If you select a race with an amount exceeding P3,500, you will be required to pay the
+                                remaining balance.
+                            </div>
                         </div>
 
                         <div class="f-lato text-muted fs-10 mb-2">PICK ONLY ONE RACE TO CLAIM CODE</div>
@@ -193,21 +210,23 @@
                         </div>
 
                         <div class="f-lato mt-1">
-                            <form method="POST" action="{{ route('claim_code.store_race') }}">
+                            <form method="POST" action="{{ route('claim_code.store_race') }}"
+                                enctype="multipart/form-data">
                                 @csrf
 
                                 @foreach ($races as $race)
                                     <div>
                                         <input type="radio" name="race_id" value="{{ $race->race_id }}"
-                                            id="{{ $race->race_id }}" class="race-radio">
-                                        <label for="{{ $race->race_type }}">{{ strtoupper($race->race_type) }}</label>
+                                            id="{{ $race->race_id }}" class="race-radio"
+                                            onclick="displayPrice('{{ $race->race_id }}', '{{ $race->price }}')">
+                                        <label for="{{ $race->race_id }}">{{ strtoupper($race->race_type) }}</label>
                                     </div>
                                 @endforeach
 
-                                <div class="f-montserrat mt-5 w-50">
-                                    SELECT UNCLAIMED RACE CREDIT
+                                <div class="f-montserrat mt-5 w-100">
+                                    2. SELECT UNCLAIMED RACE CREDIT
                                 </div>
-                                <select class="form-select w-50" id="raceCreditDropdown" name="credit_id">
+                                <select class="form-select w-75" id="raceCreditDropdown" name="credit_id">
                                     <option value="" selected disabled>Select Race Credit</option>
                                     @foreach ($race_credits as $race_credit)
                                         <option value="{{ $race_credit->credit_id }}">
@@ -217,18 +236,46 @@
                                     @endforeach
                                 </select>
 
-                                <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
-                                <input type="hidden" name="event_id" value="{{ $event->event_id }}">
-                                <div class="f-montserrat mt-4">
-                                    <button type="submit" {{ $race_credit_quantity == 0 ? 'disabled' : '' }}
-                                        class="view-event-btn {{ $race_credit_quantity == 0 ? 'view-event-btn-disabled' : '' }}">Claim
-                                        Race</button>
+                                <div class="f-montserrat mt-5 w-100">
+                                    3. PAY BALANCE
+                                </div>
+                                <div id="priceDisplay" style="display: none;">
+                                    <div class="d-block">
+                                        Selected Race Price: <span id="racePrice"></span>
+                                    </div>
+                                    <div class="d-block">
+                                        Race Credit Value: <span>{{ $r_credit_value }}</span>
+                                    </div>
+                                    <div class="d-block">
+                                        You need to pay: <span id="raceBalance"></span>
+                                    </div>
+                                </div>
+                                <div id="receiptDisplay" style="display: none;">
+                                    <div class="mt-3">
+                                        Preview:
+                                    </div>
+                                    <div class="text-center mt-2">
+                                        <img id="preview" src="#" alt="Preview"
+                                            style="display: none; max-width: 100%;">
+                                    </div>
+
+                                    <input type="file" name="photo" id="photo" class="form-control"
+                                        onchange="previewPhoto(event)">
+                                </div>
+
+                                <div>
+                                    <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
+                                    <input type="hidden" name="event_id" value="{{ $event->event_id }}">
+                                    <div class="f-montserrat mt-4">
+                                        <button type="submit" {{ $race_credit_quantity == 0 ? 'disabled' : '' }}
+                                            class="view-event-btn {{ $race_credit_quantity == 0 ? 'view-event-btn-disabled' : '' }}">Claim
+                                            Race</button>
+                                    </div>
                                 </div>
                             </form>
 
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -281,5 +328,41 @@
             });
 
         });
+
+        function previewPhoto(event) {
+            var input = event.target;
+            var preview = document.getElementById('preview');
+            preview.style.display = input.files && input.files[0] ? 'block' : 'none';
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+
+        };
+
+        function displayPrice(raceId, price) {
+            var priceDisplay = document.getElementById('priceDisplay');
+            var racePrice = document.getElementById('racePrice');
+            var receiptDisplay = document.getElementById('receiptDisplay');
+
+
+            if (price !== null) {
+                racePrice.textContent = price;
+                raceBalance.textContent = price - 3500;
+                priceDisplay.style.display = 'block';
+                if (raceBalance.textContent != 0) {
+                    receiptDisplay.style.display = 'block';
+                }
+                if (raceBalance.textContent == 0) {
+                    receiptDisplay.style.display = 'none';
+                }
+            } else {
+                priceDisplay.style.display = 'none';
+            }
+        }
     </script>
 @endsection

@@ -46,7 +46,7 @@
                                     <div class="f-lato d-inline-block">KIND OF RACE TO BE CLAIM:</div>
                                     <div class="d-inline-block text-danger">{{ strtoupper($race_type) }}</div>
                                 </div>
-                                <div class="{{ $race_code->status == 'checking' ? 'd-none' : '' }}">
+                                <div>
                                     <div class="f-lato d-inline-block">STATUS:</div>
                                     <div
                                         class="text-success d-inline-block {{ $race_code->status == 'pending' ? 'text-warning' : '' }}">
@@ -56,79 +56,7 @@
                             </div>
                         </div>
 
-                        {{-- if the user need to pay --}}
-                        <div
-                            class="f-montserrat text-muted mt-4 {{ $race_price < 0 || $race_code->status != 'checking' ? 'd-none' : '' }} ">
-
-                            <div class="mb-4">
-                                <div class="block">
-                                    Reminder:
-                                </div>
-                                <div class="block">
-                                    * The equivalent of 1 Free Race Credit is P3,500.
-                                </div>
-                                <div class="block">
-                                    * If you select a race with an amount exceeding P3,500, you will be required to pay the
-                                    remaining balance.
-                                </div>
-                            </div>
-
-                            <div class="d-block">
-                                <div class="d-inline-block">Race Price: </div>
-                                {{ $race_price }}
-                            </div>
-                            <div class="d-block">
-                                <div class="d-inline-block">Race Credit Value: </div>
-                                {{ $r_credit_value }}
-                            </div>
-                            <div class="d-block">
-                                <div class="d-inline-block">You need to pay: </div>
-                                {{ $race_price - $r_credit_value }}
-                            </div>
-                        </div>
-
-                        <div
-                            class="{{ $race_price - $r_credit_value == 0 || $race_code->status != 'checking' ? 'd-none' : '' }}">
-                            <div class="f-lato fs-10 mt-4">PLEASE SEND YOUR RECEIPT HERE:</div>
-                            @if (session('success'))
-                                <div class="alert alert-success p-2 mt-2">
-                                    {{ session('success') }}
-                                </div>
-                            @endif
-                            <div>
-                                Preview:
-                            </div>
-                            @error('photo')
-                                <div class="alert alert-danger p-2 mt-2">{{ $message }}</div>
-                            @enderror
-                            <div class="text-center mt-2">
-                                <img id="preview" src="#" alt="Preview" style="display: none; max-width: 100%;">
-                            </div>
-
-                            <form method="POST" action="{{ route('claim_code.upload_receipt') }}"
-                                enctype="multipart/form-data">
-                                @csrf
-                                <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
-                                <input type="hidden" name="event_id" value="{{ $event->event_id }}">
-                                <input type="file" name="photo" id="photo" class="form-control"
-                                    onchange="previewPhoto(event)">
-                                <div class="text-center">
-                                    <input type="submit" value="Upload and Confirm Claim Code"
-                                        class="view-event-btn f-montserrat mt-2">
-                                </div>
-                            </form>
-
-                            <form method="POST" action="{{ route('claim_code.cancel') }}" enctype="multipart/form-data">
-                                @csrf
-                                <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
-                                <input type="hidden" name="event_id" value="{{ $event->event_id }}">
-                                <div class="text-center">
-                                    <input type="submit" value="Cancel" class="view-event-btn f-montserrat mt-2">
-                                </div>
-                            </form>
-                        </div>
-
-
+                   
                         <div
                             class="{{ $race_price - $r_credit_value != 0 || $race_code->status != 'checking' ? 'd-none' : '' }}">
                             <form method="POST" action="{{ route('claim_code.confirm') }}" enctype="multipart/form-data">

@@ -20,96 +20,99 @@ class ClaimCodeController extends Controller
         $validatedData = $request->validate([
             'volunteer_id' => 'required|numeric',
             'event_id' => 'required|numeric',
-            'photo' => 'required',
+            'photo' => 'nullable',
         ]);
 
-        // Get the uploaded file
-        $file = $request->file('photo');
+        if ($request->hasFile('photo')) {
+            // Get the uploaded file
+            $file = $request->file('photo');
 
-        // Set a unique file name based on the current timestamp and the file extension
-        $fileName = time() . '.' . $file->getClientOriginalExtension();
+            // Set a unique file name based on the current timestamp and the file extension
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
 
+            // Save the file to the "images" folder in the public directory
+            $file->move(public_path('images'), $fileName);
 
-        $raceCode = RaceCode::where('volunteer_id', $validatedData['volunteer_id'])
-            ->where('event_id', $validatedData['event_id'])
-            ->first();
+            $raceCode = RaceCode::where('volunteer_id', $validatedData['volunteer_id'])
+                ->where('event_id', $validatedData['event_id'])
+                ->first();
 
-        if ($raceCode) {
-            $raceCode->receipt = $fileName;
-            $raceCode->status = "pending";
-            $raceCode->save();
+            if ($raceCode) {
+                $raceCode->receipt = $fileName;
+                $raceCode->status = "pending";
+                $raceCode->save();
+            }
+
+            // Redirect back to the previous page with a success message
+            return redirect()->back()->with('success', 'Receipt uploaded successfully.');
+        } else {
+            // Handle the case when no file is uploaded
+            return redirect()->back()->with('error', 'No file uploaded.');
         }
-
-
-        // Save the file to the "images" folder in the public directory
-        $file->move(public_path('images'), $fileName);
-
-        // Redirect back to the previous page with a success message
-        return redirect()->back()->with('success', 'Receipt uploaded successfully.');
     }
 
 
-    public function confirm(Request $request)
-    {
-        // Validate the uploaded file
-        $validatedData = $request->validate([
-            'volunteer_id' => 'required|numeric',
-            'event_id' => 'required|numeric',
-        ]);
 
-        $raceCode = RaceCode::where('volunteer_id', $validatedData['volunteer_id'])
-            ->where('event_id', $validatedData['event_id'])
-            ->first();
+    // public function confirm(Request $request)
+    // {
+    //     // Validate the uploaded file
+    //     $validatedData = $request->validate([
+    //         'volunteer_id' => 'required|numeric',
+    //         'event_id' => 'required|numeric',
+    //     ]);
 
-
-        if ($raceCode) {
-            $raceCode->status = "pending";
-            $raceCode->save();
-        }
-
-        // Redirect back to the previous page with a success message
-        return redirect()->back()->with('success', 'Receipt uploaded successfully.');
-    }
+    //     $raceCode = RaceCode::where('volunteer_id', $validatedData['volunteer_id'])
+    //         ->where('event_id', $validatedData['event_id'])
+    //         ->first();
 
 
-    public function cancel(Request $request)
-    {
-        // Validate the input data
-        $validatedData = $request->validate([
-            'volunteer_id' => 'required|numeric',
-            'event_id' => 'required|numeric',
-        ]);
+    //     if ($raceCode) {
+    //         $raceCode->status = "pending";
+    //         $raceCode->save();
+    //     }
 
-        // Find the existing race code in the database
-        $race_code = RaceCode::where([
-            'volunteer_id' => $validatedData['volunteer_id'],
-            'event_id' => $validatedData['event_id'],
-        ])->first();
+    //     // Redirect back to the previous page with a success message
+    //     return redirect()->back()->with('success', 'Receipt uploaded successfully.');
+    // }
 
-        if ($race_code) {
-            // Delete the race code from the database
-            $race_code->delete();
-        }
 
-        // Redirect the user back to the previous page
-        return redirect(route('view-event', $request->event_id));
-    }
+    // public function cancel(Request $request)
+    // {
+    //     // Validate the input data
+    //     $validatedData = $request->validate([
+    //         'volunteer_id' => 'required|numeric',
+    //         'event_id' => 'required|numeric',
+    //     ]);
+
+    //     // Find the existing race code in the database
+    //     $race_code = RaceCode::where([
+    //         'volunteer_id' => $validatedData['volunteer_id'],
+    //         'event_id' => $validatedData['event_id'],
+    //     ])->first();
+
+    //     if ($race_code) {
+    //         // Delete the race code from the database
+    //         $race_code->delete();
+    //     }
+
+    //     // Redirect the user back to the previous page
+    //     return redirect(route('view-event', $request->event_id));
+    // }
 
 
 
 
     public function store_race_type(Request $request)
     {
-        // Validate the input data
         $validatedData = $request->validate([
             'volunteer_id' => 'required|numeric',
             'event_id' => 'required|numeric',
             'race_id' => 'required',
-            'credit_id' => 'required'
+            'credit_id' => 'required',
+            'photo' => 'nullable',
         ]);
 
-
-        //changing the unclaimed to claimed
+        // Changing the unclaimed to claimed
         RaceCredit::where('volunteer_id', Auth::user()->volunteer_id)
             ->where('credit_id', $validatedData['credit_id'])
             ->update(['status' => 'claimed']);
@@ -121,12 +124,28 @@ class ClaimCodeController extends Controller
         $race_code->event_id = $validatedData['event_id'];
         $race_code->race_id = $validatedData['race_id'];
         $race_code->credit_id = $validatedData['credit_id'];
-        $race_code->status = 'checking';
+        if ($request->hasFile('photo')) {
+            // Get the uploaded file
+            $file = $request->file('photo');
+
+            // Set a unique file name based on the current timestamp and the file extension
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+
+            // Save the file to the "images" folder in the public directory
+            $file->move(public_path('images'), $fileName);
+        } else {
+            $race_code->remarks = 'asd';
+            $fileName = null;
+        }
+        $race_code->receipt = $fileName;
+        $race_code->status = 'pending';
         $race_code->save();
 
         // Redirect the user back to the previous page
-        return redirect(route('claim_code.show', $request->event_id));
+        return redirect()->route('claim_code.show', $request->event_id);
     }
+
+
 
 
     public function show(Events $event)
