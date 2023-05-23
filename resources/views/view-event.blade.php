@@ -239,6 +239,7 @@
                                 <div class="f-montserrat mt-5 w-100">
                                     3. PAY BALANCE
                                 </div>
+
                                 <div id="priceDisplay" style="display: none;">
                                     <div class="d-block">
                                         Selected Race Price: <span id="racePrice"></span>
@@ -268,12 +269,12 @@
                                     <input type="hidden" name="event_id" value="{{ $event->event_id }}">
                                     <div class="f-montserrat mt-4">
                                         <button type="submit" {{ $race_credit_quantity == 0 ? 'disabled' : '' }}
-                                            class="view-event-btn {{ $race_credit_quantity == 0 ? 'view-event-btn-disabled' : '' }}">Claim
+                                            class="view-event-btn {{ $race_credit_quantity == 0 ? 'view-event-btn-disabled' : '' }}">
+                                            Claim
                                             Race</button>
                                     </div>
                                 </div>
                             </form>
-
                         </div>
                     </div>
                 </div>
@@ -347,8 +348,9 @@
         function displayPrice(raceId, price) {
             var priceDisplay = document.getElementById('priceDisplay');
             var racePrice = document.getElementById('racePrice');
+            var raceBalance = document.getElementById('raceBalance');
             var receiptDisplay = document.getElementById('receiptDisplay');
-
+            var photoInput = document.getElementById('photo');
 
             if (price !== null) {
                 racePrice.textContent = price;
@@ -356,13 +358,25 @@
                 priceDisplay.style.display = 'block';
                 if (raceBalance.textContent != 0) {
                     receiptDisplay.style.display = 'block';
-                }
-                if (raceBalance.textContent == 0) {
+                    photoInput.required = true;
+                    resetFileInput();
+                    previewPhoto(event); // Call previewPhoto function after resetting the file input
+                } else {
                     receiptDisplay.style.display = 'none';
+                    photoInput.required = false;
+                    previewPhoto(event); // Call previewPhoto function to hide the preview
                 }
             } else {
                 priceDisplay.style.display = 'none';
+                receiptDisplay.style.display = 'none';
+                photoInput.required = false;
+                previewPhoto(event); // Call previewPhoto function to hide the preview
             }
+        }
+
+        function resetFileInput() {
+            var fileInput = document.getElementById('photo');
+            fileInput.value = '';
         }
     </script>
 @endsection
