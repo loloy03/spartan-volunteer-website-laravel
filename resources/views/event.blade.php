@@ -15,7 +15,7 @@
             @endif
         </div>
 
-        <div class="f-lato">
+        <div class="f-lato my-3">
             <div class="f-montserrat d-inline-block">
                 SORT BY:
             </div>

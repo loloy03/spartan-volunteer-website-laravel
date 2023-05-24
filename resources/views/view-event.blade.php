@@ -51,10 +51,10 @@
                     </div>
                     <div class="d-flex justify-content-between">
                         <div class="f-montserrat fs-4">JOIN AS VOLUNTEER</div>
-                        <div class="f-lato mb-auto text-muted text-end fs-10">START AND END DATE OF REGISTRATION</div>
+                        <div class="f-lato mb-auto text-muted text-end fs-10 w-25">START AND END DATE OF REGISTRATION</div>
                     </div>
 
-                    <div class="d-flex justify-content-between {{ $attendance_status == 'joining' ? 'd-none' : '' }}">
+                    <div class=" mt-3 d-flex justify-content-between {{ $attendance_status == 'joining' ? 'd-none' : '' }}">
                         <!-- Display the status of the event -->
                         <div
                             class="text-success f-lato mb-auto fs-13 {{ $event_status == 'NOT AVAILABLE' || $event_status == 'VOLUNTEER CANCELLED' ? ' text-danger' : '' }}">
@@ -89,7 +89,7 @@
                         </div>
                     </div>
 
-                    <div class="{{ $attendance_status != 'joining' ? 'd-none' : '' }}">
+                    <div class=" {{ $attendance_status != 'joining' ? 'd-none' : '' }}">
                         <!-- Registration confirmation status -->
                         <div class="d-flex justify-content-between mt-2">
                             <div
@@ -168,9 +168,9 @@
                     </div>
                     <div class="d-flex justify-content-between">
                         <div class="f-montserrat fs-4">CLAIM CODE</div>
-                        <div class="f-lato mb-auto text-muted text-end fs-10">START AND END DATE OF CLAIMING CODE</div>
+                        <div class="f-lato mb-auto text-muted text-end fs-10 w-25">START AND END DATE OF CLAIMING CODE</div>
                     </div>
-                    <div class="d-flex justify-content-between ">
+                    <div class="mt-3 d-flex justify-content-between ">
                         <div
                             class="text-success f-lato mb-auto fs-13 {{ $code_status == 'NOT AVAILABLE' ? 'text-danger' : '' }}">
                             STATUS: {{ $code_status }}
@@ -193,7 +193,7 @@
                                 </div>
                                 <div class="p-3">
                                     <div class="mb-4 ">
-                                        <div class="block">
+                                        <div class="block ">
                                             Reminder:
                                         </div>
                                         <div class="block">
@@ -207,6 +207,14 @@
                                         </div>
                                     </div>
 
+                                    <div class="">
+                                        <i class="fa-solid fa-question fs-10 text-warning"></i>
+                                        <div class="custom-tooltip d-inline-block f-lato fs-10 text-warning"
+                                            data-toggle="tooltip" data-placement="top" data-trigger="click"
+                                            title="Race credits are credits earned by a volunteer after volunteering at an event. In each event, the volunteer can earn one race credit. One race credit is valid only for one year, based on the date of the event where the volunteer earned the race credit. One race credit can be used by the volunteer to claim a free race code to an event.">
+                                            WHAT IS RACE CREDITS
+                                        </div>
+                                    </div>
                                     <div class="d-block">
                                         <div class="f-lato text-muted fs-10 d-inline-block">YOUR RACE CREDITS:</div>
                                         <div class="f-lato text-muted fs-10 d-inline-block">{{ $race_credit_quantity }}
@@ -225,7 +233,8 @@
                                             <div>
                                                 <input type="radio" name="race_id" value="{{ $race->race_id }}"
                                                     id="{{ $race->race_id }}" class="race-radio"
-                                                    onclick="displayPrice('{{ $race->race_id }}', '{{ $race->price }}')" required>
+                                                    onclick="displayPrice('{{ $race->race_id }}', '{{ $race->price }}')"
+                                                    required>
                                                 <label
                                                     for="{{ $race->race_id }}">{{ strtoupper($race->race_type) }}</label>
                                             </div>
@@ -246,7 +255,7 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                    
+
                                 </div>
 
                                 <div class="f-montserrat mt-5 w-100">
@@ -429,5 +438,18 @@
             var fileInput = document.getElementById('photo');
             fileInput.value = '';
         }
+
+
+        $(document).ready(function() {
+            // Enable Bootstrap tooltip
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // Handle click event to show tooltip on mobile devices
+            if (/Mobi|Android/i.test(navigator.userAgent)) {
+                $('[data-toggle="tooltip"]').on('click', function() {
+                    $(this).tooltip('show');
+                });
+            }
+        });
     </script>
 @endsection

@@ -62,3 +62,14 @@ select {
     font-size: 10px;
     color: #333;
 }
+/* Custom styles for the tooltip */
+.custom-tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.custom-tooltip .tooltip-inner {
+    background-color: #007bff;
+    color: #fff;
+}
