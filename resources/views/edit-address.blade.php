@@ -31,9 +31,6 @@
                             <div class="f-lato text-muted">Zip Code</div>
                             <input class="form-control mb-2" type="text" name="zip" id="zip"
                                 value="{{ Auth::user()->zip }}">
-                            <div class="f-lato text-muted">Complete Secondary Address</div>
-                            <input class="form-control mb-2" type="text" name="second_add" id="second_add"
-                                value="{{ Auth::user()->second_add }}">
                             <div class="text-center">
                                 <button type="submit"
                                     class="button f-montserrat text-center w-50  mt-4">UPDATE

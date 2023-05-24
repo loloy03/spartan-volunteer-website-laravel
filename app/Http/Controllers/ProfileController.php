@@ -84,7 +84,6 @@ class ProfileController extends Controller
             'country' => 'nullable',
             'city' => 'nullable',
             'zip' => 'nullable',
-            'second_add' => 'nullable',
         ]);
 
         // Get the authenticated user
@@ -95,7 +94,6 @@ class ProfileController extends Controller
         $user->country = $validatedData['country'];
         $user->city = $validatedData['city'];
         $user->zip = $validatedData['zip'];
-        $user->second_add = $validatedData['second_add'];
         $user->save();
 
         // Redirect the user back to their profile page with a success message

@@ -200,11 +200,6 @@
                         <div class="f-montserrat mb-2 {{ Auth::user()->zip == null ? 'text-warning' : '' }}">
                             {{ Auth::user()->zip == null ? 'No Zip Code assigned yet' : Auth::user()->zip }}
                         </div>
-
-                        <div class="f-lato text-muted">Complete Secondary Address</div>
-                        <div class="f-montserrat mb-2  {{ Auth::user()->second_add == null ? 'text-warning' : '' }}">
-                            {{ Auth::user()->second_add == null ? 'No second address assigned yet' : Auth::user()->second_add }}
-                        </div>
                         <div class="text-center">
                             <button class="button f-montserrat w-50 mt-5 mb-3"
                                 onclick="window.location='{{ route('address_edit') }}'">EDIT ADDRESS</button>
