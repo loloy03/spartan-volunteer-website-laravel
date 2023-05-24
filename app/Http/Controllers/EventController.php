@@ -53,10 +53,6 @@ class EventController extends Controller
                 $events->orderBy('title', 'desc');
                 $picked_sort = "TITLE (Z-A)";
                 break;
-            case 'recent_events':
-                $events = Events::where('date', '<', date('Y-m-d'));
-                $picked_sort = "RECENT EVENTS";
-                break;
             default:
                 $events->latest('date');
         }
