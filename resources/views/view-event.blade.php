@@ -54,7 +54,8 @@
                         <div class="f-lato mb-auto text-muted text-end fs-10 w-25">START AND END DATE OF REGISTRATION</div>
                     </div>
 
-                    <div class=" mt-3 d-flex justify-content-between {{ $attendance_status == 'joining' ? 'd-none' : '' }}">
+                    <div
+                        class=" mt-3 d-flex justify-content-between {{ $attendance_status == 'joining' ? 'd-none' : '' }}">
                         <!-- Display the status of the event -->
                         <div
                             class="text-success f-lato mb-auto fs-13 {{ $event_status == 'NOT AVAILABLE' || $event_status == 'VOLUNTEER CANCELLED' ? ' text-danger' : '' }}">
@@ -83,8 +84,10 @@
                                     <h6 class="modal-title">Are you sure you want to join?</h6>
                                 </div>
                                 <div class="modal-footer">
+                                    <button type="button" id="confirmNoButton" class="view-event-btn">No</button>
                                     <button type="button" id="confirmJoinButton" class="view-event-btn">Yes</button>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -132,7 +135,8 @@
                                             join again, and you will not be able to claim a code for this event.</h6>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" id="confirmCancelBtn" class="view-event-btn">Yes</button>
+                                        <button type="button" id="confirmNoBtn" class="view-event-btn">No</button>
+                                        <button type="button" id="confirmYesBtn" class="view-event-btn">Yes</button>
                                     </div>
                                 </div>
                             </div>
@@ -168,7 +172,8 @@
                     </div>
                     <div class="d-flex justify-content-between">
                         <div class="f-montserrat fs-4">CLAIM CODE</div>
-                        <div class="f-lato mb-auto text-muted text-end fs-10 w-25">START AND END DATE OF CLAIMING CODE</div>
+                        <div class="f-lato mb-auto text-muted text-end fs-10 w-25">START AND END DATE OF CLAIMING CODE
+                        </div>
                     </div>
                     <div class="mt-3 d-flex justify-content-between ">
                         <div
@@ -365,19 +370,30 @@
         // Add event listener to the "Yes" button in the confirmation modal for join
         document.getElementById('confirmJoinButton').addEventListener('click', confirmJoinYes);
 
+        // Add event listener to the "No" button in the confirmation modal for join
+        document.getElementById('confirmNoButton').addEventListener('click', confirmJoinNo);
+
         // Function to handle the confirmation modal for cancel
         function confirmCancel() {
             $('#cancellationModal').modal('show');
         }
 
         // Function to handle the "Yes" button click for cancel
-        function confirmCancelYes() {
-            $('#cancellationModal').modal('hide');
+        function confirmYes() {
             document.getElementById('cancelForm').submit();
         }
 
+        // Function to handle the "Yes" button click for cancel
+        function confirmNo() {
+            $('#cancellationModal').modal('hide');
+
+        }
+
         // Add event listener to the "Yes" button in the confirmation modal for cancel
-        document.getElementById('confirmCancelBtn').addEventListener('click', confirmCancelYes);
+        document.getElementById('confirmYesBtn').addEventListener('click', confirmYes);
+
+        // Add event listener to the "No" button in the confirmation modal for cancel
+        document.getElementById('confirmNoBtn').addEventListener('click', confirmNo);
 
         // JavaScript/jQuery
         $(document).ready(function() {
