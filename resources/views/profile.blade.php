@@ -188,14 +188,16 @@
                         <div class="f-montserrat mb-2  {{ Auth::user()->street_add == null ? 'text-warning' : '' }}">
                             {{ Auth::user()->street_add == null ? 'No street addres assigned yet' : Auth::user()->street_add }}
                         </div>
-                        <div class="f-lato text-muted">Country</div>
-                        <div class="f-montserrat mb-2  {{ Auth::user()->country == null ? 'text-warning' : '' }}">
-                            {{ Auth::user()->country == null ? 'No Country assigned yet' : Auth::user()->country }}
+                        <div class="f-lato text-muted">Province</div>
+                        <div class="f-montserrat mb-2  {{ Auth::user()->province == null ? 'text-warning' : '' }}">
+                            {{ Auth::user()->province == null ? 'No Province assigned yet' : Auth::user()->province }}
                         </div>
                         <div class="f-lato text-muted ">City</div>
                         <div class="f-montserrat mb-2  {{ Auth::user()->city == null ? 'text-warning' : '' }}">
                             {{ Auth::user()->city == null ? 'No City assigned yet' : Auth::user()->city }}
                         </div>
+                        <div class="f-lato text-muted">Country</div>
+                        <div class="f-montserrat mb-2"> {{ Auth::user()->country }} </div>
                         <div class="f-lato text-muted">Zip Code</div>
                         <div class="f-montserrat mb-2 {{ Auth::user()->zip == null ? 'text-warning' : '' }}">
                             {{ Auth::user()->zip == null ? 'No Zip Code assigned yet' : Auth::user()->zip }}
@@ -220,7 +222,8 @@
                             {{ Auth::user()->emergency_number == null ? 'No emergency number assigned yet' : Auth::user()->emergency_number }}
                         </div>
                         <div class="f-lato text-muted">Contact Person Relationship</div>
-                        <div class="f-montserrat mb-2 {{ Auth::user()->contact_relationship == null ? 'text-warning' : '' }}">
+                        <div
+                            class="f-montserrat mb-2 {{ Auth::user()->contact_relationship == null ? 'text-warning' : '' }}">
                             {{ Auth::user()->contact_relationship == null ? 'No Contact Person Relationship assigned yet' : Auth::user()->contact_relationship }}
                         </div>
                         <div class="text-center">

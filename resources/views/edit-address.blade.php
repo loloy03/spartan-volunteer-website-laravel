@@ -22,18 +22,20 @@
                             <div class="f-lato text-muted">Street Address</div>
                             <input class="form-control mb-2" type="text" name="street_add" id="street_add"
                                 value="{{ Auth::user()->street_add }}">
-                            <div class="f-lato text-muted">Country</div>
-                            <input class="form-control mb-2" type="text" name="country" id="country"
-                                value="{{ Auth::user()->street_add }}">
+                            <div class="f-lato text-muted ">Province</div>
+                            <input class="form-control mb-2" type="text" name="province" id="province"
+                                value="{{ Auth::user()->province }}">
+
                             <div class="f-lato text-muted ">City</div>
                             <input class="form-control mb-2" type="text" name="city" id="city"
                                 value="{{ Auth::user()->city }}">
+                            <div class="f-lato text-muted">Country</div>
+                            <div class="f-montserrat mb-2"> {{ Auth::user()->country }} </div>
                             <div class="f-lato text-muted">Zip Code</div>
                             <input class="form-control mb-2" type="text" name="zip" id="zip"
                                 value="{{ Auth::user()->zip }}">
                             <div class="text-center">
-                                <button type="submit"
-                                    class="button f-montserrat text-center w-50  mt-4">UPDATE
+                                <button type="submit" class="button f-montserrat text-center w-50  mt-4">UPDATE
                                     ADDRESS
                                 </button>
                                 <button type="button" class="button f-montserrat w-50 mt-2 mb-3"

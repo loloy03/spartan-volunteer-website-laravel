@@ -88,6 +88,7 @@ class ProfileController extends Controller
             'street_add' => 'nullable',
             'country' => 'nullable',
             'city' => 'nullable',
+            'province' => 'nullable',
             'zip' => 'nullable',
         ]);
 
@@ -96,7 +97,7 @@ class ProfileController extends Controller
 
         // Update the user's profile with the new data
         $user->street_add = $validatedData['street_add'];
-        $user->country = $validatedData['country'];
+        $user->province = $validatedData['province'];
         $user->city = $validatedData['city'];
         $user->zip = $validatedData['zip'];
         $user->save();
