@@ -183,87 +183,138 @@
 
                     </div>
                     <div class="mt-4 collapse bg-white p-4" id="view">
-                        <div class="f-montserrat">
-                            1. SELECT AVAILABLE RACES
-                        </div>
-                        <div class="mb-4">
-                            <div class="block">
-                                Reminder:
-                            </div>
-                            <div class="block">
-                                * The equivalent of 1 Free Race Credit is P3,500.
-                            </div>
-                            <div class="block">
-                                * If you select a race with an amount exceeding P3,500, you will be required to pay the
-                                remaining balance.
-                            </div>
-                        </div>
-
-                        <div class="f-lato text-muted fs-10 mb-2">PICK ONLY ONE RACE TO CLAIM CODE</div>
-                        <div class="d-block">
-                            <div class="f-lato text-muted fs-10 d-inline-block">YOUR RACE CREDITS:</div>
-                            <div class="f-lato text-muted fs-10 d-inline-block">{{ $race_credit_quantity }}</div>
-                        </div>
-                        <div
-                            class="f-lato text-muted fs-10 mb-2 text-warning {{ $race_credit_quantity != 0 ? 'd-none' : '' }}">
-                            <div class="text-danger">YOU DON'T HAVE ENOUGH RACE CREDITS</div>
-                        </div>
-
-                        <div class="f-lato mt-1">
-                            <form method="POST" action="{{ route('claim_code.store_race') }}"
-                                enctype="multipart/form-data">
-                                @csrf
-
-                                @foreach ($races as $race)
-                                    <div>
-                                        <input type="radio" name="race_id" value="{{ $race->race_id }}"
-                                            id="{{ $race->race_id }}" class="race-radio"
-                                            onclick="displayPrice('{{ $race->race_id }}', '{{ $race->price }}')">
-                                        <label for="{{ $race->race_id }}">{{ strtoupper($race->race_type) }}</label>
+                        <div class="f-montserrat fs-5 mb-3">STEPS TO CLAIM CODE</div>
+                        <form method="POST" action="{{ route('claim_code.store_race') }}"
+                            enctype="multipart/form-data">
+                            @csrf
+                            <div class="p-3">
+                                <div class="f-montserrat">
+                                    1. SELECT AVAILABLE RACES
+                                </div>
+                                <div class="p-3">
+                                    <div class="mb-4 ">
+                                        <div class="block">
+                                            Reminder:
+                                        </div>
+                                        <div class="block">
+                                            * The equivalent of 1 Free Race Credit is P3,500.
+                                        </div>
+                                        <div class="block">
+                                            * If you select a race with an amount exceeding P3,500, you will be required to
+                                            pay
+                                            the
+                                            remaining balance.
+                                        </div>
                                     </div>
-                                @endforeach
+
+                                    <div class="d-block">
+                                        <div class="f-lato text-muted fs-10 d-inline-block">YOUR RACE CREDITS:</div>
+                                        <div class="f-lato text-muted fs-10 d-inline-block">{{ $race_credit_quantity }}
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="f-lato text-muted fs-10 mb-2 text-warning {{ $race_credit_quantity != 0 ? 'd-none' : '' }}">
+                                        <div class="text-danger">YOU DON'T HAVE ENOUGH RACE CREDITS</div>
+                                    </div>
+
+
+                                    <div class="f-lato mt-1">
+
+
+                                        @foreach ($races as $race)
+                                            <div>
+                                                <input type="radio" name="race_id" value="{{ $race->race_id }}"
+                                                    id="{{ $race->race_id }}" class="race-radio"
+                                                    onclick="displayPrice('{{ $race->race_id }}', '{{ $race->price }}')" required>
+                                                <label
+                                                    for="{{ $race->race_id }}">{{ strtoupper($race->race_type) }}</label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
 
                                 <div class="f-montserrat mt-5 w-100">
                                     2. SELECT UNCLAIMED RACE CREDIT
                                 </div>
-                                <select class="form-select w-75" id="raceCreditDropdown" name="credit_id">
-                                    <option value="" selected disabled>Select Race Credit</option>
-                                    @foreach ($race_credits as $race_credit)
-                                        <option value="{{ $race_credit->credit_id }}">
-                                            Credit ID: {{ $race_credit->credit_id }},
-                                            Expiration Date: {{ date('M j, Y', strtotime($race_credit->exp_date)) }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                <div class="p-3">
+                                    <select class="form-select w-100" id="raceCreditDropdown" name="credit_id" required>
+                                        <option value="" selected disabled>Select Race Credit</option>
+                                        @foreach ($race_credits as $race_credit)
+                                            <option value="{{ $race_credit->credit_id }}">
+                                                Credit ID: {{ $race_credit->credit_id }},
+                                                Expiration Date: {{ date('M j, Y', strtotime($race_credit->exp_date)) }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    
+                                </div>
 
                                 <div class="f-montserrat mt-5 w-100">
                                     3. PAY BALANCE
                                 </div>
+                                <div class="p-2">
+                                    <div id="priceDisplay" style="display: none;">
+                                        <div class="d-block f-montserrat">
+                                            Selected Race Price: <span id="racePrice"></span>
+                                        </div>
+                                        <div class="d-block f-montserrat">
+                                            Race Credit Value: <span>{{ $r_credit_value }}</span>
+                                        </div>
+                                        <div class="d-block f-montserrat">
+                                            You need to pay:
+                                            <div class=" text-danger d-inline-block">
+                                                <span id="raceBalance"></span>
+                                            </div>
+                                        </div>
 
-                                <div id="priceDisplay" style="display: none;">
-                                    <div class="d-block">
-                                        Selected Race Price: <span id="racePrice"></span>
                                     </div>
-                                    <div class="d-block">
-                                        Race Credit Value: <span>{{ $r_credit_value }}</span>
-                                    </div>
-                                    <div class="d-block">
-                                        You need to pay: <span id="raceBalance"></span>
+                                    <div id="receiptDisplay" style="display: none;">
+                                        <div class="d-block mt-4">
+                                            <div class="d-block">
+                                                Please send your payment using any of the following modes of payment
+                                                listed below.
+                                            </div>
+                                            <div class="d-block">
+                                                Then, save a photo of your proof of payment and upload it in the space
+                                                provided below. Thank you!
+                                            </div>
+                                        </div>
+
+                                        <div class="d-block mt-4">
+                                            <div class="d-block f-montserrat">
+                                                Bank: BPI
+                                            </div>
+                                            <div class="d-block">
+                                                Account Number: 5555-5555-55
+                                            </div>
+                                            <div class="d-block">
+                                                Account Name: Juan Dela Cruz
+                                            </div>
+                                        </div>
+
+                                        <div class="d-block mt-4">
+                                            <div class="d-block f-montserrat">
+                                                E-wallet: GCash
+                                            </div>
+                                            <div class="d-block">
+                                                Account Number: 09123456789
+                                            </div>
+                                            <div class="d-block">
+                                                Account Name: Juan Dela Cruz
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            Preview:
+                                        </div>
+                                        <div class="text-center mt-2">
+                                            <img id="preview" src="#" alt="Preview"
+                                                style="display: none; max-width: 100%;">
+                                        </div>
+
+                                        <input type="file" name="photo" id="photo" class="form-control"
+                                            onchange="previewPhoto(event)">
                                     </div>
                                 </div>
-                                <div id="receiptDisplay" style="display: none;">
-                                    <div class="mt-3">
-                                        Preview:
-                                    </div>
-                                    <div class="text-center mt-2">
-                                        <img id="preview" src="#" alt="Preview"
-                                            style="display: none; max-width: 100%;">
-                                    </div>
-
-                                    <input type="file" name="photo" id="photo" class="form-control"
-                                        onchange="previewPhoto(event)">
-                                </div>
-
                                 <div>
                                     <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
                                     <input type="hidden" name="event_id" value="{{ $event->event_id }}">
@@ -274,12 +325,12 @@
                                             Race</button>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     </div>
     <script>
