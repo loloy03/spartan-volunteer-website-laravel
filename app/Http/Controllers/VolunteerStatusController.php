@@ -31,7 +31,6 @@ class VolunteerStatusController extends Controller
         return redirect()->back();
     }
 
-
     public function cancelled(Request $request)
     {
         // Validate input parameters
@@ -54,6 +53,7 @@ class VolunteerStatusController extends Controller
         // Redirect back to previous page
         return redirect()->back();
     }
+
     public function confirmed(Request $request)
     {
         // Validate input parameters
@@ -76,6 +76,8 @@ class VolunteerStatusController extends Controller
         // Redirect back to previous page
         return redirect(route('join-as-volunteer', $request->event_id));
     }
+
+    //
 }
 
 

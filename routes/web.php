@@ -18,6 +18,9 @@ Auth::routes(['verify' => true]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // List events
+// NOTE: KEEP THIS PUBLIC
+// Applying middleware staff and admin somehow doesn't work
+// NO ALTERNATIVE WORKING SOLUTION
 Route::get('/event', [App\Http\Controllers\EventController::class, 'index'])->name('event');
 
 Route::group(['middleware' => ['auth']], function () {

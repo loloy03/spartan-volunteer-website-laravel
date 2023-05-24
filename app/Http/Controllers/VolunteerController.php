@@ -7,7 +7,6 @@ use App\Models\Events;
 use App\Models\StaffStatus;
 use App\Models\VolunteerStatus;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class VolunteerController extends Controller
 {
@@ -16,7 +15,7 @@ class VolunteerController extends Controller
     public function listOfConfirmedVolunteers($eventId)
     {
         // NOTE: SHOULD PUT THIS IN OWN CONTROLLER AND PASS TO VIEW VIA ROUTES
-        $event = Events::where('event_id', $eventId)->get();
+        $event = Events::where('event_id', $eventId)->first();
 
         $volunteers = Volunteer::select(
             'volunteer.volunteer_id',
@@ -70,7 +69,7 @@ class VolunteerController extends Controller
     // NOTE: change event_id as argument
     public function listOfPendingVolunteers($eventId)
     {
-        $event = Events::where('event_id', $eventId)->get();
+        $event = Events::where('event_id', $eventId)->first();
         $staffId = auth()->guard('staff')->user()->staff_id;
 
         $role = StaffStatus::where('staff_id', $staffId)
