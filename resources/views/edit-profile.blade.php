@@ -39,10 +39,10 @@
                                     <div class="f-montserrat mb-2"> {{ $race_credit_quantity }} </div>
                                     <div class="f-lato text-muted">First Name</div>
                                     <input class="form-control mb-2" type="text" name="first_name" id="first_name"
-                                        value="{{ Auth::user()->first_name }}">
+                                        value="{{ Auth::user()->first_name }}" required>
                                     <div class="f-lato text-muted">Last Name</div>
                                     <input class="form-control mb-2" type="text" name="last_name" id="last_name"
-                                        value="{{ Auth::user()->last_name }}">
+                                        value="{{ Auth::user()->last_name }}" required>
                                     <div class="f-lato text-muted ">Birthdate</div>
                                     <input class="form-control mb-2" type="text" id="datepicker" name="selected_date"
                                         value="{{ Auth::user()->birthdate }}">
