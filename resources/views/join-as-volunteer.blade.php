@@ -47,10 +47,14 @@
                             <div class=" text-success d-inline-block f-lato fs-10 mx-3"> STATUS:
                                 {{ strtoupper($attendance_status) }}
                             </div>
-                            <div class="f-montserrat fs-4">JOINED AS VOLUNTEER</div>
-                            <div class="f-montserrat mb-auto fs-13 pb-3">
+                            <div class="f-montserrat fs-4 mb-4">JOINED AS VOLUNTEER</div>
+                            <div class="f-montserrat mb-auto fs-13">
                                 ROLE: <em> {{ strtoupper($role == null ? 'no role assigned yet' : $role) }} </em>
-
+                            </div>
+                            <div class="f-montserrat mb-auto fs-13 pb-3">
+                                STAFF: <em>
+                                    {{ strtoupper($staff == null ? 'no staff assigned yet' : $staff->first_name . ' ' . $staff->last_name) }}
+                                </em>
                             </div>
 
                         </div>
