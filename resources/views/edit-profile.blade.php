@@ -36,7 +36,7 @@
                                 <div class="col-lg-6 mb-5">
                                     @csrf
                                     <div class="f-lato text-muted">Race Credits</div>
-                                    <div class="f-montserrat mb-2">{{ Auth::user()->r_credits }}</div>
+                                    <div class="f-montserrat mb-2"> {{ $race_credit_quantity }} </div>
                                     <div class="f-lato text-muted">First Name</div>
                                     <input class="form-control mb-2" type="text" name="first_name" id="first_name"
                                         value="{{ Auth::user()->first_name }}">

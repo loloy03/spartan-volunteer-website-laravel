@@ -30,18 +30,23 @@ class ProfileController extends Controller
             ->get();
 
         $race_credit = RaceCredit::where('volunteer_id', Auth::user()->volunteer_id)
-            ->where('status','=','unclaimed')
+            ->where('status', '=', 'unclaimed')
             ->get();
         $race_credit_quantity = $race_credit->count();
 
         // Pass event data and status variables to the view
-        return view('profile', compact('joining_events', 'claiming_code_events','race_credit_quantity'));
+        return view('profile', compact('joining_events', 'claiming_code_events', 'race_credit_quantity'));
     }
 
 
     public function volunteer_info_edit()
     {
-        return view('edit-profile');
+        $race_credit = RaceCredit::where('volunteer_id', Auth::user()->volunteer_id)
+            ->where('status', '=', 'unclaimed')
+            ->get();
+        $race_credit_quantity = $race_credit->count();
+
+        return view('edit-profile', compact('race_credit_quantity'));
     }
 
     public function address_edit()
