@@ -224,6 +224,10 @@
                         <div class="f-montserrat mb-2 {{ Auth::user()->emergency_number == null ? 'text-warning' : '' }}">
                             {{ Auth::user()->emergency_number == null ? 'No emergency number assigned yet' : Auth::user()->emergency_number }}
                         </div>
+                        <div class="f-lato text-muted">Contact Person Relationship</div>
+                        <div class="f-montserrat mb-2 {{ Auth::user()->contact_relationship == null ? 'text-warning' : '' }}">
+                            {{ Auth::user()->contact_relationship == null ? 'No Contact Person Relationship assigned yet' : Auth::user()->contact_relationship }}
+                        </div>
                         <div class="text-center">
                             <button class="button f-montserrat w-50 mt-5 mb-3"
                                 onclick="window.location='{{ route('contact_edit') }}'">EDIT CONTACT</button>

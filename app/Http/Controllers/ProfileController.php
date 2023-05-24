@@ -60,6 +60,7 @@ class ProfileController extends Controller
         $validatedData = $request->validate([
             'emergency_contact_name' => 'nullable',
             'emergency_number' => 'nullable',
+            'contact_relationship' => 'nullable'
         ]);
 
         // Get the authenticated user
@@ -68,6 +69,7 @@ class ProfileController extends Controller
         // Update the user's profile with the new data
         $user->emergency_contact_name = $validatedData['emergency_contact_name'];
         $user->emergency_number = $validatedData['emergency_number'];
+        $user->contact_relationship = $validatedData['contact_relationship'];
         $user->save();
 
         // Redirect the user back to their profile page with a success message
