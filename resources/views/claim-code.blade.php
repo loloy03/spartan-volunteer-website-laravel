@@ -87,8 +87,6 @@
                         <div class="f-lato text-muted mt-4 fs-10 mb-2">YOUR CODE IS:</div>
                         <div class="f-montserrat display-5 border border-danger rounded text-center p-1">
                             {{ $race_code->race_code }} </div>
-                        <div class="f-lato text-muted mt-4 mb-2">Code Expiration:
-                            {{ $race_code->race_code_expiration }}</div>
                     </div>
                 </div>
             </div>
