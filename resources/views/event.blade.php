@@ -21,11 +21,10 @@
             </div>
             <form method="GET" action="{{ route('event') }}" class="d-inline-block">
                 <select name="sort_by" onchange="this.form.submit()">
-                    <option value="date_asc" {{ $picked_sort === 'DATE (WILL START SOON)' ? 'selected' : '' }}>DATE (WILL
-                        START
-                        SOON)</option>
-                    <option value="date_desc" {{ $picked_sort === 'DATE (NEWEST FIRST)' ? 'selected' : '' }}>DATE (NEWEST
-                        FIRST)
+                    <option value="date_asc" {{ $picked_sort === 'DATE (WILL START SOON)' ? 'selected' : '' }}>DATE
+                        (ASCENDING)
+                    </option>
+                    <option value="date_desc" {{ $picked_sort === 'DATE (NEWEST FIRST)' ? 'selected' : '' }}>DATE (DESCENDING)
                     </option>
                     <option value="title_asc" {{ $picked_sort === 'TITLE (A-Z)' ? 'selected' : '' }}>TITLE (A-Z)</option>
                     <option value="title_desc" {{ $picked_sort === 'TITLE (Z-A)' ? 'selected' : '' }}>TITLE (Z-A)</option>
