@@ -17,7 +17,7 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                
+
 
                 <div class="box-border-shadow-bt-red mb-5">
                     <div class="f-montserrat h4 m-4">MY ONGOING EVENTS</div>
@@ -99,6 +99,12 @@
                                         </div>
 
                                         <div class="col-lg-6 my-auto pt-3">
+                                            <div class="d-block">
+                                                <div class="d-inline-block f-montserrat">
+                                                    Event Date:
+                                                </div>
+                                                {{ date('M j, Y', strtotime($event->date)) }}
+                                            </div>
 
                                             <div class="d-block">
                                                 <div class="d-inline-block f-montserrat">
