@@ -19,13 +19,16 @@
     transition: 0.7s;
 }
 
-.fs-12{
+.fs-12 {
     font-size: 12px;
 }
 
-.bg-light-gray{
-    background-color: #EBEBEB;
+.bg-light-gray {
+    background-color: #ebebeb;
 }
 
-
-
+.view-history-hover:hover {
+    background-color: rgb(249, 198, 198);
+    transition: 0.5 ease;
+    transition: 0.5s;
+}
