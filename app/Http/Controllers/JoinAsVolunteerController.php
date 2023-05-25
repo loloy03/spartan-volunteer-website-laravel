@@ -110,6 +110,13 @@ class JoinAsVolunteerController extends Controller
             ->where('event_id', $event->event_id)
             ->value('role');
 
+        $staff = VolunteerStatus::join('staff', 'volunteer_status.staff_id', '=', 'staff.staff_id')
+            ->where('volunteer_status.volunteer_id', Auth::user()->volunteer_id)
+            ->where('volunteer_status.event_id', $event->event_id)
+            ->select('staff.first_name', 'staff.last_name')
+            ->first();
+
+
         $check_in = VolunteerStatus::where('volunteer_id', Auth::user()->volunteer_id)
             ->where('event_id', $event->event_id)
             ->value('check_in');
@@ -123,15 +130,19 @@ class JoinAsVolunteerController extends Controller
             ->value('proof_of_checkout');
 
         // Pass event data and status variables to the view
-        return view('join-as-volunteer', compact(
-            'event',
-            'date',
-            'attendance_status',
-            'today',
-            'role',
-            'check_in',
-            'check_out',
-            'proof_of_checkout'
-        ));
+        return view(
+            'join-as-volunteer',
+            compact(
+                'event',
+                'date',
+                'attendance_status',
+                'today',
+                'role',
+                'check_in',
+                'check_out',
+                'proof_of_checkout',
+                'staff'
+            )
+        );
     }
 }

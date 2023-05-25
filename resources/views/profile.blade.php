@@ -17,11 +17,7 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                @if (session('error'))
-                    <div class="alert alert-danger p-2 mt-2">
-                        {{ session('error') }}
-                    </div>
-                @endif
+
 
                 <div class="box-border-shadow-bt-red mb-5">
                     <div class="f-montserrat h4 m-4">MY ONGOING EVENTS</div>
@@ -103,6 +99,12 @@
                                         </div>
 
                                         <div class="col-lg-6 my-auto pt-3">
+                                            <div class="d-block">
+                                                <div class="d-inline-block f-montserrat">
+                                                    Event Date:
+                                                </div>
+                                                {{ date('M j, Y', strtotime($event->date)) }}
+                                            </div>
 
                                             <div class="d-block">
                                                 <div class="d-inline-block f-montserrat">
@@ -152,7 +154,7 @@
                             </div>
                             <div class="col-lg-6 mb-5">
                                 <div class="f-lato text-muted">Race Credits</div>
-                                <div class="f-montserrat mb-2"> {{ Auth::user()->r_credits }} </div>
+                                <div class="f-montserrat mb-2"> {{ $race_credit_quantity }} </div>
                                 <div class="f-lato text-muted">First Name</div>
                                 <div class="f-montserrat mb-2"> {{ Auth::user()->first_name }} </div>
                                 <div class="f-lato text-muted">Last Name</div>
@@ -186,22 +188,19 @@
                         <div class="f-montserrat mb-2  {{ Auth::user()->street_add == null ? 'text-warning' : '' }}">
                             {{ Auth::user()->street_add == null ? 'No street addres assigned yet' : Auth::user()->street_add }}
                         </div>
-                        <div class="f-lato text-muted">Country</div>
-                        <div class="f-montserrat mb-2  {{ Auth::user()->country == null ? 'text-warning' : '' }}">
-                            {{ Auth::user()->country == null ? 'No Country assigned yet' : Auth::user()->country }}
+                        <div class="f-lato text-muted">Province</div>
+                        <div class="f-montserrat mb-2  {{ Auth::user()->province == null ? 'text-warning' : '' }}">
+                            {{ Auth::user()->province == null ? 'No Province assigned yet' : Auth::user()->province }}
                         </div>
                         <div class="f-lato text-muted ">City</div>
                         <div class="f-montserrat mb-2  {{ Auth::user()->city == null ? 'text-warning' : '' }}">
                             {{ Auth::user()->city == null ? 'No City assigned yet' : Auth::user()->city }}
                         </div>
+                        <div class="f-lato text-muted">Country</div>
+                        <div class="f-montserrat mb-2"> {{ Auth::user()->country }} </div>
                         <div class="f-lato text-muted">Zip Code</div>
                         <div class="f-montserrat mb-2 {{ Auth::user()->zip == null ? 'text-warning' : '' }}">
                             {{ Auth::user()->zip == null ? 'No Zip Code assigned yet' : Auth::user()->zip }}
-                        </div>
-
-                        <div class="f-lato text-muted">Complete Secondary Address</div>
-                        <div class="f-montserrat mb-2  {{ Auth::user()->second_add == null ? 'text-warning' : '' }}">
-                            {{ Auth::user()->second_add == null ? 'No second address assigned yet' : Auth::user()->second_add }}
                         </div>
                         <div class="text-center">
                             <button class="button f-montserrat w-50 mt-5 mb-3"
@@ -221,6 +220,11 @@
                         <div class="f-lato text-muted">Contact Number</div>
                         <div class="f-montserrat mb-2 {{ Auth::user()->emergency_number == null ? 'text-warning' : '' }}">
                             {{ Auth::user()->emergency_number == null ? 'No emergency number assigned yet' : Auth::user()->emergency_number }}
+                        </div>
+                        <div class="f-lato text-muted">Contact Person Relationship</div>
+                        <div
+                            class="f-montserrat mb-2 {{ Auth::user()->contact_relationship == null ? 'text-warning' : '' }}">
+                            {{ Auth::user()->contact_relationship == null ? 'No Contact Person Relationship assigned yet' : Auth::user()->contact_relationship }}
                         </div>
                         <div class="text-center">
                             <button class="button f-montserrat w-50 mt-5 mb-3"

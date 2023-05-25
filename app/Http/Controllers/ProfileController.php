@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Volunteer;
 use App\Models\VolunteerStatus;
 use App\Models\RaceCode;
+use App\Models\RaceCredit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -28,16 +29,24 @@ class ProfileController extends Controller
             ->where('race_code.status', '!=', 'released')
             ->get();
 
-
+        $race_credit = RaceCredit::where('volunteer_id', Auth::user()->volunteer_id)
+            ->where('status', '=', 'unclaimed')
+            ->get();
+        $race_credit_quantity = $race_credit->count();
 
         // Pass event data and status variables to the view
-        return view('profile', compact('joining_events', 'claiming_code_events'));
+        return view('profile', compact('joining_events', 'claiming_code_events', 'race_credit_quantity'));
     }
 
 
     public function volunteer_info_edit()
     {
-        return view('edit-profile');
+        $race_credit = RaceCredit::where('volunteer_id', Auth::user()->volunteer_id)
+            ->where('status', '=', 'unclaimed')
+            ->get();
+        $race_credit_quantity = $race_credit->count();
+
+        return view('edit-profile', compact('race_credit_quantity'));
     }
 
     public function address_edit()
@@ -56,6 +65,7 @@ class ProfileController extends Controller
         $validatedData = $request->validate([
             'emergency_contact_name' => 'nullable',
             'emergency_number' => 'nullable',
+            'contact_relationship' => 'nullable'
         ]);
 
         // Get the authenticated user
@@ -64,6 +74,7 @@ class ProfileController extends Controller
         // Update the user's profile with the new data
         $user->emergency_contact_name = $validatedData['emergency_contact_name'];
         $user->emergency_number = $validatedData['emergency_number'];
+        $user->contact_relationship = $validatedData['contact_relationship'];
         $user->save();
 
         // Redirect the user back to their profile page with a success message
@@ -77,8 +88,8 @@ class ProfileController extends Controller
             'street_add' => 'nullable',
             'country' => 'nullable',
             'city' => 'nullable',
+            'province' => 'nullable',
             'zip' => 'nullable',
-            'second_add' => 'nullable',
         ]);
 
         // Get the authenticated user
@@ -86,10 +97,9 @@ class ProfileController extends Controller
 
         // Update the user's profile with the new data
         $user->street_add = $validatedData['street_add'];
-        $user->country = $validatedData['country'];
+        $user->province = $validatedData['province'];
         $user->city = $validatedData['city'];
         $user->zip = $validatedData['zip'];
-        $user->second_add = $validatedData['second_add'];
         $user->save();
 
         // Redirect the user back to their profile page with a success message

@@ -25,7 +25,8 @@
                         @if ($joined_events->count() > 0)
                             @foreach ($joined_events as $event)
                                 <div class="p-3">
-                                    <div class="row p-3 bg-light-gray f-lato">
+                                    <div type="button" class="row p-3 bg-light-gray view-history-hover f-lato"
+                                        onclick="window.location='{{ route('view-event', $event->event_id) }}'">
                                         <div class="col-lg-6 my-auto">
                                             <div class="d-block">
                                                 {{-- format the date --}}
@@ -95,7 +96,8 @@
                         @if ($claimed_code_events->count() > 0)
                             @foreach ($claimed_code_events as $event)
                                 <div class="p-3">
-                                    <div class="row p-3 bg-light-gray f-lato">
+                                    <div type="button" class="row p-3 bg-light-gray f-lato view-history-hover"
+                                        onclick="window.location='{{ route('view-event', $event->event_id) }}'">
                                         <div class="col-lg-6 my-auto">
 
                                             <div class="d-block">

@@ -15,20 +15,25 @@
             @endif
         </div>
 
-        <div class="f-montserrat my-3">
-            <div class="d-inline-block">SORT BY:</div>
+        <div class="f-lato my-3">
+            <div class="f-montserrat d-inline-block">
+                SORT BY:
+            </div>
             <form method="GET" action="{{ route('event') }}" class="d-inline-block">
                 <select name="sort_by" onchange="this.form.submit()">
-                    <option value="" disabled selected> {{ $picked_sort }} </option>
-                    <option value="date_asc">DATE (WILL START SOON)</option>
-                    <option value="avail_events">AVAILABLE EVENTS</option>
-                    <option value="date_desc">DATE (NEWEST FIRST)</option>
-                    <option value="title_asc">TITLE (A-Z)</option>
-                    <option value="title_desc">TITLE (Z-A)</option>
-                    <option value="recent_events">RECENT EVENTS</option>
+                    <option value="date_asc" {{ $picked_sort === 'DATE (WILL START SOON)' ? 'selected' : '' }}>DATE
+                        (ASCENDING)
+                    </option>
+                    <option value="date_desc" {{ $picked_sort === 'DATE (NEWEST FIRST)' ? 'selected' : '' }}>DATE (DESCENDING)
+                    </option>
+                    <option value="title_asc" {{ $picked_sort === 'TITLE (A-Z)' ? 'selected' : '' }}>TITLE (A-Z)</option>
+                    <option value="title_desc" {{ $picked_sort === 'TITLE (Z-A)' ? 'selected' : '' }}>TITLE (Z-A)</option>
+                    <option value="recent_events" {{ $picked_sort === 'RECENT EVENTS' ? 'selected' : '' }}>RECENT EVENTS
+                    </option>
                 </select>
             </form>
         </div>
+
 
         <div class="row">
             @if ($events->count() > 0)
@@ -37,17 +42,16 @@
                         <div class="bg-light-gray">
                             <!-- Image Button - on click redirect to view-event page -->
                             <button class="image-container"
-                                @if (Auth::check()) 
-                                    onclick="window.location='{{ route('view-event', $event->event_id) }}'"> 
+                                @if (Auth::check()) onclick="window.location='{{ route('view-event', $event->event_id) }}'"> 
                                 @elseif (Auth::guard('staff')->check())
                                     onclick="window.location='{{ route('admin-staff-view-event', $event->event_id) }}'">
                                 @else 
                                     onclick="window.location='{{ route('login') }}'"> @endif
-                                    <img src="/images/events/{{ $event->event_pic }}" class="fixed-size-img">
-                                    <!-- Image Text Overlay -->
-                                    <div class="image-text p-2">
-                                        <p class="fs-6">{{ strtoupper($event->date) }}</p>
-                                    </div>
+                                <img src="/images/events/{{ $event->event_pic }}" class="fixed-size-img">
+                                <!-- Image Text Overlay -->
+                                <div class="image-text p-2">
+                                    <p class="fs-6">{{ strtoupper($event->date) }}</p>
+                                </div>
                             </button>
 
                             <!-- Event Details -->

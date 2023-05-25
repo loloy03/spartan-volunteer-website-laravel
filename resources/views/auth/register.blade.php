@@ -102,16 +102,6 @@
                             {{ __('Register') }}
                         </button>
                     </div>
-
-                    <div class="mt-1 f-lato">
-                        <div class="text-center">
-                            @if (Route::has('password.request'))
-                                <a class="btn btn-link" class="text-center" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
-                            @endif
-                        </div>
-                    </div>
                 </form>
             </div>
 
