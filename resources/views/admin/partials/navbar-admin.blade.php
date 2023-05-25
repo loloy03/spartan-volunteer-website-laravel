@@ -26,7 +26,7 @@
                 {{ __('LOGOUT') }}
             </a>
         @endadmin
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+        <form id="logout-form" action="/admin-logout" method="POST" class="d-none">
             @csrf
         </form>
     </div>

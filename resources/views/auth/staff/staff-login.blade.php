@@ -40,14 +40,6 @@
 
                                 </div>
 
-                                <div class="d-sm-flex mb-5 align-items-center">
-                                    <label class="control mb-3 mb-sm-0">
-                                        <input class="checkbox mr-2" type="checkbox" checked="checked" />
-                                        <span class="caption">Remember me</span>
-                                    </label>
-                                    <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span>
-                                </div>
-
                                 <input type="submit" value="Log In" class="submit-button mt-2 f-montserrat btn-lg">
 
                             </form>
