@@ -66,7 +66,8 @@
                     <div class="p-3">
                         <div class="my-3">
                             <div class="f-montserrat fs-5 ">MY VOLUNTEER INFO</div>
-                            <div class="text-warning fs-10 f-montserrat text-center my-3{{ $today > $event->date }}">
+                            <div
+                                class="text-warning fs-10 f-montserrat text-center my-3 {{ $today > $event->date ? 'd-none' : '' }}">
                                 ON THE DAY OF THE EVENT, A
                                 BUTTON WILL BE AVAILABLE FOR
                                 YOU TO CHECK IN AND CHECK OUT.
@@ -79,7 +80,7 @@
                         @if ($check_out != null && $proof_of_checkout != null && $check_in != null && $attendance_status != 'validated') d-block
                         @else
                             d-none @endif">
-                                Please wait for the staff to validate your volunteer attendance
+                                PLEASE WAIT FOR THE STAFF TO VALIDATE YOUR VOLUNTEER ATTENDANCE.
                             </div>
 
                             <div class="mt-3 {{ $attendance_status != 'validated' ? 'd-none' : '' }}">
