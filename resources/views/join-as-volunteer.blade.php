@@ -42,13 +42,15 @@
             <div class="col-lg-6 p-4 my-auto">
                 <div class="box-border-shadow-bt-red p-3">
                     <div class="row">
-                        <div class="col-lg-7">
+                        <div class="col-lg-6">
                             <div class=" text-muted d-inline-block fs-10 ">{{ strtoupper($date) }} </div>
                             <div class=" text-success d-inline-block f-lato fs-10 mx-3"> STATUS:
                                 {{ strtoupper($attendance_status) }}
                             </div>
                             <div class="f-montserrat fs-4 mb-4">JOINED AS VOLUNTEER</div>
-                            <div class="f-montserrat mb-auto fs-13">
+                        </div>
+                        <div class="col-lg-6 my-auto">
+                            <div class="f-montserrat mb-auto fs-13 ">
                                 ROLE: <em> {{ strtoupper($role == null ? 'no role assigned yet' : $role) }} </em>
                             </div>
                             <div class="f-montserrat mb-auto fs-13 pb-3">
@@ -56,21 +58,24 @@
                                     {{ strtoupper($staff == null ? 'no staff assigned yet' : $staff->first_name . ' ' . $staff->last_name) }}
                                 </em>
                             </div>
-
                         </div>
                     </div>
                     <div class="text-mute w-75 mx-auto">
                         <hr>
                     </div>
-                    <div class="my-3">
-                        <div class="f-montserrat fs-5 ">MY VOLUNTEER INFO</div>
-                        <div class="text-muted fs-10 f-montserrat ">PLEASE CHECK IN AND CHECK OUT IN THE DAY OF THE
-                            EVENT
-                        </div>
+                    <div class="p-3">
+                        <div class="my-3">
+                            <div class="f-montserrat fs-5 ">MY VOLUNTEER INFO</div>
+                            <div class="text-warning fs-10 f-montserrat text-center my-3{{ $today > $event->date }}">
+                                ON THE DAY OF THE EVENT, A
+                                BUTTON WILL BE AVAILABLE FOR
+                                YOU TO CHECK IN AND CHECK OUT.
+                                EVENT
+                            </div>
 
-                        <div class="p-3">
+
                             <div
-                                class="text-warning f-montserrat text-center border border-warning p-4 rounded mt-3
+                                class="bg-warning f-montserrat text-center border border-warning p-4 rounded text-white
                         @if ($check_out != null && $proof_of_checkout != null && $check_in != null && $attendance_status != 'validated') d-block
                         @else
                             d-none @endif">
@@ -83,40 +88,42 @@
                                 </div>
                             </div>
                             <div class="mt-3 {{ $check_in == null ? 'd-none' : '' }}">
-                                <div class="f-montserrat mt-1">CHECKED IN TIME: <div class="f-lato">
-                                        <div class="p-4">
-                                            {{ date('F j, Y g:i A', strtotime($check_in)) }}
-                                        </div>
-                                    </div>
+                                <div class="f-montserrat mt-1 d-inline-block">CHECKED IN TIME:
+                                </div>
+                                <div class="d-inline-block">
+                                    {{ date('F j, Y g:i A', strtotime($check_in)) }}
                                 </div>
                             </div>
                             <div>
-                                <form method="POST" action="{{ route('join_as_volunteer.check_in') }}">
-                                    @csrf
-                                    <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
-                                    <input type="hidden" name="event_id" value="{{ $event->event_id }}">
-                                    <!-- Check-in button -->
-                                    <button type="submit"
-                                        class="view-event-btn f-montserrat mt-2 {{ $check_in != null || $event->date != $today ? 'view-event-btn-disabled d-none' : '' }}"
-                                        {{ $check_in != null || $event->date != $today ? 'disabled' : '' }}>
-                                        Check In
-                                    </button>
-                                </form>
+                                <div class="text-center">
+                                    <form method="POST" action="{{ route('join_as_volunteer.check_in') }}">
+                                        @csrf
+                                        <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
+                                        <input type="hidden" name="event_id" value="{{ $event->event_id }}">
+                                        <!-- Check-in button -->
+                                        <button type="submit"
+                                            class="view-event-btn f-montserrat {{ $check_in != null || $event->date != $today ? 'view-event-btn-disabled d-none' : '' }}"
+                                            {{ $check_in != null || $event->date != $today ? 'disabled' : '' }}>
+                                            Check In
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
 
+                            <div
+                                class="mt-3 {{ $check_in == null || $attendance_status == 'checked' || $attendance_status == 'validated' ? 'd-none' : '' }}">
+                                <div
+                                    class="bg-warning f-montserrat text-center border border-warning p-4 rounded text-white">
+                                    <i class="fa-sharp fa-solid fa-triangle-exclamation"></i>
+                                    Please go to your staff to check your Check In
+                                </div>
                             </div>
-                        </div>
-                        <div
-                            class="mt-3 {{ $check_in == null || $attendance_status == 'checked' || $attendance_status == 'validated' ? 'd-none' : '' }}">
-                            <div class="text-warning f-montserrat text-center border border-warning p-4 rounded">
-                                Please go to your staff to check your Check In
-                            </div>
-                        </div>
-                        <div class="mt-3 @if ($attendance_status == 'validated' || $attendance_status == 'checked') d-block @else d-none @endif">
-                            <div class="px-4">
+                            <div class="mt-3 @if ($attendance_status == 'validated' || $attendance_status == 'checked') d-block @else d-none @endif">
+
                                 <div class="f-montserrat ">PHOTO IN THE EVENT: </div>
-                                <div class="m-3">
+                                <div class="m-2">
                                     Preview:
-                                    <div class="text-center mt-2">
+                                    <div class="text-center">
                                         <img id="preview" src="#" alt="Preview"
                                             style="display: none; max-width: 200px;">
                                     </div>
@@ -138,30 +145,31 @@
                                             </div>
                                         </div>
                                     </form>
-
                                 </div>
-                            </div>
 
-                            <div class="px-4 mt-5">
-                                <div class="f-montserrat mt-1">CHECKED OUT TIME: <div class="f-lato">
-                                        <div class="m-3">
-                                            {{ date('F j, Y g:i A', strtotime($check_out)) }}
-                                        </div>
+                                <div class="mt-4 {{ $check_out == null ? 'd-none' : '' }}">
+                                    <div class="f-montserrat mt-1 d-inline-block">CHECKED OUT TIME:
+                                    </div>
+                                    <div class="d-inline-block">
+                                        {{ date('F j, Y g:i A', strtotime($check_out)) }}
                                     </div>
                                 </div>
 
-                                <div class="d-inline-block mt-1">
-                                    <form method="POST" action="{{ route('join_as_volunteer.check_out') }}">
-                                        @csrf
-                                        <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
-                                        <input type="hidden" name="event_id" value="{{ $event->event_id }}">
-                                        <!-- Cancel registration button -->
-                                        <button type="submit"
-                                            class="view-event-btn f-montserrat {{ $event->date != $today || $proof_of_checkout == null || $check_out != null ? 'view-event-btn-disabled d-none' : '' }}"
-                                            {{ $event->date != $today || $proof_of_checkout == null || $check_out != null ? 'disabled' : '' }}>
-                                            Check Out
-                                        </button>
-                                    </form>
+                                <div class="text-center">
+                                    <div class="d-inline-block mt-1">
+                                        <form method="POST" action="{{ route('join_as_volunteer.check_out') }}">
+                                            @csrf
+                                            <input type="hidden" name="volunteer_id"
+                                                value="{{ Auth::user()->volunteer_id }}">
+                                            <input type="hidden" name="event_id" value="{{ $event->event_id }}">
+                                            <!-- Cancel registration button -->
+                                            <button type="submit"
+                                                class="view-event-btn f-montserrat {{ $event->date != $today || $proof_of_checkout == null || $check_out != null ? 'view-event-btn-disabled d-none' : '' }}"
+                                                {{ $event->date != $today || $proof_of_checkout == null || $check_out != null ? 'disabled' : '' }}>
+                                                Check Out
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
