@@ -105,8 +105,8 @@
             </div>
         </div>
         <div class="form-group row mb-3 event-form">
-            <label for="event-start" class="col-md-5 col-form-label f-montserrat">EVENT START
-                DATE</label>
+            <label for="event-start" class="col-md-5 col-form-label f-montserrat">CLAIM CODE START DATE
+                </label>
             <div class="col-md-7">
                 <input type="text" class="form-control event-input input datepicker" name="date"
                     id="event-start-datepicker" value="{{ old('date') }}" placeholder="Enter Event Start Date...">
@@ -120,7 +120,7 @@
             </div>
         </div>
         <div class="form-group row mb-3 event-form">
-            <label for="event-end" class="col-md-5 col-form-label f-montserrat">EVENT END DATE</label>
+            <label for="event-end" class="col-md-5 col-form-label f-montserrat">CLAIM CODE END DATE</label>
             <div class="col-md-7">
                 <input type="text" class="form-control event-input input datepicker" name="event_date_end"
                     id="event-end-datepicker" value="{{ old('event_date_end') }}"
@@ -149,10 +149,6 @@
                 </div>
                 @include('layouts.category-modal')
             </div>
-        </div>
-        <div class="form-group mt-3 event-form d-grid gap-2">
-            <button type="submit" name="manage-roles" class="btn btn-danger">MANAGE ROLES</button>
-            <button type="button" name="cancel" class="btn btn-dark">CANCEL</button>
         </div>
     </div>
 </div>

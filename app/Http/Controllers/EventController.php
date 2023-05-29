@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Events;
+use App\Models\Volunteer;
+use App\Models\StaffStatus;
 use App\Models\Staff;
 use App\Services\CreateEventService;
 use App\Models\VolunteerStatus;
@@ -219,6 +221,44 @@ class EventController extends Controller
         return $eventTitle->first()->title;
     }
 
+    // IMPORTANT: STAFF ROLE
+    // list of volunteers that are available to be given a role
+    public function listOfConfirmedVolunteers($eventId)
+    {
+        $event = Events::where('event_id', $eventId)->first();
+
+        $staffId = auth()->guard('staff')->user()->staff_id;
+
+        $role = StaffStatus::where('staff_id', $staffId)
+        ->where('event_id', $eventId)
+        ->first();
+
+        $staffRole = ucwords($role->role);
+
+        return view('staff.add-volunteer', compact('staffId', 'staffRole', 'event'));
+    }
+
+    // IMPORTANT: STAFF ROLE
+    // list of volunteers that have 'finished' their volunteer hours
+    // to be validated by staff
+    // NOTE: change event_id as argument
+    public function listOfPendingVolunteers($eventId)
+    {
+        $event = Events::where('event_id', $eventId)->first();
+ 
+        $staffId = auth()->guard('staff')->user()->staff_id;
+
+        $role = StaffStatus::where('staff_id', $staffId)
+        ->where('event_id', $eventId)
+        ->first();
+
+        $staffRole = ucwords($role->role);
+        // EXCEPTION HANDLING
+        // if (staff isn't part of the event)
+            // show: staff isn't part of event
+
+        return view('staff.check-attendance', compact('staffId', 'staffRole', 'event'));
+    }
 
     /**
      * Show the form for editing the specified resource.

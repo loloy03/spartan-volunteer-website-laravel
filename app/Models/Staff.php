@@ -13,6 +13,11 @@ class Staff extends Authenticatable
     protected $primaryKey = 'staff_id';
     public $timestamps = false;
 
+    public function staffStatus()
+    {
+        return $this->hasMany(StaffStatus::class, 'staff_id');
+    }
+
     protected $fillable = [
         'first_name',
         'last_name',

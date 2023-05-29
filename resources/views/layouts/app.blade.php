@@ -10,6 +10,10 @@
 
     <title> Spartan Volunteer | Become a Volunteer Now</title>
 
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@700&display=swap" rel="stylesheet">
@@ -22,6 +26,9 @@
 
     <link href="//db.onlinewebfonts.com/c/2206d6cc490084998d531e8c1b2cbb4a?family=Druk+Wide+Bold" rel="stylesheet"
         type="text/css" />
+
+    <!-- MDB -->
+    <link rel="stylesheet" href="css/mdb.min.css" />
 
     <!--Css files-->
     <link rel="stylesheet" href="{{ asset('/css/navbar.css') }}">

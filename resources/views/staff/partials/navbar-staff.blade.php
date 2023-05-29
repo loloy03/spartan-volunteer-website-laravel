@@ -1,8 +1,8 @@
 <li class="nav-item bottom-transition mx-1">
-    <a class="nav-link text-light" href="{{ route('home') }}">{{ __('HOME') }}</a>
+    <a class="nav-link text-light" href="{{ route('event') }}">{{ __('EVENTS') }}</a>
 </li>
 <li class="nav-item bottom-transition mx-1">
-    <a class="nav-link text-light" href="{{ route('event') }}">{{ __('EVENTS') }}</a>
+    <a class="nav-link text-light" href="{{ route('staff-volunteers') }}">{{ __('VOLUNTEERS') }}</a>
 </li>
 
 <li class="nav-item dropdown bottom-transition">

@@ -197,7 +197,6 @@
         </div>
         <div class="form-group mt-3 event-form d-grid gap-2">
             <button type="submit" name="create-event" class="btn btn-danger btn-block">CREATE EVENT</button>
-            <button type="button" name="cancel" class="btn btn-dark">CANCEL</button>
         </div>
     </div>
     @include('layouts.staff-modal')

@@ -53,7 +53,6 @@
             </table>
         </div>
         {{ $volunteers->Links() }}
-        <script src="{{ asset('js/image-modal.js') }}"></script>
     </div>
 @endsection
 

@@ -17,6 +17,11 @@ class Volunteer extends Authenticatable implements MustVerifyEmail
 
     protected $primaryKey = 'volunteer_id'; //changing the primary key
 
+    public function volunteerStatus()
+    {
+        return $this->hasMany(VolunteerStatus::class, 'volunteer_id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

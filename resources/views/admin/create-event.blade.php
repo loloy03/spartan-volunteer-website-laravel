@@ -25,23 +25,31 @@
         <div class="container-fluid p-4">
             <form action="/create-event" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="row">
-
-                    <!--
-                        PAGE 1
-                        CREATE EVENT FORM
-                    -->
-                    @include('admin.partials.event-form')
-                    <!--
-                        PAGE 2
-                        ADD ROLES FORM
-                    -->
-                    @include('admin.partials.role-form')
+                <nav>
+                    <div class="nav nav-tabs my-2" id="nav-tab" role="tablist">
+                        <button cpass="nav-link active" id="nav-event-tab" data-bs-toggle="tab" data-bs-target="#nav-event"
+                            type="button" role="tab" aria-controls="nav-event" aria-selected="true">
+                        EVENT DETAILS
+                        </button>
+                        <button cpass="nav-link" id="nav-role-tab" data-bs-toggle="tab" data-bs-target="#nav-role"
+                            type="button" role="tab" aria-controls="nav-role" aria-selected="true">
+                        MANAGE ROLE
+                        </button>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-event" role="tabpanel" aria-labelledby="nav-event-tab">
+                        @include('admin.partials.event-form')
+                    </div>
+                    <div class="tab-pane fade show" id="nav-role" role="tabpanel" aria-labelledby="nav-role-tab">
+                        @include('admin.partials.role-form')
+                    </div>
                 </div>
             </form>
         </div>
     </div>
     <!-- HTML has to load first for js script to work -->
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> --}}
     <script src="{{ asset('js/image-preview.js') }}"></script>
     <script src="{{ asset('js/datepicker.js') }}"></script>
     <script src="{{ asset('js/persisting-data.js') }}"></script>

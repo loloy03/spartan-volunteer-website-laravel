@@ -3,7 +3,7 @@
 // Returns a list of possible Roles
 // Can be updated
 return [
-    "Registration" => "Registration",
+    "Register" => "Registration",
     "Start Line" => "Start Line",
     "Finisher Tent" => "Finisher Tent",
     "Merchandise" => "Merchandise",

@@ -13,5 +13,20 @@ class StaffStatus extends Model
     protected $primaryKey = 'staff_id';
     public $timestamps = false;
 
+    public function staff()
+    {
+        return $this->belongsTo(Staff::class, 'staff_id');
+    }
+
+    public function event()
+    {
+        return $this->belongsTo(Events::class, 'staff_id');
+    }
+
+    public function volunteerStatus()
+    {
+        return $this->hasMany(Volunteer::class, 'staff_id');
+    }
+
     protected $guarded = [];
 }

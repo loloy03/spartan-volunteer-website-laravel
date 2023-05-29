@@ -24,7 +24,8 @@
                     <option value="date_asc" {{ $picked_sort === 'DATE (WILL START SOON)' ? 'selected' : '' }}>DATE
                         (ASCENDING)
                     </option>
-                    <option value="date_desc" {{ $picked_sort === 'DATE (NEWEST FIRST)' ? 'selected' : '' }}>DATE (DESCENDING)
+                    <option value="date_desc" {{ $picked_sort === 'DATE (NEWEST FIRST)' ? 'selected' : '' }}>DATE
+                        (DESCENDING)
                     </option>
                     <option value="title_asc" {{ $picked_sort === 'TITLE (A-Z)' ? 'selected' : '' }}>TITLE (A-Z)</option>
                     <option value="title_desc" {{ $picked_sort === 'TITLE (Z-A)' ? 'selected' : '' }}>TITLE (Z-A)</option>
@@ -43,7 +44,7 @@
                             <!-- Image Button - on click redirect to view-event page -->
                             <button class="image-container"
                                 @if (Auth::check()) onclick="window.location='{{ route('view-event', $event->event_id) }}'"> 
-                                @elseif (Auth::guard('staff')->check())
+                                @elseif (Auth::guard('staff')->check() || Auth::guard('admin')->check())
                                     onclick="window.location='{{ route('admin-staff-view-event', $event->event_id) }}'">
                                 @else 
                                     onclick="window.location='{{ route('login') }}'"> @endif
@@ -68,8 +69,11 @@
                                     </div>
                                     <div class="col-lg-4 my-auto">
                                         <button class="p-1 mt-3 w-100 view-event-button"
-                                            onclick="window.location='{{ route('view-event', $event->event_id) }}'">
-                                            View Event
+                                            @if (Auth::check()) onclick="window.location='{{ route('view-event', $event->event_id) }}'">
+                                            @elseif (Auth::guard('staff')->check() || Auth::guard('admin')->check())
+                                                onclick="window.location='{{ route('admin-staff-view-event', $event->event_id) }}'"
+                                            @endif>
+                                                View Event
                                         </button>
                                     </div>
                                 </div>
@@ -82,8 +86,7 @@
                     <div class="bg-light-gray text-center">
                         <p class="fs-4 pt-4 pb-4">NO EVENTS AVAILABLE</p>
                     </div>
-                </div>
-            @endif
-        </div>
-    </div>
-@endsection
+                </div> @endif
+                                            </div>
+                                    </div>
+                                @endsection
