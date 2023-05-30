@@ -23,6 +23,8 @@ class CreateEventForm extends Component
     public $races = [];
     public $roles = [];
 
+    protected $listeners = ['processImage' => 'handleProcessedImage'];
+
     public function render()
     {
         $staffs = $this->getStaffs();
@@ -47,9 +49,9 @@ class CreateEventForm extends Component
         try {
             $this->validate();
 
-            $fileName = $this->image->getClientOriginalName();
+            // $fileName = $this->image->getClientOriginalName();
+            $this->image->store('images');
 
-            DB::transaction(function () {
                 Events::create([
                     'event_pic' => $this->image,
                     'title' => ucwords($this->title),
@@ -67,11 +69,15 @@ class CreateEventForm extends Component
                 // insert Event Staffs
 
 
-            });
         } 
         catch (ValidationException $e) {
-            //
+            
         }
+    }
+
+    public function handleProcessedImage($imageData)
+    {
+        $this->image = $imageData;
     }
 
     public function getStaffs()
