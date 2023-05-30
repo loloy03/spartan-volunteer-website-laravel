@@ -145,7 +145,11 @@ class ProfileController extends Controller
         // Update the user's profile with the new data
         $user->first_name = $validatedData['first_name'];
         $user->last_name = $validatedData['last_name'];
-        $user->birthdate = date('Y-m-d', strtotime($validatedData['selected_date']));
+        if (date('Y-m-d', strtotime($validatedData['selected_date'])) == '1970-01-01') {
+            $user->birthdate = null;
+        } else {
+            $user->birthdate = date('Y-m-d', strtotime($validatedData['selected_date']));
+        }
         $user->contact_number = $validatedData['contact_number'];
         $user->updated_at = now()->toDateTimeString(); // Update the updated_at timestamp
         $user->save();
