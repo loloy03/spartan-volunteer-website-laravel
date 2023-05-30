@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class VolunteerStatus extends Model
 {
+    protected $primaryKey = 'event_id';
+
     public $table = 'volunteer_status';//accessing the table
 
     public $timestamps = false; //disabling laravel's eloquent timestamps
