@@ -71,7 +71,6 @@
                                 ON THE DAY OF THE EVENT, A
                                 BUTTON WILL BE AVAILABLE FOR
                                 YOU TO CHECK IN AND CHECK OUT.
-                                EVENT
                             </div>
 
 
@@ -84,7 +83,8 @@
                             </div>
 
                             <div class="mt-3 {{ $attendance_status != 'validated' ? 'd-none' : '' }}">
-                                <div class="text-white bg-success f-montserrat text-center border border-success p-4 rounded">
+                                <div
+                                    class="text-white bg-success f-montserrat text-center border border-success p-4 rounded">
                                     Your volunteer attendance has been validated by the staff
                                 </div>
                             </div>
