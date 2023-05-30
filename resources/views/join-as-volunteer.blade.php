@@ -84,7 +84,7 @@
                             </div>
 
                             <div class="mt-3 {{ $attendance_status != 'validated' ? 'd-none' : '' }}">
-                                <div class="text-success f-montserrat text-center border border-success p-4 rounded">
+                                <div class="text-white bg-success f-montserrat text-center border border-success p-4 rounded">
                                     Your volunteer attendance has been validated by the staff
                                 </div>
                             </div>
