@@ -43,6 +43,9 @@
                                     <div class="f-lato text-muted">Last Name</div>
                                     <input class="form-control mb-2" type="text" name="last_name" id="last_name"
                                         value="{{ Auth::user()->last_name }}" required>
+                                    <div class="f-lato text-muted">Occupation</div>
+                                    <input class="form-control mb-2" type="text" name="occupation" id="occupation"
+                                        value="{{ Auth::user()->occupation }}" required>
                                     <div class="f-lato text-muted ">Birthdate</div>
                                     <input class="form-control mb-2" type="text" id="datepicker" name="selected_date"
                                         value="{{ Auth::user()->birthdate }}">

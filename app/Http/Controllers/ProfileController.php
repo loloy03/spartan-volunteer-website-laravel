@@ -112,6 +112,7 @@ class ProfileController extends Controller
         $validatedData = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
+            'occupation' => 'nullable',
             'selected_date' => 'nullable|date',
             'contact_number' => 'nullable',
         ]);
@@ -150,6 +151,7 @@ class ProfileController extends Controller
         } else {
             $user->birthdate = date('Y-m-d', strtotime($validatedData['selected_date']));
         }
+        $user->occupation = $validatedData['occupation'];
         $user->contact_number = $validatedData['contact_number'];
         $user->updated_at = now()->toDateTimeString(); // Update the updated_at timestamp
         $user->save();
