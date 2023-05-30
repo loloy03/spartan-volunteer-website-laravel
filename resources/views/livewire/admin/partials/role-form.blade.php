@@ -199,5 +199,5 @@
             <button type="submit" name="create-event" class="btn btn-danger btn-block">CREATE EVENT</button>
         </div>
     </div>
-    @include('layouts.staff-modal')
+    {{-- @include('layouts.staff-modal') --}}
 </div>

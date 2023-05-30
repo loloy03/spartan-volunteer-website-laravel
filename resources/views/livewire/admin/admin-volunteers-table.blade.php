@@ -112,10 +112,8 @@
                             <td> {{ ucwords($volunteer->title) }} </td>
                             <td> {{ ucwords($volunteer->role )}} </td>
                             <td> {{ ucwords($volunteer->location) }} </td>
-                            <td> {{ $volunteer->check_in ? date('Y-m-d', strtotime($volunteer->check_in)) : 'N/A' }}
-                            </td>
-                            <td> {{ $volunteer->check_out ? date('Y-m-d', strtotime($volunteer->check_out)) : 'N/A' }}
-                            </td>
+                            <td> {{ $volunteer->check_in ? date('Y-m-d', strtotime($volunteer->check_in)) : 'N/A' }} </td>
+                            <td> {{ $volunteer->check_out ? date('Y-m-d', strtotime($volunteer->check_out)) : 'N/A' }} </td>
                         </tr>
                     @endforeach
                 </tbody>

@@ -6,6 +6,7 @@ use App\Models\Events;
 use App\Models\Volunteer;
 use App\Models\StaffStatus;
 use App\Models\Staff;
+use App\Models\RaceType;
 use App\Services\CreateEventService;
 use App\Models\VolunteerStatus;
 use Illuminate\Http\Request;
@@ -87,16 +88,9 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store()
     {
-        // dd($request->all());
-        DB::transaction(function () use ($request) {
-            $eventService = new CreateEventService();
-            $eventService->createEvent($request);
-        });
-
-        // add flash notification for feedback
-        return redirect('/event');
+        return view('/create-event');
     }
 
 

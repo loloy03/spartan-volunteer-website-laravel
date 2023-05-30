@@ -1,7 +1,7 @@
 <div class="row">
     <!--
-                        left column
-                    -->
+        left column
+    -->
     <div class="col-md-6">
         <div class="image-file">
             <input type="file" class="form-control-file input" name="event_pic" id="file" accept="image/*"
@@ -19,7 +19,6 @@
                 </div>
             </div>
         </div>
-
         @error('event_pic')
             <p class="text-danger text-xs mt-1">
                 {{ $message }}
@@ -57,8 +56,8 @@
     </div>
 
     <!--
-                        right column
-                    -->
+        right column
+    -->
     <div class="col-md-6">
         <div class="form-group row mb-3 event-form">
             <label for="loc" class="col-sm-5 col-form-label f-montserrat">LOCATION</label>
@@ -147,7 +146,7 @@
                         data-group="event-categories">
                     </ul>
                 </div>
-                @include('layouts.category-modal')
+                {{-- @include('layouts.category-modal') --}}
             </div>
         </div>
     </div>

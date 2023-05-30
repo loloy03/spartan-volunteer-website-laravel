@@ -5,7 +5,7 @@
                 <tr>
                     <div>
                         {{-- Toolbar here --}}
-                        <button class="btn btn-danger rounded-pill" wire:click="updateVolunteers">
+                        <button type="buton" class="btn btn-danger rounded-pill" wire:click="updateVolunteers">
                             ADD VOLUNTEERS
                             <i class="fa-regular fa-plus"></i>
                         </button>
