@@ -7,6 +7,10 @@ use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\Auth\StaffLoginController;
 use App\Http\Controllers\Auth\AdministratorLoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\StaffController;
+use App\Http\Controllers\StaffStatusController;
+use App\Http\Controllers\VolunteerStatusController;
+use App\Models\Volunteer;
 
 // Home page
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -99,17 +103,19 @@ Route::post('/admin-logout', [AdministratorLoginController::class, 'logout']);
 Route::get('/create-event', [EventController::class, 'create'])->name('create-event');
 Route::post('/create-event', [EventController::class, 'store'])->name('create-event.post');
 
+Route::get('/admin-volunteers', [VolunteerController::class, 'adminListOfVolunteers'])->name('admin-volunteers');
+
 // Admin-Validate and Distribute Volunteer Race Code Claim
-Route::get('/distribute-code', [VolunteerController::class, 'listOfVerifiedVolunteers'])->name('distribute-code');
-Route::get('/distribute-code', [VolunteerController::class, 'listOfVerifiedVolunteers'])->name('distribute-code.post');
+Route::get('/distribute-code', [VolunteerController::class, 'listofValidatedVolunteers']);
+
+Route::get('/test-login', function () {
+    return view('test-login');
+});
 
 // STAFF ROUTES
 // Middleware: staff
 Route::group(['middleware' => ['staff']], function () {
     //
-    Route::get('/test-login', function () {
-        return view('test-login');
-    });
 
     Route::get('/staff-dashboard', [DashboardController::class, 'showStaffDashboard']);
 });
@@ -126,13 +132,15 @@ Route::post('/staff-logout', [StaffLoginController::class, 'logout']);
 
 // Staff-Give Volunteer Role
 // input staff_id, event_id, and staff_role/staff_status
-Route::get('/{event}/add-volunteer', [VolunteerController::class, 'listOfConfirmedVolunteers'])->name('add-volunteer');
-Route::post('/{event}/add-volunteer', [VolunteerController::class, 'updateConfirmedVolunteers'])->name('add-volunteer.post');
+Route::get('/{event}/add-volunteer', [EventController::class, 'listOfConfirmedVolunteers'])->name('add-volunteer');
+Route::post('/{event}/add-volunteer', [VolunteerStatusController::class, 'updateConfirmedVolunteers'])->name('add-volunteer.post');
 
 // Staff-Validate Volunteer Attendance
 // input staff_id, event_id, and staff_role/staff_status
-Route::get('/{event}/check-attendance', [VolunteerController::class, 'listOfPendingVolunteers'])->name('check-attendance');
-Route::post('/{event}/check-attendance', [VolunteerController::class, 'updatePendingVolunteers'])->name('check-attendance.post');
+Route::get('/{event}/check-attendance', [EventController::class, 'listOfPendingVolunteers'])->name('check-attendance');
+Route::post('/{event}/check-attendance', [VolunteerStatusController::class, 'updatePendingVolunteers'])->name('check-attendance.post');
+
+Route::get('/staff-volunteers', [StaffController::class, 'staffListOfVolunteers'])->name('staff-volunteers');
 
 // shared by staff and admin
 Route::get('admin-staff-view-event/{event}', [EventController::class, 'show'])->name('admin-staff-view-event');

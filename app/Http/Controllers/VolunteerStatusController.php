@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\VolunteerStatus;
+use App\Models\StaffStatus;
+use App\Models\Volunteer;
+use App\Models\Events;
+
 use Illuminate\Http\Request;
 
 class VolunteerStatusController extends Controller
@@ -77,7 +81,57 @@ class VolunteerStatusController extends Controller
         return redirect(route('join-as-volunteer', $request->event_id));
     }
 
-    //
+    // Update list of volunteers with the current Staff's role
+    // If current Staff role for the event is Registration, Staff can update 
+    // volunteer role to Registration
+    public function updateConfirmedVolunteers(Request $request, $eventId)
+    {
+        $volunteerId = $request->input('volunteer-id');
+        $staffId = auth()->guard('staff')->user()->staff_id;
+
+        $redirectPath = '/' . $eventId . '/add-volunteer'; 
+        
+        $role = StaffStatus::where('staff_id', $staffId)
+        ->where('event_id', $eventId)
+        ->first();
+
+        $volunteerRole = ucwords($role->first()->role);
+
+        if($volunteerId) {
+            foreach($volunteerId as $id) {
+                VolunteerStatus::updateOrInsert(
+                    // WHERE CLAUSE
+                    ['volunteer_id' => $id, 'event_id' => $eventId],
+                    // INSERT or UPDATE CLAUSE
+                    ['role' => $volunteerRole, 'staff_id' => $staffId],
+                );
+            }
+        }
+        return redirect($redirectPath);
+    }
+
+    // Updates the listOfPendingVolunteers()
+    // Updates attendance_status to CHECKED or VALIDATED
+    public function updatePendingVolunteers(Request $request, $eventId)
+    {
+        $volunteerStatus = $request->input('volunteer-status');
+        $staffId = auth()->guard('staff')->user()->staff_id;
+
+        $redirectPath = '/' . $eventId . '/check-attendance';
+
+        if($volunteerStatus) {
+            foreach($volunteerStatus as $volunteerId => $status) {
+                VolunteerStatus::updateOrInsert(
+                    // WHERE CLAUSE
+                    ['volunteer_id' => $volunteerId /*, 'event_id' => $eventId*/],
+                    // INSERT or UPDATE CLAUSE
+                    ['attendance_status' => $status /*, 'staff_id' => $staffId*/]
+                );
+            }
+            //dd($volunteerStatuses);
+        }
+        return redirect($redirectPath);
+    }
 }
 
 

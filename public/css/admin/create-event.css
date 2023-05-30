@@ -6,7 +6,6 @@ label {
 .container {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 button {
@@ -128,3 +127,4 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .role-input {
     align-items: center;
 }
+

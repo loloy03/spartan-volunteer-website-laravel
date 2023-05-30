@@ -23,25 +23,11 @@
 @section('content')
     <div class="container">
         <div class="container-fluid p-4">
-            <form action="/create-event" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="row">
-
-                    <!--
-                        PAGE 1
-                        CREATE EVENT FORM
-                    -->
-                    @include('admin.partials.event-form')
-                    <!--
-                        PAGE 2
-                        ADD ROLES FORM
-                    -->
-                    @include('admin.partials.role-form')
-                </div>
-            </form>
+            <div class="shadow p-3 mb-5 bg-white rounded">
+                @livewire('admin.create-event-form')
+            </div>
         </div>
     </div>
-    <!-- HTML has to load first for js script to work -->
     <script src="{{ asset('js/image-preview.js') }}"></script>
     <script src="{{ asset('js/datepicker.js') }}"></script>
     <script src="{{ asset('js/persisting-data.js') }}"></script>

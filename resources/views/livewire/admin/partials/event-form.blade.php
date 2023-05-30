@@ -1,7 +1,7 @@
 <div class="row">
     <!--
-                        left column
-                    -->
+        left column
+    -->
     <div class="col-md-6">
         <div class="image-file">
             <input type="file" class="form-control-file input" name="event_pic" id="file" accept="image/*"
@@ -19,7 +19,6 @@
                 </div>
             </div>
         </div>
-
         @error('event_pic')
             <p class="text-danger text-xs mt-1">
                 {{ $message }}
@@ -57,8 +56,8 @@
     </div>
 
     <!--
-                        right column
-                    -->
+        right column
+    -->
     <div class="col-md-6">
         <div class="form-group row mb-3 event-form">
             <label for="loc" class="col-sm-5 col-form-label f-montserrat">LOCATION</label>
@@ -105,8 +104,8 @@
             </div>
         </div>
         <div class="form-group row mb-3 event-form">
-            <label for="event-start" class="col-md-5 col-form-label f-montserrat">EVENT START
-                DATE</label>
+            <label for="event-start" class="col-md-5 col-form-label f-montserrat">CLAIM CODE START DATE
+                </label>
             <div class="col-md-7">
                 <input type="text" class="form-control event-input input datepicker" name="date"
                     id="event-start-datepicker" value="{{ old('date') }}" placeholder="Enter Event Start Date...">
@@ -120,7 +119,7 @@
             </div>
         </div>
         <div class="form-group row mb-3 event-form">
-            <label for="event-end" class="col-md-5 col-form-label f-montserrat">EVENT END DATE</label>
+            <label for="event-end" class="col-md-5 col-form-label f-montserrat">CLAIM CODE END DATE</label>
             <div class="col-md-7">
                 <input type="text" class="form-control event-input input datepicker" name="event_date_end"
                     id="event-end-datepicker" value="{{ old('event_date_end') }}"
@@ -147,12 +146,8 @@
                         data-group="event-categories">
                     </ul>
                 </div>
-                @include('layouts.category-modal')
+                {{-- @include('layouts.category-modal') --}}
             </div>
-        </div>
-        <div class="form-group mt-3 event-form d-grid gap-2">
-            <button type="submit" name="manage-roles" class="btn btn-danger">MANAGE ROLES</button>
-            <button type="button" name="cancel" class="btn btn-dark">CANCEL</button>
         </div>
     </div>
 </div>

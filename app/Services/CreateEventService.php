@@ -11,28 +11,28 @@ use Illuminate\Support\Facades\Storage;
 class CreateEventService {
     public function createEvent(Request $request)
     {
-        $directory = '/public/images/events';
-        Storage::makeDirectory($directory);
+        // $directory = '/public/images/events';
+        // Storage::makeDirectory($directory);
 
-        $image = $request->file('event_pic');
-        $fileName = $image->getClientOriginalName();
+        // $image = $request->file('event_pic');
+        // $fileName = $image->getClientOriginalName();
 
         // $image->move(public_path($directory), $fileName);
 
         if ($validatedEvent = $request->validate([
-            'event_pic' => 'required|image|dimensions:min_width=480,min_height=360',
+            // 'event_pic' => 'required|image|dimensions:min_width=480,min_height=360',
             'title' => 'required|min:0|max:45',
             'description' => 'required|min:0|max:255',
             'location' => 'required|min:0|max:45',
             'start_date' => 'required',
-            'end_date' => 'required',
+            // 'end_date' => 'required',
             //'status' => 'required',
             'date' => 'required',
-            'event_date_end' => 'event_date_end',
+            // 'event_date_end' => 'event_date_end',
             'code_start_date' => 'required',
             'code_end_date' => 'required'
         ])) {
-            $image->move(public_path($directory), $fileName);
+            // $image->move(public_path($directory), $fileName);
             $event = Events::create($validatedEvent);
 
             // Save the event categories

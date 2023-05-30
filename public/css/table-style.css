@@ -5,9 +5,8 @@
 .table thead tr,
 .table thead th {
     font-family: Montserrat;
-    border-top: none;
-    border-bottom: none !important;
     text-align: center;
+    padding: 10px !important;
 }
 
 .table tbody th,
@@ -29,7 +28,6 @@
 
 .table tbody tr th,
 .table tbody tr td {
-    border: none;
     -webkit-transition: .3s all ease;
     -o-transition: .3s all ease;
     transition: .3s all ease;
@@ -52,7 +50,7 @@
 .custom-table tbody tr:hover th,
 .custom-table tbody tr:hover td {
     color: #fff;
-    background: #F44336;
+    background: #dc4c64;
 }
 
 /*override dataTables default th alignment*/
@@ -66,21 +64,22 @@
     margin-bottom: 1rem;
 }
 
-.toolbar {
-    float: right;
+input[type=checkbox] {
+    font-family: Montserrat !important;
 }
 
-.checkbox {
+input::placeholder {
+    font-family: Montserrat !important;
+    font-size: small;
+}
+
+input[type=checkbox]:hover {
+    cursor:pointer;
     transform: scale(1.5);
 }
 
-.checkbox:hover {
-    cursor:pointer;
-    transform: scale(2);
-}
-
-.checkbox:checked {
-    transform: scale(2);
+input[type=checkbox]:checked {
+    transform: scale(1.5);
 }
 
 
