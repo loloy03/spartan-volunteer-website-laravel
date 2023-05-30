@@ -196,7 +196,7 @@
             </div>
         </div>
         <div class="form-group mt-3 event-form d-grid gap-2">
-            <button type="submit" name="create-event" class="btn btn-danger btn-block" wire:click="createEvent">CREATE EVENT</button>
+            <button type="submit" name="create-event" class="btn btn-danger btn-block">CREATE EVENT</button>
         </div>
     </div>
     {{-- @include('layouts.staff-modal') --}}

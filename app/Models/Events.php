@@ -15,6 +15,8 @@ class Events extends Model
 
     public $timestamps = false; //disabling laravel's eloquent timestamps
 
+    public $guarded = [];
+
     public function volunteerStatus()
     {
         return  $this->hasMany(VolunteerStatus::class, 'event_id');
