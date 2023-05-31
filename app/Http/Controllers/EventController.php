@@ -163,7 +163,7 @@ class EventController extends Controller
         if ($attendance_status == 'cancelled') {
             $event_status = 'VOLUNTEER CANCELLED';
             $code_status = 'NOT AVAILABLE';
-        } elseif ($attendance_status == 'confirmed' || $attendance_status == 'checked') {
+        } elseif ($attendance_status == 'confirmed' || $attendance_status == 'checked' || $attendance_status == 'validated') {
             return redirect(route('join-as-volunteer', $event->event_id));
         } elseif ($isClaimed != null) {
 
