@@ -35,7 +35,7 @@ class EventController extends Controller
         }
 
         // Fetch the events from the database
-        $events = Events::where('date', '>', date('Y-m-d'));
+        $events = Events::where('date', '>=', date('Y-m-d'));
         $picked_sort = "";
 
         // Sort the events according to the selected option
