@@ -14,8 +14,6 @@
                 <h5> EVENT ROLE: {{ $staffRole }} </h5>
             </div>
             <div class="shadow p-3 mb-5 bg-white rounded">
-                {{-- <livewire:staff.validate-volunteers-table eventId="{{ $event->event_id }}"
-                    staffRole="{{ $staffRole }}" /> --}}
                 @livewire('staff.check-attendance-table', ['staffId' => $staffId, 'staffRole' => $staffRole,'eventId' => $event->event_id])
             </div>
         </form>
