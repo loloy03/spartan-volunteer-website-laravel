@@ -10,6 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StaffStatusController;
 use App\Http\Controllers\VolunteerStatusController;
+use App\Http\Controllers\Auth\SuperAdmin\SuperAdminLoginController;
 use App\Models\Volunteer;
 
 // Home page
@@ -147,4 +148,10 @@ Route::get('/staff-volunteers', [StaffController::class, 'staffListOfVolunteers'
 
 // shared by staff and admin
 Route::get('admin-staff-view-event/{event}', [EventController::class, 'show'])->name('admin-staff-view-event');
+
+Route::get('/super-admin-login', [SuperAdminLoginController::class, 'showLoginForm']);
+Route::post('/super-admin-login', [SuperAdminLoginController::class, 'login']);
+
+Route::get('/all-volunteers', [VolunteerController::class, 'allVolunteers']);
+
 

@@ -15,6 +15,12 @@ class VolunteerController extends Controller
         return view('admin.admin-volunteers');
     }
 
+    public function allVolunteers()
+    {
+        $volunteers = Volunteer::all();
+        return view('auth.super_admin.all-volunteers', compact('volunteers'));
+    }
+
     // IMPORTANT!: ADMIN ROLE
     // list of volunteers that have verified their attendance
     // they are now eligible to claim their free race codes
