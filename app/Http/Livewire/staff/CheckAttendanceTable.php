@@ -53,8 +53,8 @@ class CheckAttendanceTable extends Component
     {
         return Volunteer::query()->join('volunteer_status', 'volunteer.volunteer_id', '=', 'volunteer_status.volunteer_id')
         ->where('volunteer_status.event_id', $this->eventId)
-        // ->where('volunteer_status.staff_id', $this->staffId)
-        // ->where('volunteer_status.role', $this->staffRole)
+        ->where('volunteer_status.staff_id', $this->staffId)
+        ->where('volunteer_status.role', $this->staffRole)
         ->orderBy($this->sortBy, $this->sortDirection)
         ->select(
             'volunteer.volunteer_id',
