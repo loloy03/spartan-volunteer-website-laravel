@@ -2,10 +2,13 @@
 
 namespace App\Http\Livewire\Staff;
 
+use App\Models\RaceCredit;
 use App\Models\Volunteer;
 use App\Models\VolunteerStatus;
+use App\Models\Events;
 
 use Livewire\Component;
+use Illuminate\Support\Carbon;
 use Livewire\WithPagination;
 
 class CheckAttendanceTable extends Component
@@ -101,6 +104,10 @@ class CheckAttendanceTable extends Component
     public function validateAttendance()
     {
         $validatedVolunteers = $this->validated;
+        $event = Events::find($this->eventId);
+
+        $eventDate = Carbon::createFromFormat('Y-m-d', $event->start_date);
+        $expDate = $eventDate->addYear();
 
         if($validatedVolunteers)
         {
@@ -109,6 +116,13 @@ class CheckAttendanceTable extends Component
                 VolunteerStatus::where('volunteer_id', $volunteer)
                 ->where('event_id', $this->eventId)
                 ->update(['attendance_status' => 'validated']);
+
+                RaceCredit::insert([
+                    'volunteer_id' => $volunteer,
+                    'event_id' => $this->eventId,
+                    'exp_date' => $expDate,
+                    'status' => 'unclaimed'
+                ]);
             }
         }
     }
