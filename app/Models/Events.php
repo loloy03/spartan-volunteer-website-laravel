@@ -19,7 +19,12 @@ class Events extends Model
 
     public function volunteerStatus()
     {
-        return  $this->hasMany(VolunteerStatus::class, 'event_id');
+        return $this->hasMany(VolunteerStatus::class, 'event_id');
+    }
+
+    public function validatedVolunteers()
+    {
+        return $this->hasMany(VolunteerStatus::class, 'event_id')->where('attendance_Status', 'validated');
     }
 
     public function staffStatus()

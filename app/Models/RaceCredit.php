@@ -12,4 +12,17 @@ class RaceCredit extends Model
     protected $primaryKey = 'event_id'; //changing the primary key
 
     public $timestamps = false; //disabling laravel's eloquent timestamps
+
+    protected $guarded = [];
+
+    public function volunteerStatus()
+    {
+        return $this->belongsTo(VolunteerStatus::class, 'volunteer_id');
+    }
+
+    public function raceCode()
+    {
+        //
+        return $this->hasOneThrough(RaceCode::class, 'race_credit');
+    }
 }

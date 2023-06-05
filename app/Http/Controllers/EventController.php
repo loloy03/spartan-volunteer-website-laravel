@@ -254,27 +254,21 @@ class EventController extends Controller
         return view('staff.check-attendance', compact('staffId', 'staffRole', 'event'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Events $event)
-    {
-        //
+    public function listOfVolunteerRace($eventId)
+    {   
+        $event = Events::find($eventId);
+        return view('admin.volunteer-racecode-claim', compact('event'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Events $event)
+    public function listOfEventVolunteers($eventId)
     {
-        //
+        $event = Events::find($eventId);
+        return view('admin.event-volunteeers', compact('event'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Events $event)
+    public function listOfEventStaffs($eventId)
     {
-        //
+        $event = Events::find($eventId);
+        return view('admin.event-staffs', compact('event'));
     }
 }
