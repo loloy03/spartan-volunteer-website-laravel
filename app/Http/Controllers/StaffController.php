@@ -17,4 +17,11 @@ class StaffController extends Controller
         return view('admin.partials.role-form', compact('staffs'));
     }
 
+    public function staffListOfVolunteers()
+    {
+        $staffId = auth()->guard('staff')->user()->staff_id;
+
+        return view('staff.staff-volunteers', compact('staffId'));
+    }
+
 }

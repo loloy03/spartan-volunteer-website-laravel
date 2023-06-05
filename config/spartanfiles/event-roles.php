@@ -3,17 +3,17 @@
 // Returns a list of possible Roles
 // Can be updated
 return [
-    "Registration" => "Registration",
-    "Start Line" => "Start Line",
-    "Finisher Tent" => "Finisher Tent",
-    "Merchandise" => "Merchandise",
-    "Social Distancing" => "Social Distancing",
-    "Bag Check" => "Bag Check",
-    "Changing Rooms" => "Changing Rooms",
-    "Porta-Potties" => "Porta-Potties",
-    "Volunteers Tent" => "Volunteer Tent",
-    "Aid Station" => "Aid Station",
-    "Marshalls" => "Marshalls",
-    "Gear Check" => "Gear Check",
-    "Transition Tent" => "Transition Tent"
+    1 => "Registration",
+    2 => "Start Line",
+    3 => "Finisher Tent",
+    4 => "Merchandise",
+    5 => "Social Distancing",
+    6 => "Bag Check",
+    7 => "Changing Rooms",
+    8 => "Porta-Potties",
+    9 => "Volunteer Tent",
+    10 => "Aid Station",
+    11 => "Marshalls",
+    12 => "Gear Check",
+    13 => "Transition Tent"
 ];

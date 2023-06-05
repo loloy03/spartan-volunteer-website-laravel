@@ -6,7 +6,6 @@ label {
 .container {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 button {
@@ -52,7 +51,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width: 480px;
     height: 360px;
     background: var(--grey);
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     border-radius: 15px;
     overflow: hidden;
     display: flex;
@@ -69,24 +68,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     flex-direction: column;
 }
 
-.image-file:hover *{
-    background-color: #d9d9d9;
-}
-
-.image-area img:hover {
-    opacity: 0.5;
-}
-
-.image-area .icon {
-    font-size: 100px;
-}
-
-.image-area h3 {
-    font-size: 20px;
-    font-weight: 500;
-    margin-bottom: 6px;
-}
-
 .image-area img {
     position: absolute;
     top: 0;
@@ -98,16 +79,29 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     z-index: 100;
 }
 
-.remove-img {
+.upload-info {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+} 
+
+.image-area .icon {
+    font-size: 100px;
 }
 
-#removeImg {
-    position: absolute;
-    z-index: 200;
+.image-file:hover *{
+    background-color: #d9d9d9;
+}
+
+.image-area img:hover {
+    opacity: 0.5;
+}
+
+.image-area h3 {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 6px;
 }
   
 .li-categ {
@@ -128,3 +122,4 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .role-input {
     align-items: center;
 }
+

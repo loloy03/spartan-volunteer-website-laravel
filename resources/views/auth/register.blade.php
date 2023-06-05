@@ -18,12 +18,13 @@
                     REGISTER AS VOLUNTEER
                 </div>
 
+
                 <form method="POST" action="{{ route('register') }}">
 
                     @csrf
 
                     <!--first name input-->
-                    <div class="mt-3 f-lato">
+                    <div class="mt-3 f-lato ">
 
                         <label for="first_name">{{ __('First Name') }}</label>
 
@@ -67,7 +68,6 @@
                         @enderror
                     </div>
 
-                    <!--password-->
                     <div class="mt-3 f-lato">
                         <label for="password">{{ __('Password') }}</label>
                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
@@ -75,26 +75,29 @@
 
                         @error('password')
                             @if ($message == 'The password field format is invalid.')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>The password must contain 8 characters and include a combination of uppercase
-                                        letters, lowercase letters, numbers, and symbols.</strong>
-                                </span>
+                                <div class="mt-2" style="height: 2rem; overflow-y: auto; display:block;">
+                                    <span class="invalid-feedback d-block" role="alert">
+                                        <strong>The password must contain 8 characters and include a combination of uppercase
+                                            letters, lowercase letters, numbers, and symbols.</strong>
+                                    </span>
+                                </div>
                             @else
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                <div class="mt-2" style="height: 1rem; overflow-y: auto;">
+                                    <span class="invalid-feedback d-block" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                </div>
                             @endif
                         @enderror
-
                     </div>
-
 
                     <div class="mt-3 f-lato">
                         <label for="password-confirm">{{ __('Confirm Password') }}</label>
-
                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
                             required autocomplete="new-password">
                     </div>
+
+
 
 
                     <div class="mt-1 f-montserrat">

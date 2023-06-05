@@ -14,4 +14,14 @@ class Events extends Model
     protected $primaryKey = 'event_id'; //changing the primary key
 
     public $timestamps = false; //disabling laravel's eloquent timestamps
+
+    public function volunteerStatus()
+    {
+        return  $this->hasMany(VolunteerStatus::class, 'event_id');
+    }
+
+    public function staffStatus()
+    {
+        return $this->hasMany(StaffStatus::class, 'staff_id');
+    }
 }

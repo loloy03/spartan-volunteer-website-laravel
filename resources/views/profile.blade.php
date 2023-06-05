@@ -164,6 +164,11 @@
                                     class="f-montserrat mb-2  {{ Auth::user()->birthdate == null ? 'text-warning' : '' }}">
                                     {{ Auth::user()->birthdate == null ? 'No birthdate assigned yet' : Auth::user()->birthdate }}
                                 </div>
+                                <div class="f-lato text-muted ">Occupation</div>
+                                <div
+                                    class="f-montserrat mb-2  {{ Auth::user()->occupation == null ? 'text-warning' : '' }}">
+                                    {{ Auth::user()->occupation == null ? 'No Occupation assigned yet' : Auth::user()->occupation }}
+                                </div>
                                 <div class="f-lato text-muted">Contact Number</div>
                                 <div
                                     class="f-montserrat mb-2 {{ Auth::user()->contact_number == null ? 'text-warning' : '' }}">

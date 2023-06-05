@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Events;
+use App\Models\Volunteer;
+use App\Models\StaffStatus;
 use App\Models\Staff;
+use App\Models\RaceType;
 use App\Services\CreateEventService;
 use App\Models\VolunteerStatus;
 use Illuminate\Http\Request;
@@ -85,16 +88,9 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store()
     {
-        // dd($request->all());
-        DB::transaction(function () use ($request) {
-            $eventService = new CreateEventService();
-            $eventService->createEvent($request);
-        });
-
-        // add flash notification for feedback
-        return redirect('/event');
+        return view('/create-event');
     }
 
 
@@ -167,7 +163,7 @@ class EventController extends Controller
         if ($attendance_status == 'cancelled') {
             $event_status = 'VOLUNTEER CANCELLED';
             $code_status = 'NOT AVAILABLE';
-        } elseif ($attendance_status == 'confirmed' || $attendance_status == 'checked') {
+        } elseif ($attendance_status == 'confirmed' || $attendance_status == 'checked' || $attendance_status == 'validated') {
             return redirect(route('join-as-volunteer', $event->event_id));
         } elseif ($isClaimed != null) {
 
@@ -219,6 +215,44 @@ class EventController extends Controller
         return $eventTitle->first()->title;
     }
 
+    // IMPORTANT: STAFF ROLE
+    // list of volunteers that are available to be given a role
+    public function listOfConfirmedVolunteers($eventId)
+    {
+        $event = Events::where('event_id', $eventId)->first();
+
+        $staffId = auth()->guard('staff')->user()->staff_id;
+
+        $role = StaffStatus::where('staff_id', $staffId)
+        ->where('event_id', $eventId)
+        ->first();
+
+        $staffRole = ucwords($role->role);
+
+        return view('staff.add-volunteer', compact('staffId', 'staffRole', 'event'));
+    }
+
+    // IMPORTANT: STAFF ROLE
+    // list of volunteers that have 'finished' their volunteer hours
+    // to be validated by staff
+    // NOTE: change event_id as argument
+    public function listOfPendingVolunteers($eventId)
+    {
+        $event = Events::where('event_id', $eventId)->first();
+ 
+        $staffId = auth()->guard('staff')->user()->staff_id;
+
+        $role = StaffStatus::where('staff_id', $staffId)
+        ->where('event_id', $eventId)
+        ->first();
+
+        $staffRole = ucwords($role->role);
+        // EXCEPTION HANDLING
+        // if (staff isn't part of the event)
+            // show: staff isn't part of event
+
+        return view('staff.check-attendance', compact('staffId', 'staffRole', 'event'));
+    }
 
     /**
      * Show the form for editing the specified resource.

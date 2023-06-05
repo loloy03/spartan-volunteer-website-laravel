@@ -1,25 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
+@extends('layouts.app')
 
-    {{ dd(auth('staff')->user()) }}
+@section('content')
+    <!-- Start your project here-->
+<div class="container">
+    <div class="d-flex justify-content-center align-items-center" style="height: 100vh">
+      <div class="text-center">
+        <img
+          class="mb-4"
+          src="https://mdbootstrap.com/img/logo/mdb-transparent-250px.png"
+          style="width: 250px; height: 90px"
+        />
+        <h5 class="mb-3">Thank you for using our product. We're glad you're with us.</h5>
+        <p class="mb-3">MDB Team</p>
+        <a
+          class="btn btn-primary btn-lg"
+          href="https://mdbootstrap.com/learn/mdb-foundations/basics/introduction/"
+          target="_blank"
+          role="button"
+          >Start MDB tutorial</a
+        >
+      </div>
+    </div>
+  </div>
+  <!-- End your project here-->
 
-    <h1>
-        HELLO! STAFF {{ Auth::guard('staff')->user()->first_name }}
-                        {{auth('staff')->user()->first_name}}
-    </h1>
-    <h4>
-        {{ Auth::guard('staff')->user()->email }}
-    </h4>
-    <h6>
-        STAFF ID: {{ Auth::guard('staff')->user()->staff_id }}
-    </h6>
-
-</body>
-</html>
+@endsection
