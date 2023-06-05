@@ -14,10 +14,10 @@
                             @include('partials.tables.select-attendance-status')
                         </div>
                     </div>
-                    <td>UPDATE</td>
+                    <th>UPDATE</th>
                     <th class="col no-sort">PICTURE PROOF</th>
                     <th class="col no-sort">STATUS</th>
-                    <th class="col" role="button" wire:click="sort('first_name')">
+                    <th class="col" role="button" wire:click="sort('first_name')">FIRST NAME
                         @if ($sortBy === 'first_name')
                             <i class="fa fa-sort-{{ $sortDirection }}"></i>
                         @else
@@ -80,7 +80,7 @@
                                 </div>
                             @else
                                 <button type="button" class="btn btn-dark btn-modal" data-bs-toggle="modal"
-                                    wire:click.prevent="setVolunteerImage({{ $volunteer->proof_of_checkout }})" data-bs-target="#image">
+                                    wire:click="setVolunteerImage({{$volunteer->proof_of_checkout}})" data-bs-target="#image">
                                     VIEW
                                 </button>
                             @endif

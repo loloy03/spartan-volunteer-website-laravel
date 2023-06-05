@@ -246,6 +246,12 @@ class EventController extends Controller
         ->where('event_id', $eventId)
         ->first();
 
+        // resources\views\livewire\staff\partials\not-included.blade.php
+        if($role == null)
+        {
+            return view('livewire.staff.partials.not-included');
+        }
+
         $staffRole = ucwords($role->role);
         // EXCEPTION HANDLING
         // if (staff isn't part of the event)

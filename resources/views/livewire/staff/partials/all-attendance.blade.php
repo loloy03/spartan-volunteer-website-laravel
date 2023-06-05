@@ -43,7 +43,6 @@
                 </tr>
                 <tr>
                     <th class="col"></th>
-                    <th class="col"></th>
                     <th class="col">
                         <input type="text" class="form-control" placeholder="First Name"
                             wire:model="searchFirstName">
@@ -51,7 +50,6 @@
                     <th class="col">
                         <input type="text" class="form-control" placeholder="Last Name" wire:model="searchLastName">
                     </th>
-                    <th class="col"></th>
                     <th class="col"></th>
                 </tr>
             </thead>
