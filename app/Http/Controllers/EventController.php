@@ -27,7 +27,7 @@ class EventController extends Controller
     public function index(Request $request)
     {
         // Define the default sort order
-        $sort_by = 'date_desc';
+        $sort_by = 'date_asc';
 
         // Override the sort order if the form was submitted
         if ($request->has('sort_by')) {
