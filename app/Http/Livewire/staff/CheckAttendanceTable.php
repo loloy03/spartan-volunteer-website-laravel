@@ -60,6 +60,7 @@ class CheckAttendanceTable extends Component
             'volunteer.volunteer_id',
             'volunteer.first_name',
             'volunteer.last_name',
+            'volunteer.contact_number',
             'volunteer_status.role',
             'volunteer_status.staff_id',
             'volunteer_status.attendance_status',
@@ -117,12 +118,13 @@ class CheckAttendanceTable extends Component
                 ->where('event_id', $this->eventId)
                 ->update(['attendance_status' => 'validated']);
 
-                RaceCredit::insert([
-                    'volunteer_id' => $volunteer,
-                    'event_id' => $this->eventId,
-                    'exp_date' => $expDate,
-                    'status' => 'unclaimed'
-                ]);
+                // Unsur ako dito
+                // RaceCredit::insert([
+                //     'volunteer_id' => $volunteer,
+                //     'event_id' => $this->eventId,
+                //     'exp_date' => $expDate,
+                //     'status' => 'unclaimed'
+                // ]);
             }
         }
     }

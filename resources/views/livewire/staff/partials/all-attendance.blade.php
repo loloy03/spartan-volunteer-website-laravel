@@ -40,6 +40,7 @@
                             <i class="fa-solid fa-sort"></i>
                         @endif
                     </th>
+                    <th class="col">CONTACT #</th>
                 </tr>
                 <tr>
                     <th class="col"></th>
@@ -50,6 +51,7 @@
                     <th class="col">
                         <input type="text" class="form-control" placeholder="Last Name" wire:model="searchLastName">
                     </th>
+                    <th class="col"></th>
                     <th class="col"></th>
                 </tr>
             </thead>
@@ -75,6 +77,7 @@
                         <td> {{ ucwords($volunteer->last_name) }} </td>
                         <td> {{ $volunteer->check_in ? date('Y-m-d | H:i:s', strtotime($volunteer->check_in)) : 'N/A' }}</td>
                         <td> {{ $volunteer->check_out ? date('Y-m-d | H:i:s', strtotime($volunteer->check_out)) : 'N/A' }}</td>
+                        <td> {{ $volunteer->contact_number ? ($volunteer->contact_number) : 'N/A' }}</td>
                     </tr>
                 @endforeach
             </tbody>
