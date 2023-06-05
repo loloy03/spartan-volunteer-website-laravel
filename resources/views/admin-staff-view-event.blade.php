@@ -36,11 +36,9 @@
                 <div class="f-lato my-3">{{ $event->description }}</div>
 
                 @staff 
-                {{-- (Auth::guard('staff')->check()) --}}
                     @include ('staff.partials.view-event')
                 @endstaff 
                 @admin
-                {{-- (Auth::guard('admin')->check()) --}}
                     @include ('admin.partials.view-event')
                 @endadmin
             </div>

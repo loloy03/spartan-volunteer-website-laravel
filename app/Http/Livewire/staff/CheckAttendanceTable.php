@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Staff;
 
 use App\Models\Volunteer;
+use App\Models\VolunteerStatus;
 
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -15,6 +16,7 @@ class CheckAttendanceTable extends Component
     public $eventId;
     public $staffId;
     public $staffRole;
+    public $volunteerImage;
 
     // search item
     public $searchFirstName;
@@ -22,6 +24,9 @@ class CheckAttendanceTable extends Component
 
     // filter item
     public $filterStatus;
+
+    public $checked = [];
+    public $validated = [];
 
     // sorting items
     // defualt sort(volunteer_id, asc)
@@ -45,8 +50,8 @@ class CheckAttendanceTable extends Component
     {
         return Volunteer::query()->join('volunteer_status', 'volunteer.volunteer_id', '=', 'volunteer_status.volunteer_id')
         ->where('volunteer_status.event_id', $this->eventId)
-        ->where('volunteer_status.staff_id', $this->staffId)
-        ->where('volunteer_status.role', $this->staffRole)
+        // ->where('volunteer_status.staff_id', $this->staffId)
+        // ->where('volunteer_status.role', $this->staffRole)
         ->orderBy($this->sortBy, $this->sortDirection)
         ->select(
             'volunteer.volunteer_id',
@@ -78,12 +83,39 @@ class CheckAttendanceTable extends Component
         $this->resetPage();
     }
 
-    public function updateStatus($volunteer_id)
+    public function checkAttendance()
     {
-        if($volunteer_id)
+        $checkedVolunteers = $this->checked;
+
+        if($checkedVolunteers)
         {
-            
+            foreach($checkedVolunteers as $volunteer)
+            {
+                VolunteerStatus::where('volunteer_id', $volunteer)
+                ->where('event_id', $this->eventId)
+                ->update(['attendance_status' => 'checked']);
+            }
         }
+    }
+
+    public function validateAttendance()
+    {
+        $validatedVolunteers = $this->validated;
+
+        if($validatedVolunteers)
+        {
+            foreach($validatedVolunteers as $volunteer)
+            {
+                VolunteerStatus::where('volunteer_id', $volunteer)
+                ->where('event_id', $this->eventId)
+                ->update(['attendance_status' => 'validated']);
+            }
+        }
+    }
+
+    public function setVolunteerImage($fileName)
+    {
+        dd($fileName);
     }
 
     // Sort query

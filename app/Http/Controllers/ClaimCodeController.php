@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ClaimCodeController extends Controller
 {
-
-
     public function upload_receipt(Request $request)
     {
         // Validate the uploaded file

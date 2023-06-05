@@ -105,8 +105,11 @@ Route::post('/create-event', [EventController::class, 'store'])->name('create-ev
 
 Route::get('/admin-volunteers', [VolunteerController::class, 'adminListOfVolunteers'])->name('admin-volunteers');
 
-// Admin-Validate and Distribute Volunteer Race Code Claim
-Route::get('/distribute-code', [VolunteerController::class, 'listofValidatedVolunteers']);
+Route::get('/{event}/verify-claim', [EventController::class, 'listOfVolunteerRace'])->name('claim.verify');
+
+Route::get('/{event}/event-volunteers', [EventController::class, 'listOfEventVolunteers'])->name('event.volunteers');
+
+Route::get('/{event}/event-staffs', [EventController::class, 'listOfEventStaffs'])->name('event.staffs');
 
 Route::get('/test-login', function () {
     return view('test-login');

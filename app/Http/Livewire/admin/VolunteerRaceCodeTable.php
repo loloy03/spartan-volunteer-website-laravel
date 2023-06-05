@@ -3,11 +3,12 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Volunteer;
+use App\Models\RaceCode;
 
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class AdminVolunteersTable extends Component
+class VolunteerRaceCodeTable extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
@@ -28,6 +29,8 @@ class AdminVolunteersTable extends Component
     public $sortBy = 'volunteer_id'; // sort by: first_name, last_name, occupation
     public $sortDirection = 'asc';
 
+    public $eventId;
+
     public function render()
     {
         $query = $this->queryBuilder();
@@ -38,26 +41,32 @@ class AdminVolunteersTable extends Component
         
         $volunteers = $query->paginate(10);
 
-        return view('livewire.admin.admin-volunteers-table', compact('volunteers'));
+        return view('livewire.admin.volunteer-race-code-table', compact('volunteers'));
     }
 
-    // Sql query 
+    public function mount($eventId)
+    {
+        $this->eventId = $eventId;
+    }
+
     public function queryBuilder()
     {
-        return Volunteer::query()->join('volunteer_status', 'volunteer.volunteer_id', '=', 'volunteer_status.volunteer_id')
-            ->join('event', 'event.event_id', '=', 'volunteer_status.event_id')
-            ->orderBy($this->sortBy, $this->sortDirection)
-            ->select(
-                'volunteer.volunteer_id',
-                'volunteer.first_name',
-                'volunteer.last_name',
-                'event.title',
-                'event.location',
-                'volunteer_status.role',
-                'volunteer_status.check_in',
-                'volunteer_status.check_out',
-                'volunteer_status.attendance_status',
-            );
+        return RaceCode::query()->join('volunteer', 'volunteer.volunteer_id', '=', 'race_code.volunteer_id')
+        ->join('race_types', 'race_types.race_id', '=', 'race_code.race_id')
+        ->join('event', 'event.event_id', '=', 'race_code.event_id')
+        ->orderBy($this->sortBy, $this->sortDirection)
+        ->where('event.event_id', $this->eventId)
+        ->select(
+            'race_code.volunteer_id',
+            'first_name',
+            'last_name',
+            'email',
+            'title',
+            'race_type',
+            'receipt',
+            'volunteer.r_credits',
+            'status'
+        );
     }
 
     // Search query
@@ -71,21 +80,13 @@ class AdminVolunteersTable extends Component
             $query->where('last_name', 'LIKE', '%' . $this->searchLastName . '%');
         }
 
-        if ($this->searchEvent) {
-            $query->where('title', 'LIKE', '%' . $this->searchEvent . '%');
-        }
+        // if ($this->searchEvent) {
+        //     $query->where('title', 'LIKE', '%' . $this->searchEvent . '%');
+        // }
 
         if ($this->searchRole) {
             $query->where('role', 'LIKE', '%' . $this->searchRole . '%');
         }
-
-        // if ($this->searchStaffFirstName) {
-        //     $query->where('staff.first_name', 'LIKE', '%' . $this->searchStaffFirstName . '%');
-        // }
-
-        // if ($this->searchStaffLastName) {
-        //     $query->where('staff.last_name', 'LIKE', '%' . $this->searchStaffLastName . '%');
-        // }
     }
 
     public function updatedSearch()
@@ -108,7 +109,7 @@ class AdminVolunteersTable extends Component
     public function filter($query)
     {
         if ($this->filterStatus) {
-            $query->where('attendance_status', $this->filterStatus);
+            $query->where('status', $this->filterStatus);
         }
     }
 }

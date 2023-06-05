@@ -18,6 +18,11 @@ class VolunteerStatus extends Model
         return $this->belongsTo(Volunteer::class, 'volunteer_id');
     }
 
+    public function validatedVolunteers()
+    {
+        return $this->belongsTo(Volunteer::class, 'volunteer_id')->select('first_name', 'last_name', 'email');
+    }
+
     public function event()
     {
         return $this->belongsTo(Events::class, 'event_id');
@@ -27,6 +32,11 @@ class VolunteerStatus extends Model
     {
         return $this->belongsTo(StaffStatus::class, 'staff_id');
     }
+
+    public function raceCredit()
+    {
+        return $this->hasMany(RaceCredit::class, 'volunteer_id');
+    }
     
     protected $fillable = [
         'check_in',
@@ -34,6 +44,4 @@ class VolunteerStatus extends Model
         'attendance_status',
         'role',
     ];
-
-    // public $guarded = [];
 }

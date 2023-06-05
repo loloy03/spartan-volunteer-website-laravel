@@ -1,5 +1,5 @@
 <div>
-    <form enctype="multipart/form-data" wire:submit.prevent="createEvent">
+    <form enctype="multipart/form-data" wire:submit.prevent="submit">
         @csrf
         @include('partials.create-event-tabs')
         <div class="tab-content" id="ex1-content">
@@ -12,7 +12,3 @@
         </div>
     </form>
 </div>
-
-<!--
-    action="/create-event" method="POST" enctype="multipart/form-data"
--->

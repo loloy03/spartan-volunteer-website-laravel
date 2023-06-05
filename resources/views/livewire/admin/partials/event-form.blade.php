@@ -4,9 +4,9 @@
     -->
     <div class="col-md-6">
         <div class="image-file">
-            <div x-data="hasImage{{$image:}}" class="image-area container-fluid">
+            <div class="image-area container-fluid">
                 <div>
-                    <img src="{{$image}}">
+                    <img src="{{ $image }}">
                 </div>
                 <div class="upload-info">
                     <i class="bx bx-upload icon"></i>
@@ -14,8 +14,8 @@
                     <h6>Minimum Resolution: 480x360</h6>
                 </div>
             </div>
-            <input type="file" class="form-control input" id="file" accept="image/*" value="{{ old('event_pic') }}"
-                wire:change="$emit('imageUploaded')" hidden required>
+            <input type="file" class="form-control input" id="file" accept="image/*"
+                value="{{ old('event_pic') }}" wire:model="image">
         </div>
         @error('image')
             <p class="text-danger text-xs mt-1">
@@ -75,9 +75,8 @@
             <label for="reg-start" class="col-md-5 col-form-label f-montserrat">REGISTRATION
                 START</label>
             <div class="col-md-7">
-                <input type="text" class="form-control event-input input datepicker" name="start_date"
-                    id="reg-start-datepicker" value="{{ old('start_date') }}"
-                    placeholder="Enter Registration Start Date..." wire:model="regStart">
+                <input type="date" class="form-control event-input input" value="{{ old('start_date') }}"
+                    wire:model="regStart">
 
                 @error('regStart')
                     <p class="text-danger text-xs mt-1">
@@ -90,8 +89,7 @@
         <div class="form-group row mb-3 event-form">
             <label for="reg-end" class="col-md-5 col-form-label f-montserrat ">REGISTRATION END</label>
             <div class="col-md-7">
-                <input type="text" class="form-control event-input input datepicker" name="end_date"
-                    id="reg-end-datepicker" value="{{ old('end_date') }}" placeholder="Enter Registration End Date..."
+                <input type="date" class="form-control event-input input" value="{{ old('end_date') }}"
                     wire:model="regEnd">
 
                 @error('regEnd')
@@ -106,8 +104,7 @@
             <label for="event-start" class="col-md-5 col-form-label f-montserrat">CLAIM CODE START DATE
             </label>
             <div class="col-md-7">
-                <input type="text" class="form-control event-input input datepicker" name="date"
-                    id="event-start-datepicker" value="{{ old('date') }}" placeholder="Enter Event Start Date..."
+                <input type="date" class="form-control event-input input datepicker" value="{{ old('date') }}"
                     wire:model="claimStart">
 
                 @error('claimStart')
@@ -121,8 +118,7 @@
         <div class="form-group row mb-3 event-form">
             <label for="event-end" class="col-md-5 col-form-label f-montserrat">CLAIM CODE END DATE</label>
             <div class="col-md-7">
-                <input type="text" class="form-control event-input input datepicker" name="event_date_end"
-                    id="event-end-datepicker" value="{{ old('event_date_end') }}" placeholder="Enter Event End Date..."
+                <input type="date" class="form-control event-input input" value="{{ old('event_date_end') }}"
                     wire:model="claimEnd">
 
                 @error('claimEnd')
@@ -151,4 +147,4 @@
         </div>
     </div>
 </div>
-<script src="{{ asset('js/file-upload.js') }}"></script>
+{{-- <script src="{{ asset('js/file-upload.js') }}"></script> --}}

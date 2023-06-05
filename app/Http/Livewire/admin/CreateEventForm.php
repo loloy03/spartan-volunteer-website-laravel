@@ -11,6 +11,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 class CreateEventForm extends Component
@@ -32,7 +33,6 @@ class CreateEventForm extends Component
     }
 
     protected $rules = [
-        'image' => 'required',
         'title' =>  'required',
         'description' => 'required',
         'location' => 'required',
@@ -43,36 +43,29 @@ class CreateEventForm extends Component
     ];
 
     // creates event
-    public function createEvent()
+    public function submit()
     {
-        // validates inputs
-        try {
-            $this->validate();
+        $this->validate();
 
-            // $fileName = $this->image->getClientOriginalName();
-            $this->image->store('images');
+        $imageName = $this->formatFileName($this->title) . '.' . $this->image->extension();
+        $imageName;
+        $this->image->store('images', $imageName);
 
-                Events::create([
-                    'event_pic' => $this->image,
-                    'title' => ucwords($this->title),
-                    'descrption' => $this->formatParagraph($this->description),
-                    'location' => ucwords($this->location),
-                    'start_date' => $this->regStart,
-                    'end_date' => $this->regEnd,
-                    'date' => $this->date,
-                    'code_start_date' => $this->claimStart,
-                    'code_end_date' => $this->claimEnd
-                ]);
-                // insert Event Race
-                
-
-                // insert Event Staffs
+        Events::create([
+            'event_pic' => $imageName,
+            'title' => ucwords($this->title),
+            'description' => $this->formatParagraph($this->description),
+            'location' => ucwords($this->location),
+            'start_date' => $this->regStart,
+            'end_date' => $this->regEnd,
+            'date' => $this->regStart,
+            'code_start_date' => $this->claimStart,
+            'code_end_date' => $this->claimEnd
+        ]);
+        // insert Event Race
 
 
-        } 
-        catch (ValidationException $e) {
-            
-        }
+        // insert Event Staffs
     }
 
     public function handleProcessedImage($imageData)
@@ -95,6 +88,19 @@ class CreateEventForm extends Component
         $output = preg_replace_callback('/([.!?])\s*(\w)/', function ($matches) {
             return strtoupper($matches[1] . ' ' . $matches[2]);
         }, ucfirst(strtolower($input)));
+        return $output;
+    }
+
+    public function formatFileName($input)
+    {
+        $input = preg_replace('/[^a-zA-Z0-9\s]/', '', $input);
+
+        $input = str_replace(' ', '_', $input);
+
+        $input = strtolower($input);
+
+        $output = $input . '(' . $this->regStart . ')';
+
         return $output;
     }
 }
