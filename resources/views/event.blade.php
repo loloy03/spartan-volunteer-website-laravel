@@ -72,7 +72,7 @@
                                             @if (Auth::check()) onclick="window.location='{{ route('view-event', $event->event_id) }}'">
                                             @elseif (Auth::guard('staff')->check() || Auth::guard('admin')->check())
                                                 onclick="window.location='{{ route('admin-staff-view-event', $event->event_id) }}'"
-                                            @endif>
+                                            @endif
                                                 View Event
                                         </button>
                                     </div>

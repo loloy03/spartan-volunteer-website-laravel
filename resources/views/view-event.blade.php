@@ -255,7 +255,7 @@
                                         <option value="" selected disabled>Select Race Credit</option>
                                         @foreach ($race_credits as $race_credit)
                                             <option value="{{ $race_credit->credit_id }}">
-                                                Credit ID: {{ $race_credit->credit_id }},
+                                                Race Credit: {{ $race_credit->title }},
                                                 Expiration Date: {{ date('M j, Y', strtotime($race_credit->exp_date)) }}
                                             </option>
                                         @endforeach
