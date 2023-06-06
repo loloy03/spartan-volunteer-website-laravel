@@ -29,7 +29,15 @@ class EventVolunteers extends Component
 
     public function render()
     {
-        return view('livewire.admin.event-volunteers');
+        $query = $this->queryBuilder();
+
+        $this->search($query);
+
+        $this->filter($query);
+
+        $volunteers = $query->paginate(10);
+
+        return view('livewire.admin.event-volunteers', compact('volunteers'));
     }
 
     public function queryBuilder()

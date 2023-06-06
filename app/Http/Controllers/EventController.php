@@ -269,7 +269,7 @@ class EventController extends Controller
     public function listOfEventVolunteers($eventId)
     {
         $event = Events::find($eventId);
-        return view('admin.event-volunteeers', compact('event'));
+        return view('admin.event-volunteers', compact('event'));
     }
 
     public function listOfEventStaffs($eventId)

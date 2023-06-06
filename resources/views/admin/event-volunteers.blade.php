@@ -13,7 +13,7 @@
                 <h1> EVENT: {{ $event->title }} </h1>
             </div>
             <div class="shadow p-3 mb-5 bg-white rounded">
-                @livewire('staff.check-attendance-table', ['eventId' => $event->event_id])
+                @livewire('admin.event-volunteers', ['eventId' => $event->event_id])
             </div>
         </form>
     </div>
