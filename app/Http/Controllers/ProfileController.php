@@ -29,13 +29,21 @@ class ProfileController extends Controller
             ->where('race_code.status', '!=', 'released')
             ->get();
 
+        $claiming_code_events_race_credits_val = RaceCode::leftJoin('race_credit', 'race_code.credit_id', '=', 'race_credit.credit_id')
+            ->leftJoin('event', 'race_credit.event_id', '=', 'event.event_id')
+            ->where('race_code.volunteer_id', Auth::user()->volunteer_id)
+            ->where('race_code.status', '!=', 'released')
+            ->get();
+
+
         $race_credit = RaceCredit::where('volunteer_id', Auth::user()->volunteer_id)
             ->where('status', '=', 'unclaimed')
             ->get();
+
         $race_credit_quantity = $race_credit->count();
 
         // Pass event data and status variables to the view
-        return view('profile', compact('joining_events', 'claiming_code_events', 'race_credit_quantity'));
+        return view('profile', compact('joining_events', 'claiming_code_events', 'race_credit_quantity', 'claiming_code_events_race_credits_val'));
     }
 
 
@@ -112,6 +120,7 @@ class ProfileController extends Controller
         $validatedData = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
+            'occupation' => 'nullable',
             'selected_date' => 'nullable|date',
             'contact_number' => 'nullable',
         ]);
@@ -150,6 +159,7 @@ class ProfileController extends Controller
         } else {
             $user->birthdate = date('Y-m-d', strtotime($validatedData['selected_date']));
         }
+        $user->occupation = $validatedData['occupation'];
         $user->contact_number = $validatedData['contact_number'];
         $user->updated_at = now()->toDateTimeString(); // Update the updated_at timestamp
         $user->save();
@@ -157,6 +167,7 @@ class ProfileController extends Controller
         // Redirect the user back to their profile page with a success message
         return redirect()->route('profile.show')->with('success', 'Volunteer Info updated successfully.');
     }
+
 
 
 

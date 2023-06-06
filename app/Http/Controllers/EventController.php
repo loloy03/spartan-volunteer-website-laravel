@@ -27,7 +27,7 @@ class EventController extends Controller
     public function index(Request $request)
     {
         // Define the default sort order
-        $sort_by = 'date_desc';
+        $sort_by = 'date_asc';
 
         // Override the sort order if the form was submitted
         if ($request->has('sort_by')) {
@@ -35,7 +35,7 @@ class EventController extends Controller
         }
 
         // Fetch the events from the database
-        $events = Events::where('date', '>', date('Y-m-d'));
+        $events = Events::where('date', '>=', date('Y-m-d'));
         $picked_sort = "";
 
         // Sort the events according to the selected option
@@ -163,7 +163,7 @@ class EventController extends Controller
         if ($attendance_status == 'cancelled') {
             $event_status = 'VOLUNTEER CANCELLED';
             $code_status = 'NOT AVAILABLE';
-        } elseif ($attendance_status == 'confirmed' || $attendance_status == 'checked') {
+        } elseif ($attendance_status == 'confirmed' || $attendance_status == 'checked' || $attendance_status == 'validated') {
             return redirect(route('join-as-volunteer', $event->event_id));
         } elseif ($isClaimed != null) {
 
@@ -184,9 +184,10 @@ class EventController extends Controller
             ->where('status', '=', 'unclaimed')
             ->count();
 
-        $race_credits = RaceCredit::where('volunteer_id', Auth::user()->volunteer_id)
-            ->where('status', '=', 'unclaimed')
-            ->get();
+        $race_credits = RaceCredit::leftjoin('event','race_credit.event_id', '=', 'event.event_id')
+        ->where('volunteer_id', Auth::user()->volunteer_id)
+        ->where('status', '=', 'unclaimed')
+        ->get();
 
         return view(
             'view-event',

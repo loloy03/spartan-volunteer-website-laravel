@@ -11,7 +11,10 @@
     <title> Spartan Volunteer | Become a Volunteer Now</title>
 
     <style>
-        [x-cloak] { display: none !important; }
+        [x-cloak] {
+            display: none !important;
+        }
+        
     </style>
 
     <!-- Fonts -->
@@ -143,10 +146,19 @@
             <div class="container-fluid">
                 <div class="row mb-4">
                     <div class="col-lg-6 text-center my-auto">
-                        <i class="fa-brands fa-facebook text-light mx-4 fa-xl"></i>
-                        <i class="fa-brands fa-twitter text-light mx-4 fa-xl"></i>
-                        <i class="fa-brands fa-instagram text-light mx-4 fa-xl"></i>
-                        <i class="fa-brands fa-youtube text-light mx-4 fa-xl"></i>
+                        <a href="https://www.facebook.com/spartanracePhilippines/" target="_blank">
+                            <i class="fa-brands fa-facebook text-light mx-4 fa-xl"></i>
+                        </a>
+                        <a href="https://twitter.com/spartanphi" target="_blank"><i
+                                class="fa-brands fa-twitter text-light mx-4 fa-xl"></i>
+                        </a>
+
+                        <a href="https://www.instagram.com/spartanraceph/?hl=en" target="_blank"><i
+                                class="fa-brands fa-instagram text-light mx-4 fa-xl"></i></a>
+
+                        <a href="https://www.youtube.com/channel/UCfvYMyK4HA4YJJLV8WvxQsg" target="_blank"><i
+                                class="fa-brands fa-youtube text-light mx-4 fa-xl"></i></a>
+
                     </div>
                     <div class="col-lg-6 opacity-25 text-center ">
                         <img src="{{ asset('/images/spartan-logo-with-word.png') }} " width="250px" alt="">
@@ -154,16 +166,18 @@
                 </div>
                 <div class="row text-light mx-auto f-montserrat my-5">
                     <div class="col-lg-3 col-xs-6 my-1">
-                        JOIN AS A RACER
+                        <a href="https://ph.spartan.com/en" target="_blank"> JOIN AS A RACER</a>
                     </div>
                     <div class="col-lg-3 col-xs-6 my-1">
-                        SHOP
+                        <a href="https://www.spartan.com/pages/global-shop" target="_blank"> SHOP </a>
                     </div>
                     <div class="col-lg-3 col-xs-6 my-1">
-                        BLOG
+                        <a
+                            href="https://prettyhuge.com.ph/fitness/blog/a-quick-guide-to-spartan-race-philippines-67/view" target="_blank">
+                            BLOG </a>
                     </div>
                     <div class="col-lg-3 col-xs-6 my-1">
-                        HELP
+                        <a href="https://spartanphilippines.zendesk.com/hc/en-us" target="_blank"> HELP </a>
                     </div>
                 </div>
                 <div class="row text-light f-lato">

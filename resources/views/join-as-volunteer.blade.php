@@ -71,7 +71,6 @@
                                 ON THE DAY OF THE EVENT, A
                                 BUTTON WILL BE AVAILABLE FOR
                                 YOU TO CHECK IN AND CHECK OUT.
-                                EVENT
                             </div>
 
 
@@ -84,32 +83,56 @@
                             </div>
 
                             <div class="mt-3 {{ $attendance_status != 'validated' ? 'd-none' : '' }}">
-                                <div class="text-white bg-success f-montserrat text-center border border-success p-4 rounded">
+                                <div
+                                    class="text-white bg-success f-montserrat text-center border border-success p-4 rounded">
                                     Your volunteer attendance has been validated by the staff
                                 </div>
                             </div>
-                            <div class="mt-3 {{ $check_in == null ? 'd-none' : '' }}">
+
+                            <div class="mt-3 {{ $check_in == null ? 'd-none' : '' }} text-center border border-success  ">
                                 <div class="f-montserrat mt-1 d-inline-block">CHECKED IN TIME:
                                 </div>
                                 <div class="d-inline-block">
                                     {{ date('F j, Y g:i A', strtotime($check_in)) }}
                                 </div>
                             </div>
+
                             <div>
-                                <div class="text-center">
+                                <div class="text-center f-lato">
                                     <form method="POST" action="{{ route('join_as_volunteer.check_in') }}">
                                         @csrf
                                         <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
                                         <input type="hidden" name="event_id" value="{{ $event->event_id }}">
                                         <!-- Check-in button -->
-                                        <button type="submit"
+                                        <button type="button"
                                             class="view-event-btn f-montserrat {{ $check_in != null || $event->date != $today ? 'view-event-btn-disabled d-none' : '' }}"
-                                            {{ $check_in != null || $event->date != $today ? 'disabled' : '' }}>
+                                            onclick="openConfirmationModal()">
                                             Check In
                                         </button>
+
+                                        <!-- Confirmation Modal -->
+                                        <div class="modal fade " id="confirmationModal" tabindex="-1" role="dialog"
+                                            aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog box-border-shadow" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header ">
+                                                        <h6 class="modal-title" id="confirmationModalLabel">Are you sure you
+                                                            want to check in?
+                                                        </h6>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="view-event-btn" data-dismiss="modal"
+                                                            onclick="closeConfirmationModal()">Cancel</button>
+                                                        <button type="submit" class="view-event-btn">Confirm Check
+                                                            In</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
+
 
                             <div
                                 class="mt-3 {{ $check_in == null || $attendance_status == 'checked' || $attendance_status == 'validated' ? 'd-none' : '' }}">
@@ -119,36 +142,63 @@
                                     Please go to your staff to check your Check In
                                 </div>
                             </div>
+
+
                             <div class="mt-3 @if ($attendance_status == 'validated' || $attendance_status == 'checked') d-block @else d-none @endif">
 
-                                <div class="f-montserrat ">PHOTO IN THE EVENT: </div>
-                                <div class="m-2">
-                                    Preview:
-                                    <div class="text-center">
-                                        <img id="preview" src="#" alt="Preview"
-                                            style="display: none; max-width: 200px;">
-                                    </div>
-                                    <div class="w-100 {{ $proof_of_checkout == null ? 'd-none' : '' }}"><img
-                                            class="fixed-size-img" src="{{ asset('images/' . $proof_of_checkout) }}"
-                                            alt="Uploaded photo"></div>
-                                    <form method="POST" action="{{ route('join_as_volunteer.upload_photo') }}"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
-                                        <input type="hidden" name="event_id" value="{{ $event->event_id }}">
-                                        <div class="mt-3 {{ $proof_of_checkout != null ? 'd-none' : '' }}">
-                                            <input type="file" name="photo" id="photo" class="form-control"
-                                                onchange="previewPhoto(event)" required>
-
-                                            <div class="text-center mt-2">
-                                                <input type="submit" value="Upload"
-                                                    class="view-event-btn f-montserrat mt-2">
-                                            </div>
+                                <div class="border border-success">
+                                    <div class="f-montserrat text-center">PHOTO IN THE EVENT: </div>
+                                    <div class="m-2">
+                                        Preview:
+                                        <div class="text-center">
+                                            <img id="preview" src="#" alt="Preview"
+                                                style="display: none; max-width: 200px;">
                                         </div>
-                                    </form>
+                                        <div class="w-100 {{ $proof_of_checkout == null ? 'd-none' : '' }}">
+                                            <img class="fixed-size-img" src="{{ asset('images/' . $proof_of_checkout) }}"
+                                                alt="Uploaded photo">
+                                        </div>
+                                        <form method="POST" action="{{ route('join_as_volunteer.upload_photo') }}"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <input type="hidden" name="volunteer_id"
+                                                value="{{ Auth::user()->volunteer_id }}">
+                                            <input type="hidden" name="event_id" value="{{ $event->event_id }}">
+                                            <div class="mt-3 {{ $proof_of_checkout != null ? 'd-none' : '' }}">
+                                                <input type="file" name="photo" id="photo" class="form-control"
+                                                    onchange="previewPhoto(event)" required>
+                                                <div class="text-center mt-2">
+                                                    <button type="button" class="view-event-btn f-montserrat mt-2"
+                                                        onclick="openConfirmationUploadModal()">Upload</button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Confirmation Modal -->
+                                            <div class="modal fade" id="confirmationUploadModal" tabindex="-1"
+                                                role="dialog" aria-labelledby="confirmationModalLabel"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog box-border-shadow" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h6 class="modal-title" id="confirmationModalLabel">Are you
+                                                                sure you want to Upload?</h6>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="view-event-btn"
+                                                                data-dismiss="modal"
+                                                                onclick="closeConfirmationUploadModal()">Cancel</button>
+                                                            <button type="submit" class="view-event-btn">Confirm
+                                                                Upload</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
 
-                                <div class="mt-4 {{ $check_out == null ? 'd-none' : '' }}">
+                                <div
+                                    class="mt-4 {{ $check_out == null ? 'd-none' : '' }} text-center border border-success">
                                     <div class="f-montserrat mt-1 d-inline-block">CHECKED OUT TIME:
                                     </div>
                                     <div class="d-inline-block">
@@ -156,22 +206,55 @@
                                     </div>
                                 </div>
 
-                                <div class="text-center">
+                                <div class="text-center mt-3">
                                     <div class="d-inline-block mt-1">
                                         <form method="POST" action="{{ route('join_as_volunteer.check_out') }}">
                                             @csrf
                                             <input type="hidden" name="volunteer_id"
                                                 value="{{ Auth::user()->volunteer_id }}">
                                             <input type="hidden" name="event_id" value="{{ $event->event_id }}">
-                                            <!-- Cancel registration button -->
-                                            <button type="submit"
+                                            <!-- Check Out button -->
+                                            <button type="button"
                                                 class="view-event-btn f-montserrat {{ $event->date != $today || $proof_of_checkout == null || $check_out != null ? 'view-event-btn-disabled d-none' : '' }}"
-                                                {{ $event->date != $today || $proof_of_checkout == null || $check_out != null ? 'disabled' : '' }}>
+                                                {{ $event->date != $today || $proof_of_checkout == null || $check_out != null ? 'disabled' : '' }}
+                                                onclick="openConfirmationCheckOutModal()">
                                                 Check Out
                                             </button>
+
+                                            <!-- Confirmation Modal -->
+                                            <div class="modal fade" id="confirmationCheckoutModal" tabindex="-1"
+                                                role="dialog" aria-labelledby="confirmationModalLabel"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog box-border-shadow" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h6 class="modal-title" id="confirmationModalLabel">Are you
+                                                                sure you want to Check Out?</h6>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="view-event-btn"
+                                                                data-dismiss="modal"
+                                                                onclick="closeConfirmationCheckOutModal()">Cancel</button>
+                                                            <button type="submit" class="view-event-btn">Confirm Check
+                                                                Out</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
+
+                                <script>
+                                    function openConfirmationCheckOutModal() {
+                                        $('#confirmationCheckoutModal').modal('show');
+                                    }
+
+                                    function closeConfirmationCheckOutModal() {
+                                        $('#confirmationCheckoutModal').modal('hide');
+                                    }
+                                </script>
+
                             </div>
                         </div>
                     </div>
@@ -193,6 +276,22 @@
                 }
                 reader.readAsDataURL(input.files[0]);
             }
+        }
+
+        function openConfirmationModal() {
+            $('#confirmationModal').modal('show');
+        }
+
+        function closeConfirmationModal() {
+            $('#confirmationModal').modal('hide');
+        }
+
+        function openConfirmationUploadModal() {
+            $('#confirmationUploadModal').modal('show');
+        }
+
+        function closeConfirmationUploadModal() {
+            $('#confirmationUploadModal').modal('hide');
         }
     </script>
 @endsection
