@@ -129,7 +129,7 @@ Route::group(['middleware' => ['staff']], function () {
 // Route::post('/staff-signup', [StaffController::class, 'store'])->middleware('guest');
 
 // Staff Login
-Route::get('/staff-login', [StaffLoginController::class, 'showLoginForm']);
+Route::get('/staff-login', [StaffLoginController::class, 'showLoginForm'])->middleware('guest');
 Route::post('/staff-login', [StaffLoginController::class, 'login']);
 
 Route::post('/staff-logout', [StaffLoginController::class, 'logout']);
