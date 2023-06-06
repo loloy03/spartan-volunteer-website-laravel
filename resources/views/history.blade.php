@@ -105,6 +105,10 @@
                                     <div type="button" class="row p-3 bg-light-gray f-lato view-history-hover"
                                         onclick="window.location='{{ route('view-event', $event->event_id) }}'">
                                         <div class="col-lg-6 my-auto">
+                                            <div class="d-block">
+                                                {{-- format the date --}}
+                                                {{ date('M j, Y', strtotime($event->date)) }}
+                                            </div>
 
                                             <div class="d-block">
                                                 <div class="fs-3 f-montserrat">
