@@ -8,6 +8,12 @@
                             @include('partials.tables.racecode-status-select')
                         </div>
                         <div class="col-md-auto">
+                            <button type="buton" class="btn btn-danger" wire:click="import">
+                                <i class="fa-regular fa-plus"></i>
+                                EXPORT
+                            </button>
+                        </div>
+                        <div class="col-md-auto">
                             @include('partials.tables.export-btn')
                         </div>
                     </div>

@@ -118,13 +118,12 @@ class CheckAttendanceTable extends Component
                 ->where('event_id', $this->eventId)
                 ->update(['attendance_status' => 'validated']);
 
-                // Unsur ako dito
-                // RaceCredit::insert([
-                //     'volunteer_id' => $volunteer,
-                //     'event_id' => $this->eventId,
-                //     'exp_date' => $expDate,
-                //     'status' => 'unclaimed'
-                // ]);
+                RaceCredit::insert([
+                    'volunteer_id' => $volunteer,
+                    'event_id' => $this->eventId,
+                    'exp_date' => $expDate,
+                    'status' => 'unclaimed'
+                ]);
             }
         }
     }

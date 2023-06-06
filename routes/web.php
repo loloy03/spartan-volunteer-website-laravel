@@ -8,6 +8,8 @@ use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StaffController;
 
+use App\Http\Controllers\ExportsController;
+
 use App\Models\Volunteer;
 use App\Http\Controllers\VolunteerStatusController;
 
@@ -159,3 +161,5 @@ Route::get('/super-admin-login', [SuperAdminLoginController::class, 'showLoginFo
 Route::post('/super-admin-login', [SuperAdminLoginController::class, 'login']);
 
 Route::get('/all-volunteers', [VolunteerController::class, 'allVolunteers']);
+
+Route::get('volunteers/export/', [ExportsController::class, 'exportAdminVolunteers']);

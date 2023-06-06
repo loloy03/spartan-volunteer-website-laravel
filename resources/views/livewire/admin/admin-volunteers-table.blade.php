@@ -8,6 +8,12 @@
                             @include('partials.tables.select-attendance-status')
                         </div>
                         <div class="col-md-auto">
+                            <button type="buton" class="btn btn-danger" wire:click="export">
+                                <i class="fa-regular fa-plus"></i>
+                                EXPORT
+                            </button>
+                        </div>
+                        <div class="col-md-auto">
                             @include('partials.tables.export-btn')
                         </div>
                     </div>
