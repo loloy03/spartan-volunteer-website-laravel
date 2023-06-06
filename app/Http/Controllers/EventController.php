@@ -184,7 +184,8 @@ class EventController extends Controller
             ->where('status', '=', 'unclaimed')
             ->count();
 
-        $race_credits = RaceCredit::where('volunteer_id', Auth::user()->volunteer_id)
+        $race_credits = RaceCredit::leftjoin('event','race_credit.event_id', '=', 'event.event_id')
+        ->where('volunteer_id', Auth::user()->volunteer_id)
         ->where('status', '=', 'unclaimed')
         ->get();
 
