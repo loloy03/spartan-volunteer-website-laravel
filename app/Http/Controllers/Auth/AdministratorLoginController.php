@@ -119,7 +119,7 @@ class AdministratorLoginController extends Controller
 
         return $request->wantsJson()
                     ? new JsonResponse([], 204)
-                    : redirect()->intended('/admin-dashboard');
+                    : redirect()->intended('/event');
     }
 
     /**
@@ -205,6 +205,6 @@ class AdministratorLoginController extends Controller
 
     protected function redirectPath()
     {
-        return '/admin-dashboard';
+        return '/event';
     }
 }
