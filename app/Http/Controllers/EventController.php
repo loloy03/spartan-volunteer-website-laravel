@@ -185,8 +185,8 @@ class EventController extends Controller
             ->count();
 
         $race_credits = RaceCredit::where('volunteer_id', Auth::user()->volunteer_id)
-        ->where('status', '=', 'unclaimed')
-        ->get();
+            ->where('status', '=', 'unclaimed')
+            ->get();
 
         return view(
             'view-event',
@@ -224,8 +224,13 @@ class EventController extends Controller
         $staffId = auth()->guard('staff')->user()->staff_id;
 
         $role = StaffStatus::where('staff_id', $staffId)
-        ->where('event_id', $eventId)
-        ->first();
+            ->where('event_id', $eventId)
+            ->first();
+
+        // resources\views\livewire\staff\partials\not-included.blade.php
+        if ($role == null) {
+            return view('livewire.staff.partials.not-included');
+        }
 
         $staffRole = ucwords($role->role);
 
@@ -239,29 +244,28 @@ class EventController extends Controller
     public function listOfPendingVolunteers($eventId)
     {
         $event = Events::where('event_id', $eventId)->first();
- 
+
         $staffId = auth()->guard('staff')->user()->staff_id;
 
         $role = StaffStatus::where('staff_id', $staffId)
-        ->where('event_id', $eventId)
-        ->first();
+            ->where('event_id', $eventId)
+            ->first();
 
         // resources\views\livewire\staff\partials\not-included.blade.php
-        if($role == null)
-        {
+        if ($role == null) {
             return view('livewire.staff.partials.not-included');
         }
 
         $staffRole = ucwords($role->role);
         // EXCEPTION HANDLING
         // if (staff isn't part of the event)
-            // show: staff isn't part of event
+        // show: staff isn't part of event
 
         return view('staff.check-attendance', compact('staffId', 'staffRole', 'event'));
     }
 
     public function listOfVolunteerRace($eventId)
-    {   
+    {
         $event = Events::find($eventId);
         return view('admin.volunteer-racecode-claim', compact('event'));
     }
