@@ -29,13 +29,21 @@ class ProfileController extends Controller
             ->where('race_code.status', '!=', 'released')
             ->get();
 
+        $claiming_code_events_race_credits_val = RaceCode::leftJoin('race_credit', 'race_code.credit_id', '=', 'race_credit.credit_id')
+            ->leftJoin('event', 'race_credit.event_id', '=', 'event.event_id')
+            ->where('race_code.volunteer_id', Auth::user()->volunteer_id)
+            ->where('race_code.status', '!=', 'released')
+            ->get();
+
+
         $race_credit = RaceCredit::where('volunteer_id', Auth::user()->volunteer_id)
             ->where('status', '=', 'unclaimed')
             ->get();
+
         $race_credit_quantity = $race_credit->count();
 
         // Pass event data and status variables to the view
-        return view('profile', compact('joining_events', 'claiming_code_events', 'race_credit_quantity'));
+        return view('profile', compact('joining_events', 'claiming_code_events', 'race_credit_quantity', 'claiming_code_events_race_credits_val'));
     }
 
 
