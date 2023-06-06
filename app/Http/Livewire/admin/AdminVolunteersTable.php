@@ -63,8 +63,6 @@ class AdminVolunteersTable extends Component
             );
     }
 
-  00
-
     // Search query
     public function search($query)
     {
