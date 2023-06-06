@@ -95,7 +95,20 @@ Route::group(['middleware' => ['auth']], function () {
 // IMPORTANT: It seems using Administrator instead of Admin is preferable
 Route::group(['middleware' => ['admin']], function () {
     //
-    Route::get('/admin-dashboard', [DashboardController::class, 'showAdminDashboard']);
+    // Route::get('/admin-dashboard', [DashboardController::class, 'showAdminDashboard']);
+
+    // Create Event
+    Route::get('/create-event', [EventController::class, 'create'])->name('create-event');
+    Route::post('/create-event', [EventController::class, 'store'])->name('create-event.post');
+
+    Route::get('/admin-volunteers', [VolunteerController::class, 'adminListOfVolunteers'])->name('admin-volunteers');
+
+    Route::get('/{event}/verify-claim', [EventController::class, 'listOfVolunteerRace'])->name('claim-verify');
+    // Route::post('/{event}/verify-claim');
+
+    Route::get('/{event}/event-volunteers', [EventController::class, 'listOfEventVolunteers'])->name('event-volunteers');
+
+    Route::get('/{event}/event-staffs', [EventController::class, 'listOfEventStaffs'])->name('event-staffs');
 });
 
 // Admin Signup
@@ -108,28 +121,28 @@ Route::post('/admin-login', [AdministratorLoginController::class, 'login']);
 
 // Route::post('/admin-logout', [AdministratorLoginController::class, 'logout']);
 
-// Create Event
-Route::get('/create-event', [EventController::class, 'create'])->name('create-event');
-Route::post('/create-event', [EventController::class, 'store'])->name('create-event.post');
-
-Route::get('/admin-volunteers', [VolunteerController::class, 'adminListOfVolunteers'])->name('admin-volunteers');
-
-Route::get('/{event}/verify-claim', [EventController::class, 'listOfVolunteerRace'])->name('claim-verify');
-// Route::post('/{event}/verify-claim');
-
-Route::get('/{event}/event-volunteers', [EventController::class, 'listOfEventVolunteers'])->name('event-volunteers');
-
-Route::get('/{event}/event-staffs', [EventController::class, 'listOfEventStaffs'])->name('event-staffs');
-
-Route::get('/test-login', function () {
-    return view('test-login');
-});
-
 // STAFF ROUTES
 // Middleware: staff
 Route::group(['middleware' => ['staff']], function () {
     //
-    Route::get('/staff-dashboard', [DashboardController::class, 'showStaffDashboard']);
+    // Route::get('/staff-dashboard', [DashboardController::class, 'showStaffDashboard']);
+    // Staff-Give Volunteer Role
+    // input staff_id, event_id, and staff_role/staff_status
+    Route::get('/{event}/add-volunteer', [EventController::class, 'listOfConfirmedVolunteers'])->name('add-volunteer');
+    Route::post('/{event}/add-volunteer', [VolunteerStatusController::class, 'updateConfirmedVolunteers'])->name('add-volunteer.post');
+
+    // Staff-Validate Volunteer Attendance
+    // input staff_id, event_id, and staff_role/staff_status
+    Route::get('/{event}/check-attendance', [EventController::class, 'listOfPendingVolunteers'])->name('check-attendance');
+    Route::post('/{event}/check-attendance', [VolunteerStatusController::class, 'updatePendingVolunteers'])->name('check-attendance.post');
+
+    Route::get('/staff-volunteers', [StaffController::class, 'staffListOfVolunteers'])->name('staff-volunteers');
+
+    // shared by staff and admin
+    Route::get('admin-staff-view-event/{event}', [EventController::class, 'show'])->name('admin-staff-view-event');
+
+    Route::get('/super-admin-login', [SuperAdminLoginController::class, 'showLoginForm']);
+    Route::post('/super-admin-login', [SuperAdminLoginController::class, 'login']);
 });
 
 // Staff Signup
@@ -141,24 +154,6 @@ Route::get('/staff-login', [StaffLoginController::class, 'showLoginForm']);
 Route::post('/staff-login', [StaffLoginController::class, 'login']);
 
 // Route::post('/staff-logout', [StaffLoginController::class, 'logout']);
-
-// Staff-Give Volunteer Role
-// input staff_id, event_id, and staff_role/staff_status
-Route::get('/{event}/add-volunteer', [EventController::class, 'listOfConfirmedVolunteers'])->name('add-volunteer');
-Route::post('/{event}/add-volunteer', [VolunteerStatusController::class, 'updateConfirmedVolunteers'])->name('add-volunteer.post');
-
-// Staff-Validate Volunteer Attendance
-// input staff_id, event_id, and staff_role/staff_status
-Route::get('/{event}/check-attendance', [EventController::class, 'listOfPendingVolunteers'])->name('check-attendance');
-Route::post('/{event}/check-attendance', [VolunteerStatusController::class, 'updatePendingVolunteers'])->name('check-attendance.post');
-
-Route::get('/staff-volunteers', [StaffController::class, 'staffListOfVolunteers'])->name('staff-volunteers');
-
-// shared by staff and admin
-Route::get('admin-staff-view-event/{event}', [EventController::class, 'show'])->name('admin-staff-view-event');
-
-Route::get('/super-admin-login', [SuperAdminLoginController::class, 'showLoginForm']);
-Route::post('/super-admin-login', [SuperAdminLoginController::class, 'login']);
 
 Route::get('/all-volunteers', [VolunteerController::class, 'allVolunteers']);
 
