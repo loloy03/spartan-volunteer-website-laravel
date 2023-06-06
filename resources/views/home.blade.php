@@ -181,7 +181,7 @@
             <div class="f-lato my-3">
                 Need an answer to a question? Contact us at
                 <div class="d-inline-block">
-                    <p><a href="mailto:volunteer@spartanrace.com">volunteer@spartanrace.com</a></p>
+                    <p><a class="text-danger" href="mailto:volunteer@spartanrace.com">volunteer@spartanrace.com</a></p>
                 </div>
             </div>
         </div>
