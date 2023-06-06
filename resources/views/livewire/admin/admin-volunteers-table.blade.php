@@ -8,6 +8,12 @@
                             @include('partials.tables.select-attendance-status')
                         </div>
                         <div class="col-md-auto">
+                            <a href="volunteers/export/" target="_blank" class="btn btn-danger">
+                                <i class="fa-regular fa-plus"></i>
+                                EXPORT
+                            </a>
+                        </div>
+                        <div class="col-md-auto">
                             @include('partials.tables.export-btn')
                         </div>
                     </div>

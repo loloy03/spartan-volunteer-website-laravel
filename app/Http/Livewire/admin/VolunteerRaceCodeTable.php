@@ -20,9 +20,12 @@ class VolunteerRaceCodeTable extends Component
     public $searchStaffLastName;
     public $searchEvent;
     public $searchRole;
+    public $searchRaceType;
 
     // filter item
     public $filterStatus;
+
+    public $pendingClaim = [];
 
     // sorting items
     // defualt sort(volunteer_id, asc)
@@ -30,6 +33,7 @@ class VolunteerRaceCodeTable extends Component
     public $sortDirection = 'asc';
 
     public $eventId;
+    public $volunteerReceipt;
 
     public function render()
     {
@@ -69,6 +73,28 @@ class VolunteerRaceCodeTable extends Component
         );
     }
 
+    public function verifyClaim()
+    {
+        $claims = $this->pendingClaim;
+
+        if($claims)
+        {
+            foreach($claims as $claim)
+            {
+                RaceCode::where('volunteer_id', $claim)
+                ->where('event_id', $this->eventId)
+                ->update(['status' => 'claimed']);
+            }
+        }
+    }
+
+    public function setVolunteerReceipt($receipt)
+    {
+        $this->volunteerReceipt = $receipt;
+        // dd($this->volunteerReceipt);
+    }
+
+
     // Search query
     public function search($query)
     {
@@ -80,12 +106,12 @@ class VolunteerRaceCodeTable extends Component
             $query->where('last_name', 'LIKE', '%' . $this->searchLastName . '%');
         }
 
-        // if ($this->searchEvent) {
-        //     $query->where('title', 'LIKE', '%' . $this->searchEvent . '%');
-        // }
-
         if ($this->searchRole) {
             $query->where('role', 'LIKE', '%' . $this->searchRole . '%');
+        }
+
+        if ($this->searchRaceType) {
+            $query->where('race_type', 'LIKE', '%' . $this->searchRaceType . '%');
         }
     }
 

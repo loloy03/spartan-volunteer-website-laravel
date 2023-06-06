@@ -1,25 +1,19 @@
 <?php
 
-namespace App\Http\Livewire\Staff;
+namespace App\Http\Livewire\Admin;
 
-use App\Models\RaceCredit;
 use App\Models\Volunteer;
-use App\Models\VolunteerStatus;
-use App\Models\Events;
 
-use Livewire\Component;
-use Illuminate\Support\Carbon;
 use Livewire\WithPagination;
 
-class CheckAttendanceTable extends Component
+use Livewire\Component;
+
+class EventVolunteers extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
     public $eventId;
-    public $staffId;
-    public $staffRole;
-    public $volunteerImage;
 
     // search item
     public $searchFirstName;
@@ -27,9 +21,6 @@ class CheckAttendanceTable extends Component
 
     // filter item
     public $filterStatus;
-
-    public $checked = [];
-    public $validated = [];
 
     // sorting items
     // defualt sort(volunteer_id, asc)
@@ -46,15 +37,13 @@ class CheckAttendanceTable extends Component
 
         $volunteers = $query->paginate(10);
 
-        return view('livewire.staff.check-attendance-table', compact('volunteers'));
+        return view('livewire.admin.event-volunteers', compact('volunteers'));
     }
 
     public function queryBuilder()
     {
         return Volunteer::query()->join('volunteer_status', 'volunteer.volunteer_id', '=', 'volunteer_status.volunteer_id')
         ->where('volunteer_status.event_id', $this->eventId)
-        ->where('volunteer_status.staff_id', $this->staffId)
-        ->where('volunteer_status.role', $this->staffRole)
         ->orderBy($this->sortBy, $this->sortDirection)
         ->select(
             'volunteer.volunteer_id',
@@ -70,6 +59,7 @@ class CheckAttendanceTable extends Component
         );
     }
 
+    
     // Sort query
     public function search($query)
     {
@@ -87,53 +77,6 @@ class CheckAttendanceTable extends Component
         $this->resetPage();
     }
 
-    public function checkAttendance()
-    {
-        $checkedVolunteers = $this->checked;
-
-        if($checkedVolunteers)
-        {
-            foreach($checkedVolunteers as $volunteer)
-            {
-                VolunteerStatus::where('volunteer_id', $volunteer)
-                ->where('event_id', $this->eventId)
-                ->update(['attendance_status' => 'checked']);
-            }
-        }
-    }
-
-    public function validateAttendance()
-    {
-        $validatedVolunteers = $this->validated;
-        $event = Events::find($this->eventId);
-
-        $eventDate = Carbon::createFromFormat('Y-m-d', $event->start_date);
-        $expDate = $eventDate->addYear();
-
-        if($validatedVolunteers)
-        {
-            foreach($validatedVolunteers as $volunteer)
-            {
-                VolunteerStatus::where('volunteer_id', $volunteer)
-                ->where('event_id', $this->eventId)
-                ->update(['attendance_status' => 'validated']);
-
-                RaceCredit::insert([
-                    'volunteer_id' => $volunteer,
-                    'event_id' => $this->eventId,
-                    'exp_date' => $expDate,
-                    'status' => 'unclaimed'
-                ]);
-            }
-        }
-    }
-
-    public function setVolunteerImage($fileName)
-    {
-        dd($fileName);
-    }
-
-    // Sort query
     public function sort($column)
     {
         if ($this->sortBy === $column)
@@ -154,10 +97,8 @@ class CheckAttendanceTable extends Component
         }
     }
 
-    public function mount($eventId, $staffId, $staffRole)
+    public function mount($eventId)
     {
         $this->eventId = $eventId;
-        $this->staffId = $staffId;
-        $this->staffRole = $staffRole;
     }
 }

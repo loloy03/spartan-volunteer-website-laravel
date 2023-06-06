@@ -2,16 +2,24 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\VolunteerController;
-use App\Http\Controllers\Auth\StaffLoginController;
-use App\Http\Controllers\Auth\AdministratorLoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StaffController;
-use App\Http\Controllers\StaffStatusController;
-use App\Http\Controllers\VolunteerStatusController;
-use App\Http\Controllers\Auth\SuperAdmin\SuperAdminLoginController;
+
+use App\Http\Controllers\ExportsController;
+
 use App\Models\Volunteer;
+use App\Http\Controllers\VolunteerStatusController;
+
+use App\Http\Controllers\Auth\SuperAdmin\SuperAdminLoginController;
+
+use App\Http\Controllers\Auth\StaffLoginController;
+use App\Http\Controllers\Auth\StaffRegisterController;
+
+use App\Http\Controllers\Auth\AdministratorLoginController;
+use App\Http\Controllers\Auth\AdministratorRegisterController;
 
 // Home page
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -91,14 +99,14 @@ Route::group(['middleware' => ['admin']], function () {
 });
 
 // Admin Signup
-// Route::get('/admin-signup', [AdministratorController::class, 'create'])->middleware('guest');
-// Route::post('/admin-signup', [AdministratorController::class, 'store'])->middleware('guest');
+Route::get('/admin-signup', [AdministratorRegisterController::class, 'showRegisterForm'])->middleware('guest');
+Route::post('/admin-signup', [AdministratorRegisterController::class, 'store'])->middleware('guest');
 
 // Admin Login
 Route::get('/admin-login', [AdministratorLoginController::class, 'showLoginForm']);
 Route::post('/admin-login', [AdministratorLoginController::class, 'login']);
 
-Route::post('/admin-logout', [AdministratorLoginController::class, 'logout']);
+// Route::post('/admin-logout', [AdministratorLoginController::class, 'logout']);
 
 // Create Event
 Route::get('/create-event', [EventController::class, 'create'])->name('create-event');
@@ -106,11 +114,12 @@ Route::post('/create-event', [EventController::class, 'store'])->name('create-ev
 
 Route::get('/admin-volunteers', [VolunteerController::class, 'adminListOfVolunteers'])->name('admin-volunteers');
 
-Route::get('/{event}/verify-claim', [EventController::class, 'listOfVolunteerRace'])->name('claim.verify');
+Route::get('/{event}/verify-claim', [EventController::class, 'listOfVolunteerRace'])->name('claim-verify');
+// Route::post('/{event}/verify-claim');
 
-Route::get('/{event}/event-volunteers', [EventController::class, 'listOfEventVolunteers'])->name('event.volunteers');
+Route::get('/{event}/event-volunteers', [EventController::class, 'listOfEventVolunteers'])->name('event-volunteers');
 
-Route::get('/{event}/event-staffs', [EventController::class, 'listOfEventStaffs'])->name('event.staffs');
+Route::get('/{event}/event-staffs', [EventController::class, 'listOfEventStaffs'])->name('event-staffs');
 
 Route::get('/test-login', function () {
     return view('test-login');
@@ -120,19 +129,18 @@ Route::get('/test-login', function () {
 // Middleware: staff
 Route::group(['middleware' => ['staff']], function () {
     //
-
     Route::get('/staff-dashboard', [DashboardController::class, 'showStaffDashboard']);
 });
 
 // Staff Signup
-// Route::get('/staff-signup', [StaffController::class, 'create'])->middleware('guest');
-// Route::post('/staff-signup', [StaffController::class, 'store'])->middleware('guest');
+Route::get('/staff-signup', [StaffRegisterController::class, 'showRegisterForm'])->middleware('guest');
+Route::post('/staff-signup', [StaffRegisterController::class, 'store'])->middleware('guest');
 
 // Staff Login
 Route::get('/staff-login', [StaffLoginController::class, 'showLoginForm'])->middleware('guest');
 Route::post('/staff-login', [StaffLoginController::class, 'login']);
 
-Route::post('/staff-logout', [StaffLoginController::class, 'logout']);
+// Route::post('/staff-logout', [StaffLoginController::class, 'logout']);
 
 // Staff-Give Volunteer Role
 // input staff_id, event_id, and staff_role/staff_status
@@ -154,4 +162,4 @@ Route::post('/super-admin-login', [SuperAdminLoginController::class, 'login']);
 
 Route::get('/all-volunteers', [VolunteerController::class, 'allVolunteers']);
 
-
+Route::get('volunteers/export/', [ExportsController::class, 'exportAdminVolunteers']);
