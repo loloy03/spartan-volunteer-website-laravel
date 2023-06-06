@@ -112,11 +112,11 @@ Route::post('/create-event', [EventController::class, 'store'])->name('create-ev
 
 Route::get('/admin-volunteers', [VolunteerController::class, 'adminListOfVolunteers'])->name('admin-volunteers');
 
-Route::get('/{event}/verify-claim', [EventController::class, 'listOfVolunteerRace'])->name('claim.verify');
+Route::get('/{event}/verify-claim', [EventController::class, 'listOfVolunteerRace'])->name('claim-verify');
 
-Route::get('/{event}/event-volunteers', [EventController::class, 'listOfEventVolunteers'])->name('event.volunteers');
+Route::get('/{event}/event-volunteers', [EventController::class, 'listOfEventVolunteers'])->name('event-volunteers');
 
-Route::get('/{event}/event-staffs', [EventController::class, 'listOfEventStaffs'])->name('event.staffs');
+Route::get('/{event}/event-staffs', [EventController::class, 'listOfEventStaffs'])->name('event-staffs');
 
 Route::get('/test-login', function () {
     return view('test-login');
@@ -126,7 +126,6 @@ Route::get('/test-login', function () {
 // Middleware: staff
 Route::group(['middleware' => ['staff']], function () {
     //
-
     Route::get('/staff-dashboard', [DashboardController::class, 'showStaffDashboard']);
 });
 

@@ -13,6 +13,13 @@
                     </div>
                     <th class="col">RECEIPT</th>
                     <th class="col">STATUS</th>
+                    <th class="col" role="button" wire:click="sort('event.location')">RACE TYPE
+                        @if ($sortBy === 'race_ype')
+                            <i class="fa fa-sort-{{ $sortDirection }}"></i>
+                        @else
+                            <i class="fa-solid fa-sort"></i>
+                        @endif
+                    </th>
                     <th class="col" role="button" wire:click="sort('first_name')">FIRST NAME
                         @if ($sortBy === 'first_name')
                             <i class="fa fa-sort-{{ $sortDirection }}"></i>
@@ -34,13 +41,6 @@
                             <i class="fa-solid fa-sort"></i>
                         @endif
                     </th>
-                    <th class="col" role="button" wire:click="sort('event.location')">RACE TYPE
-                        @if ($sortBy === 'race_ype')
-                            <i class="fa fa-sort-{{ $sortDirection }}"></i>
-                        @else
-                            <i class="fa-solid fa-sort"></i>
-                        @endif
-                    </th>
                     <th class="col" role="button" wire:click="sort('volunteer_status.check_out')">RACE CREDITS
                         @if ($sortBy === 'volunteer.r_credits')
                             <i class="fa fa-sort-{{ $sortDirection }}"></i>
@@ -53,8 +53,10 @@
                     <th class="col"></th>
                     <th class="col"></th>
                     <th class="col">
-                        <input type="text" class="form-control" placeholder="First Name"
-                            wire:model="searchFirstName">
+                        <input type="text" class="form-control" placeholder="Race Type" wire:model="searchRaceType">
+                    </th>
+                    <th class="col">
+                        <input type="text" class="form-control" placeholder="First Name" wire:model="searchFirstName">
                     </th>
                     <th class="col">
                         <input type="text" class="form-control" placeholder="Last Name" wire:model="searchLastName">
@@ -62,7 +64,6 @@
                     <th class="col">
                         <input type="text" class="form-control" placeholder="Email" wire:model="searchEmail">
                     </th>
-                    <th class="col"></th>
                     <th class="col"></th>
                 </tr>
             </thead>
@@ -76,7 +77,7 @@
                                 </div>
                             @else
                                 <button x-show="hasImage" type="button" class="btn btn-dark btn-modal"
-                                    data-bs-toggle="modal" data-bs-target="#image">
+                                wire:click="setVolunteerReceipt('{{$volunteer->receipt}}')" data-bs-toggle="modal" data-bs-target="#receipt">
                                     VIEW
                                 </button>
                             @endif
@@ -96,10 +97,10 @@
                                 </h6>
                             @endif
                         </td>
+                        <td> {{ ucwords($volunteer->race_type) }} </td>
                         <td> {{ ucwords($volunteer->first_name) }} </td>
                         <td> {{ ucwords($volunteer->last_name) }} </td>
                         <td> {{ ucwords($volunteer->email) }} </td>
-                        <td> {{ ucwords($volunteer->race_type) }} </td>
                         <td> {{ ucwords($volunteer->r_credits) }} </td>
                     </tr>
                     @include('livewire.modal.receipt-modal')
