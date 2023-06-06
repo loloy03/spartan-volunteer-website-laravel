@@ -5,7 +5,7 @@
                 <tr>
                     <div class="row g-2">
                         <div class="col-md-auto">
-                            <button type="buton" class="btn btn-danger" wire:click="validateAttendance">
+                            <button type="buton" class="btn btn-danger" wire:submit.prevent="validateAttendance">
                                 <i class="fa-regular fa-plus"></i>
                                 VALIDATE CHECK-OUT
                             </button>

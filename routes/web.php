@@ -113,6 +113,7 @@ Route::post('/create-event', [EventController::class, 'store'])->name('create-ev
 Route::get('/admin-volunteers', [VolunteerController::class, 'adminListOfVolunteers'])->name('admin-volunteers');
 
 Route::get('/{event}/verify-claim', [EventController::class, 'listOfVolunteerRace'])->name('claim-verify');
+// Route::post('/{event}/verify-claim');
 
 Route::get('/{event}/event-volunteers', [EventController::class, 'listOfEventVolunteers'])->name('event-volunteers');
 

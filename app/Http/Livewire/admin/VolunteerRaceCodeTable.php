@@ -25,7 +25,7 @@ class VolunteerRaceCodeTable extends Component
     // filter item
     public $filterStatus;
 
-    public $selectedCheckboxes = [];
+    public $pendingClaim = [];
 
     // sorting items
     // defualt sort(volunteer_id, asc)
@@ -75,13 +75,13 @@ class VolunteerRaceCodeTable extends Component
 
     public function verifyClaim()
     {
-        $checkedVolunteers = $this->selectedCheckboxes;
+        $claims = $this->pendingClaim;
 
-        if($checkedVolunteers)
+        if($claims)
         {
-            foreach($checkedVolunteers as $volunteer)
+            foreach($claims as $claim)
             {
-                RaceCode::where('volunteer_id', $volunteer)
+                RaceCode::where('volunteer_id', $claim)
                 ->where('event_id', $this->eventId)
                 ->update(['status' => 'claimed']);
             }
