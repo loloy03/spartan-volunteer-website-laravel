@@ -102,7 +102,7 @@
                                     <div class="f-lato text-muted">Contact Number</div>
                                     <input class="form-control mb-2" type="text" name="contact_number"
                                         id="contact_number" pattern="\+639\d{9}"
-                                        title="Please enter a contact number in the format +639207707779"
+                                        title="Please enter a contact number in the format +639XXXXXXXXX"
                                         placeholder="+639XXXXXXXXX" value="{{ Auth::user()->contact_number }}" required>
 
 
@@ -132,3 +132,4 @@
         });
     </script>
 @endsection
+ff
