@@ -58,6 +58,13 @@
                                             </div>
                                             <div class="d-block">
                                                 <div class="d-inline-block f-montserrat">
+                                                    Role:
+                                                </div>
+                                                {{-- staff first name --}}
+                                                {{ ucfirst($event->role) }}
+                                            </div>
+                                            <div class="d-block">
+                                                <div class="d-inline-block f-montserrat">
                                                     Status:
                                                 </div>
                                                 {{-- event status --}}

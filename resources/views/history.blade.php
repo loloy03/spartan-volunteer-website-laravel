@@ -54,6 +54,12 @@
                                                 {{-- staff first name --}}
                                                 {{ $event->first_name }}
                                             </div>
+                                            <div class="d-block">
+                                                <div class="d-inline-block f-montserrat">
+                                                    Role:
+                                                </div>
+                                                {{ ucfirst($event->role) }}
+                                            </div>
 
                                             <div class="d-block">
                                                 <div class="d-inline-block f-montserrat">
