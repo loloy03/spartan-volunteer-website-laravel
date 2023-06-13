@@ -104,8 +104,6 @@
                                         id="contact_number" pattern="\+639\d{9}"
                                         title="Please enter a contact number in the format +639XXXXXXXXX"
                                         placeholder="+639XXXXXXXXX" value="{{ Auth::user()->contact_number }}" required>
-
-
                                     <div class="f-lato text-muted">Email Address</div>
                                     <div class="f-montserrat">{{ Auth::user()->email }}</div>
                                     <button type="submit"

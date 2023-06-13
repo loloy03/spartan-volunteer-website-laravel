@@ -31,11 +31,6 @@
                     </div>
                     <!-- Add an overlay image on top of the event picture -->
                     <img class="overlay-image" src="{{ asset('/images/spartan-logo-with-word.png') }}">
-                    <div class="overlay-text">
-                        <div class="f-montserrat bg-danger text-light p-2">
-                            SUCCESSFULLY JOINED AS A VOLUNTEER
-                        </div>
-                    </div>
                 </div>
             </div>
 
