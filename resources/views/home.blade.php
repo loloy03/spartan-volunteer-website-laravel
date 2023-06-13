@@ -21,7 +21,7 @@
     </div>
     <div class="container-fluid">
         <div class="p-5">
-            <div class="display-5 f-druk-wide mb-3">VOLUNTEER PERKS</div>
+            <div class="fs-1 f-druk-wide mb-3">VOLUNTEER PERKS</div>
             <div class="f-lato">Along with the awesome feeling of helping your fellow Spartans, there are some sweet
                 perks
                 to being a Spartan Volunteer.
@@ -73,11 +73,11 @@
 
     <div class="container-fluid">
         <div class="p-5">
-            <div class="display-5 f-druk-wide my-5">VOLUNTEER ROLES</div>
+            <div class="fs-1 f-druk-wide my-5">VOLUNTEER ROLES</div>
             <div class="row px-3">
                 <div class="col-lg-6 mt-4">
                     <div class="bg-light-gray p-5 h-100">
-                        <div class="f-montserrat h2">
+                        <div class="f-montserrat fs-3">
                             ON-COURSE
                         </div>
                         <div class="f-lato mt-4">
@@ -89,7 +89,7 @@
                 </div>
                 <div class="col-lg-6 mt-4">
                     <div class="bg-light-gray p-5 h-100">
-                        <div class="f-montserrat h2">
+                        <div class="f-montserrat fs-3">
                             FESTIVAL
                         </div>
                         <div class="f-lato mt-4">
@@ -100,8 +100,8 @@
                 </div>
                 <div class="col-lg-6 mt-4">
                     <div class="bg-light-gray p-5 h-100">
-                        <div class="f-montserrat h2">
-                            REGISTRATION
+                        <div class="f-montserrat fs-3">
+                            REGIST-RATION
                         </div>
                         <div class="f-lato mt-4">
                             Help our Registration Staff greet, check-in and answer questions for racers and spectators. This
@@ -113,7 +113,7 @@
 
                 <div class="col-lg-6 mt-4">
                     <div class="bg-light-gray p-5 h-100">
-                        <div class="f-montserrat h2">
+                        <div class="f-montserrat fs-3">
                             OBSTACLE OFFICIALS
                         </div>
                         <div class="f-lato mt-4">
@@ -126,7 +126,7 @@
 
                 <div class="col-lg-6 mt-4">
                     <div class="bg-light-gray p-5 h-100">
-                        <div class="f-montserrat h2">
+                        <div class="f-montserrat fs-3">
                             PRE-RUNNER
                         </div>
                         <div class="f-lato mt-4">
@@ -139,7 +139,7 @@
 
                 <div class="col-lg-6 mt-4">
                     <div class="bg-light-gray p-5 h-100">
-                        <div class="f-montserrat h2">
+                        <div class="f-montserrat fs-3">
                             PRE/POST RACE
                         </div>
                         <div class="f-lato mt-4">
@@ -152,7 +152,7 @@
 
                 <div class="col-lg-6 mt-4">
                     <div class="bg-light-gray p-5 h-100">
-                        <div class="f-montserrat h2">
+                        <div class="f-montserrat fs-3">
                             KIDS RACE
                         </div>
                         <div class="f-lato mt-4">
@@ -164,7 +164,7 @@
 
                 <div class="col-lg-6 mt-4">
                     <div class="bg-light-gray p-5 h-100">
-                        <div class="f-montserrat h2">
+                        <div class="f-montserrat fs-3">
                             CHOOSE YOUR SHIFT
                         </div>
                         <div class="f-lato mt-4">
