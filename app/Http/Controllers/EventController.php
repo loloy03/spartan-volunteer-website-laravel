@@ -90,9 +90,8 @@ class EventController extends Controller
      */
     public function store()
     {
-        return view('/create-event');
-    }
 
+    }
 
     /**
      * Display the specified resource.

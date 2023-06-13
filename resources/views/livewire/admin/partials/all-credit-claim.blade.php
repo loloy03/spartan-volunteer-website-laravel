@@ -8,7 +8,7 @@
                             @include('partials.tables.racecode-status-select')
                         </div>
                         <div class="col-md-auto">
-                            <button type="buton" class="btn btn-danger" wire:click="import">
+                            <button type="buton" class="btn btn-danger" wire:click="export">
                                 <i class="fa-regular fa-plus"></i>
                                 EXPORT
                             </button>
@@ -86,7 +86,6 @@
                         <td> {{ ucwords($volunteer->last_name) }} </td>
                         <td> {{ ucwords($volunteer->email) }} </td>
                     </tr>
-                    @include('livewire.modal.receipt-modal')
                 @endforeach
             </tbody>
         </table>

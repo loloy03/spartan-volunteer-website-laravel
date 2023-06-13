@@ -11,7 +11,6 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 class CreateEventForm extends Component
@@ -19,12 +18,11 @@ class CreateEventForm extends Component
     use WithFileUploads;
 
     public $image;
+
     public $title, $description, $location;
-    public $regStart, $regEnd, $claimStart, $claimEnd;
+    public $date, $regStart, $regEnd, $claimStart, $claimEnd;
     public $races = [];
     public $roles = [];
-
-    protected $listeners = ['processImage' => 'handleProcessedImage'];
 
     public function render()
     {
@@ -36,6 +34,7 @@ class CreateEventForm extends Component
         'title' =>  'required',
         'description' => 'required',
         'location' => 'required',
+        'date' => 'required',
         'regStart' => 'required',
         'regEnd' => 'required',
         'claimStart' => 'required',
@@ -45,32 +44,36 @@ class CreateEventForm extends Component
     // creates event
     public function submit()
     {
-        $this->validate();
+        // $this->validate();
 
-        $imageName = $this->formatFileName($this->title) . '.' . $this->image->extension();
-        $imageName;
-        $this->image->store('images', $imageName);
+        $title = ucwords($this->title);
+        $description = $this->formatParagraph($this->description);
+        $location = ucwords($this->location);
+
+        $filePath = 'images/event_thumbnails';
+        $fileType = '.' . $this->image->getClientOriginalExtension();
+        $fileName = 'thumbnail_' . $title . '-' . $this->date . $fileType;
+
+        $this->image->storeAs($filePath, $fileName, 'public');
 
         Events::create([
-            'event_pic' => $imageName,
-            'title' => ucwords($this->title),
-            'description' => $this->formatParagraph($this->description),
-            'location' => ucwords($this->location),
+            'event_pic' => $fileName,
+            'title' => $title,
+            'description' => $description,
+            'location' => $location,
             'start_date' => $this->regStart,
             'end_date' => $this->regEnd,
-            'date' => $this->regStart,
+            'date' => $this->date,
             'code_start_date' => $this->claimStart,
             'code_end_date' => $this->claimEnd
         ]);
+
         // insert Event Race
 
 
         // insert Event Staffs
-    }
 
-    public function handleProcessedImage($imageData)
-    {
-        $this->image = $imageData;
+        return redirect('/event');
     }
 
     public function getStaffs()

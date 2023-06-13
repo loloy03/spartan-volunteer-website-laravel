@@ -8,8 +8,10 @@
 @section('content')
     <div class="container-fluid p-5 overflow-hidden">
         <div class="shadow p-3 mb-5 bg-white rounded">
-            <div class="d-flex justify-content-center">
-                <h1>STAFF IS NOT PART OF THIS EVENT</h1>
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="display-5 f-montserrat">
+                    STAFF IS NOT PART OF THIS EVENT
+                </div>
             </div>
         </div>
     </div>

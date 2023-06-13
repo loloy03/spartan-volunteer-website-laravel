@@ -19,7 +19,6 @@ class CheckAttendanceTable extends Component
     public $eventId;
     public $staffId;
     public $staffRole;
-    public $volunteerImage;
 
     // search item
     public $searchFirstName;
@@ -126,11 +125,6 @@ class CheckAttendanceTable extends Component
                 ]);
             }
         }
-    }
-
-    public function setVolunteerImage($fileName)
-    {
-        dd($fileName);
     }
 
     // Sort query
