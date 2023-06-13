@@ -28,8 +28,4 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('js/datepicker.js') }}"></script>
-    {{-- <script src="{{ asset('js/persisting-data.js') }}"></script> --}}
-    <script src="{{ asset('js/add-category.js') }}"></script>
-    <script src="{{ asset('js/add-staff.js') }}"></script>
 @endsection

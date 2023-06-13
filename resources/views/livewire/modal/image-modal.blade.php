@@ -9,7 +9,7 @@
                         <div>
                             @if (empty($volunteerImage))
                             <div class="d-flex justify-content-center align-items-center">
-                                <h3>NOT AVAILABLE ON STORAGE</h3>
+                                <h3>{{$volunteerImage}}</h3>
                             </div>
                             @else
                                 <img src="/images/{{$volunteerImage}}">

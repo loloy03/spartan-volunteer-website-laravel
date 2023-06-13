@@ -80,7 +80,7 @@
                                 </div>
                             @else
                                 <button type="button" class="btn btn-dark btn-modal" data-bs-toggle="modal"
-                                    wire:click="setVolunteerImage({{$volunteer->proof_of_checkout}})" data-bs-target="#image">
+                                    data-volunteer-image="{{ $volunteer->proof_of_checkout }}" data-bs-target="#image">
                                     VIEW
                                 </button>
                             @endif
@@ -105,10 +105,11 @@
                         <td> {{ $volunteer->check_in ? date('Y-m-d | H:i:s', strtotime($volunteer->check_in)) : 'N/A' }}</td>
                         <td> {{ $volunteer->check_out ? date('Y-m-d | H:i:s', strtotime($volunteer->check_out)) : 'N/A' }}</td>
                     </tr>
-                    @include('livewire.modal.image-modal')
                 @endforeach
             </tbody>
             {{ $volunteers->links() }}
         </table>
     </div>
+    @include('partials.modals.picture-proof')
+    <script src="{{ asset('js/image-modal.js') }}"></script>
 </div>

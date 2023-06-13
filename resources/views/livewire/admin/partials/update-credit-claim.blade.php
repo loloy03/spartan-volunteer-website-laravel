@@ -82,8 +82,8 @@
                                     <h5>IMAGE NOT FOUND</h5>
                                 </div>
                             @else
-                                <button x-show="hasImage" type="button" class="btn btn-dark btn-modal"
-                                wire:click="setVolunteerReceipt('{{$volunteer->receipt}}')" data-bs-toggle="modal" data-bs-target="#receipt">
+                                <button type="button" class="btn btn-dark btn-modal" data-bs-toggle="modal" 
+                                data-receipt-image="{{ $volunteer->receipt }}" data-bs-target="#receipt">
                                     VIEW
                                 </button>
                             @endif
@@ -108,10 +108,11 @@
                         <td> {{ ucwords($volunteer->last_name) }} </td>
                         <td> {{ ucwords($volunteer->email) }} </td>
                     </tr>
-                    @include('livewire.modal.receipt-modal')
                 @endforeach
             </tbody>
         </table>
         {{ $volunteers->links() }}
     </div>
+    @include('partials.modals.picture-proof')
+    <script src="{{ asset('js/receipt-modal.js') }}"></script>
 </div>

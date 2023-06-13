@@ -48,6 +48,10 @@
                                     onclick="window.location='{{ route('admin-staff-view-event', $event->event_id) }}'">
                                 @else 
                                     onclick="window.location='{{ route('login') }}'"> @endif
+                                {{-- 
+                                    USE THIS: 
+                                    <img src="{{ asset('storage/images/event_thumbnails/' . $event->event_pic) }}" class="fixed-size-img">
+                                    --}}
                                 <img src="/images/events/{{ $event->event_pic }}" class="fixed-size-img">
                                 <!-- Image Text Overlay -->
                                 <div class="image-text p-2">
@@ -71,10 +75,10 @@
                                         <button class="p-1 mt-3 w-100 view-event-button"
                                             @if (Auth::check()) onclick="window.location='{{ route('view-event', $event->event_id) }}'">
                                             @elseif (Auth::guard('staff')->check() || Auth::guard('admin')->check())
-                                                onclick="window.location='{{ route('admin-staff-view-event', $event->event_id) }}'"
-                                            @endif
-                                                View Event
-                                        </button>
+                                                onclick="window.location='{{ route('admin-staff-view-event', $event->event_id) }}'">
+                                            @else
+                                                onclick="window.location='{{ route('view-event', $event->event_id) }}'"> @endif
+                                            View Event </button>
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +90,8 @@
                     <div class="bg-light-gray text-center">
                         <p class="fs-4 pt-4 pb-4">NO EVENTS AVAILABLE</p>
                     </div>
-                </div> @endif
-                                            </div>
-                                    </div>
-                                @endsection
+                </div>
+            @endif
+        </div>
+    </div>
+@endsection
