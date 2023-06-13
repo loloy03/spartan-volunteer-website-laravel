@@ -147,17 +147,17 @@
                 <div class="row mb-4">
                     <div class="col-lg-6 text-center my-auto">
                         <a href="https://www.facebook.com/spartanracePhilippines/" target="_blank">
-                            <i class="fa-brands fa-facebook text-light mx-4 fa-xl"></i>
+                            <i class="fa-brands fa-facebook text-light mx-3 fa-xl"></i>
                         </a>
                         <a href="https://twitter.com/spartanphi" target="_blank"><i
-                                class="fa-brands fa-twitter text-light mx-4 fa-xl"></i>
+                                class="fa-brands fa-twitter text-light mx-3 fa-xl"></i>
                         </a>
 
                         <a href="https://www.instagram.com/spartanraceph/?hl=en" target="_blank"><i
-                                class="fa-brands fa-instagram text-light mx-4 fa-xl"></i></a>
+                                class="fa-brands fa-instagram text-light mx-3 fa-xl"></i></a>
 
                         <a href="https://www.youtube.com/channel/UCfvYMyK4HA4YJJLV8WvxQsg" target="_blank"><i
-                                class="fa-brands fa-youtube text-light mx-4 fa-xl"></i></a>
+                                class="fa-brands fa-youtube text-light mx-3 fa-xl"></i></a>
 
                     </div>
                     <div class="col-lg-6 opacity-25 text-center ">
@@ -165,29 +165,29 @@
                     </div>
                 </div>
                 <div class="row text-light mx-auto f-montserrat my-5">
-                    <div class="col-lg-3 col-xs-6 my-1">
+                    <div class="col-lg-3 col-xs-6 my-1 text-center">
                         <a href="https://ph.spartan.com/en" target="_blank"> JOIN AS A RACER</a>
                     </div>
-                    <div class="col-lg-3 col-xs-6 my-1">
+                    <div class="col-lg-3 col-xs-6 my-1 text-center">
                         <a href="https://www.spartan.com/pages/global-shop" target="_blank"> SHOP </a>
                     </div>
-                    <div class="col-lg-3 col-xs-6 my-1">
+                    <div class="col-lg-3 col-xs-6 my-1 text-center">
                         <a
                             href="https://prettyhuge.com.ph/fitness/blog/a-quick-guide-to-spartan-race-philippines-67/view" target="_blank">
                             BLOG </a>
                     </div>
-                    <div class="col-lg-3 col-xs-6 my-1">
+                    <div class="col-lg-3 col-xs-6 my-1 text-center ">
                         <a href="https://spartanphilippines.zendesk.com/hc/en-us" target="_blank"> HELP </a>
                     </div>
                 </div>
                 <div class="row text-light f-lato">
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 text-center my-auto">
                         © 2022 Spartan Race Inc. Established 2010 - Vermont
                     </div>
-                    <div class="col-lg-6 text-center">
-                        <div class="d-inline-block mx-3">Privacy</div>
-                        <div class="d-inline-block mx-3">Terms And Condition</div>
-                        <div class="d-inline-block mx-3">Cookies</div>
+                    <div class="col-lg-6 text-center pt-3">
+                        <div class="d-block mx-4">Privacy</div>
+                        <div class="d-block mx-4">Terms And Condition</div>
+                        <div class="d-block mx-4">Cookies</div>
                     </div>
                 </div>
             </div>
