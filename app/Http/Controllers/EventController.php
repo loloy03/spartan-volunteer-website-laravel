@@ -27,7 +27,7 @@ class EventController extends Controller
     public function index(Request $request)
     {
         // Define the default sort order
-        $sort_by = 'date_desc';
+        $sort_by = 'date_asc';
 
         // Override the sort order if the form was submitted
         if ($request->has('sort_by')) {
@@ -35,7 +35,7 @@ class EventController extends Controller
         }
 
         // Fetch the events from the database
-        $events = Events::where('date', '>', date('Y-m-d'));
+        $events = Events::where('date', '>=', date('Y-m-d'));
         $picked_sort = "";
 
         // Sort the events according to the selected option
@@ -90,9 +90,8 @@ class EventController extends Controller
      */
     public function store()
     {
-        return view('/create-event');
-    }
 
+    }
 
     /**
      * Display the specified resource.
@@ -184,7 +183,8 @@ class EventController extends Controller
             ->where('status', '=', 'unclaimed')
             ->count();
 
-        $race_credits = RaceCredit::where('volunteer_id', Auth::user()->volunteer_id)
+        $race_credits = RaceCredit::leftjoin('event','race_credit.event_id', '=', 'event.event_id')
+        ->where('volunteer_id', Auth::user()->volunteer_id)
         ->where('status', '=', 'unclaimed')
         ->get();
 
@@ -224,8 +224,13 @@ class EventController extends Controller
         $staffId = auth()->guard('staff')->user()->staff_id;
 
         $role = StaffStatus::where('staff_id', $staffId)
-        ->where('event_id', $eventId)
-        ->first();
+            ->where('event_id', $eventId)
+            ->first();
+
+        // resources\views\livewire\staff\partials\not-included.blade.php
+        if ($role == null) {
+            return view('livewire.staff.partials.not-included');
+        }
 
         $staffRole = ucwords($role->role);
 
@@ -239,42 +244,41 @@ class EventController extends Controller
     public function listOfPendingVolunteers($eventId)
     {
         $event = Events::where('event_id', $eventId)->first();
- 
+
         $staffId = auth()->guard('staff')->user()->staff_id;
 
         $role = StaffStatus::where('staff_id', $staffId)
-        ->where('event_id', $eventId)
-        ->first();
+            ->where('event_id', $eventId)
+            ->first();
+
+        // resources\views\livewire\staff\partials\not-included.blade.php
+        if ($role == null) {
+            return view('livewire.staff.partials.not-included');
+        }
 
         $staffRole = ucwords($role->role);
         // EXCEPTION HANDLING
         // if (staff isn't part of the event)
-            // show: staff isn't part of event
+        // show: staff isn't part of event
 
         return view('staff.check-attendance', compact('staffId', 'staffRole', 'event'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Events $event)
+    public function listOfVolunteerRace($eventId)
     {
-        //
+        $event = Events::find($eventId);
+        return view('admin.volunteer-racecode-claim', compact('event'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Events $event)
+    public function listOfEventVolunteers($eventId)
     {
-        //
+        $event = Events::find($eventId);
+        return view('admin.event-volunteers', compact('event'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Events $event)
+    public function listOfEventStaffs($eventId)
     {
-        //
+        $event = Events::find($eventId);
+        return view('admin.event-staffs', compact('event'));
     }
 }

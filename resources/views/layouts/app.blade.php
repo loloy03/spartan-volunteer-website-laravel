@@ -38,7 +38,7 @@
     @yield('import-css')
 
     <!-- jQuery library -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 
     <!-- jQuery UI library -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -74,7 +74,7 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
 
-                        @guest
+                        @visitor
                             @if (Route::has('login') && !Auth::guard('staff')->check() && !Auth::guard('admin')->check())
                                 <li class="nav-item bottom-transition mt-2">
                                     <a class="nav-link text-light" href="{{ route('login') }}">{{ __('LOGIN') }}</a>
@@ -86,6 +86,13 @@
                                     <a class="nav-link text-light" href="{{ route('register') }}">{{ __('REGISTER') }}</a>
                                 </li>
                             @endif
+
+                            @if (Route::has('login') && !Auth::guard('staff')->check() && !Auth::guard('admin')->check())
+                                <li class="nav-item bottom-transition">
+                                    @include('partials.admin-staff-auth')
+                                </li>
+                            @endif
+
                         @else
                             @if (Route::has('event'))
                                 <li class="nav-item bottom-transition mx-1">
@@ -128,7 +135,7 @@
                                 </div>
 
                             </li>
-                        @endguest
+                        @endvisitor
                         @admin
                             @include('admin.partials.navbar-admin')
                         @endadmin

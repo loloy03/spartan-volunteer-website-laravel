@@ -39,19 +39,73 @@
                                     <div class="f-montserrat mb-2"> {{ $race_credit_quantity }} </div>
                                     <div class="f-lato text-muted">First Name</div>
                                     <input class="form-control mb-2" type="text" name="first_name" id="first_name"
-                                        value="{{ Auth::user()->first_name }}" required>
+                                        value="{{ Auth::user()->first_name }}" pattern="[A-Za-z ]+"
+                                        title="Please enter a valid first name" required>
                                     <div class="f-lato text-muted">Last Name</div>
                                     <input class="form-control mb-2" type="text" name="last_name" id="last_name"
-                                        value="{{ Auth::user()->last_name }}" required>
+                                        value="{{ Auth::user()->last_name }}" pattern="[A-Za-z ]+"
+                                        title="Please enter a valid last name" required>
+
                                     <div class="f-lato text-muted">Occupation</div>
-                                    <input class="form-control mb-2" type="text" name="occupation" id="occupation"
-                                        value="{{ Auth::user()->occupation }}" required>
+                                    <select class="form-control mb-2" name="occupation" id="occupation" required>
+                                        <option value="">Select Occupation</option>
+                                        <option value="Engineer" @if (Auth::user()->occupation == 'Engineer') selected @endif>Engineer
+                                        </option>
+                                        <option value="Teacher" @if (Auth::user()->occupation == 'Teacher') selected @endif>Teacher
+                                        </option>
+                                        <option value="Doctor" @if (Auth::user()->occupation == 'Doctor') selected @endif>Doctor
+                                        </option>
+                                        <option value="Lawyer" @if (Auth::user()->occupation == 'Lawyer') selected @endif>Lawyer
+                                        </option>
+                                        <option value="Architect" @if (Auth::user()->occupation == 'Architect') selected @endif>
+                                            Architect</option>
+                                        <option value="Accountant" @if (Auth::user()->occupation == 'Accountant') selected @endif>
+                                            Accountant</option>
+                                        <option value="Designer" @if (Auth::user()->occupation == 'Designer') selected @endif>Designer
+                                        </option>
+                                        <option value="Writer" @if (Auth::user()->occupation == 'Writer') selected @endif>Writer
+                                        </option>
+                                        <option value="Nurse" @if (Auth::user()->occupation == 'Nurse') selected @endif>Nurse
+                                        </option>
+                                        <option value="Artist" @if (Auth::user()->occupation == 'Artist') selected @endif>Artist
+                                        </option>
+                                        <option value="Chef" @if (Auth::user()->occupation == 'Chef') selected @endif>Chef
+                                        </option>
+                                        <option value="Developer" @if (Auth::user()->occupation == 'Developer') selected @endif>
+                                            Developer</option>
+                                        <option value="Photographer" @if (Auth::user()->occupation == 'Photographer') selected @endif>
+                                            Photographer</option>
+                                        <option value="Marketing Specialist"
+                                            @if (Auth::user()->occupation == 'Marketing Specialist') selected @endif>Marketing Specialist
+                                        </option>
+                                        <option value="Student" @if (Auth::user()->occupation == 'Student') selected @endif>Student
+                                        </option>
+                                        <option value="Retail Sales Associate"
+                                            @if (Auth::user()->occupation == 'Retail Sales Associate') selected @endif>Retail Sales Associate
+                                        </option>
+                                        <option value="Customer Service Representative"
+                                            @if (Auth::user()->occupation == 'Customer Service Representative') selected @endif>Customer Service
+                                            Representative</option>
+                                        <option value="Delivery Driver" @if (Auth::user()->occupation == 'Delivery Driver') selected @endif>
+                                            Delivery Driver</option>
+                                        <option value="Barista" @if (Auth::user()->occupation == 'Barista') selected @endif>Barista
+                                        </option>
+                                        <option value="Unemployed" @if (Auth::user()->occupation == 'Unemployed') selected @endif>
+                                            Unemployed
+                                        </option>
+                                        <!-- Add more options as needed -->
+                                    </select>
+
                                     <div class="f-lato text-muted ">Birthdate</div>
                                     <input class="form-control mb-2" type="text" id="datepicker" name="selected_date"
                                         value="{{ Auth::user()->birthdate }}">
                                     <div class="f-lato text-muted">Contact Number</div>
                                     <input class="form-control mb-2" type="text" name="contact_number"
-                                        id="contact_number" value="{{ Auth::user()->contact_number }}">
+                                        id="contact_number" pattern="\+639\d{9}"
+                                        title="Please enter a contact number in the format +639XXXXXXXXX"
+                                        placeholder="+639XXXXXXXXX" value="{{ Auth::user()->contact_number }}" required>
+
+
                                     <div class="f-lato text-muted">Email Address</div>
                                     <div class="f-montserrat">{{ Auth::user()->email }}</div>
                                     <button type="submit"
@@ -78,3 +132,4 @@
         });
     </script>
 @endsection
+ff

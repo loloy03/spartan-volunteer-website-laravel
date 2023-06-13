@@ -12,6 +12,10 @@
             <div class="col-lg-6 my-auto position-relative">
                 <!-- Display the event picture -->
                 <div>
+                    {{-- 
+                        USE THIS: 
+                        <img src="{{ asset('storage/images/event_thumbnails/' . $event->event_pic) }}" class="fixed-size-img">
+                        --}}
                     <img class="w-100" src="/images/events/{{ $event->event_pic }}">
                 </div>
                 <!-- Add an overlay image on top of the event picture -->
@@ -255,7 +259,7 @@
                                         <option value="" selected disabled>Select Race Credit</option>
                                         @foreach ($race_credits as $race_credit)
                                             <option value="{{ $race_credit->credit_id }}">
-                                                Credit ID: {{ $race_credit->credit_id }},
+                                                Race Credit: {{ $race_credit->title }},
                                                 Expiration Date: {{ date('M j, Y', strtotime($race_credit->exp_date)) }}
                                             </option>
                                         @endforeach

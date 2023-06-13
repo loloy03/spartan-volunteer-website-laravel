@@ -1,10 +1,15 @@
 <div>
-    <div class="table-responsive custom-table-responsive">
-        <table class="table custom-table" id="table">
+    <div class="table-responsive text-nowrap">
+        <table class="table">
             <thead>
                 <tr>
-                    <div>
-                        @include('partials.tables.export-btn')
+                    <div class="row g-2">
+                        <div class="col-md-auto">
+                            @include('partials.tables.select-attendance-status')
+                        </div>
+                        <div class="col-md-auto">
+                            @include('partials.tables.export-btn')
+                        </div>
                     </div>
                     <th class="col no-sort">STATUS</th>
                     <th class="col" role="button" wire:click="sort('first_name')">FIRST NAME
@@ -65,14 +70,7 @@
                     </th>
                 </tr>
                 <tr>
-                    <th class="col">
-                        <select class="form-control" role="button" wire:model="filterStatus">
-                            <option value="" selected>STATUS</option>
-                            <option value="checked">CHECKED</option>
-                            <option value="confirmed">CONFIRMED</option>
-                            <option value="validated">VALIDATED</option>
-                        </select>
-                    </th>
+                    <th class="col"></th>
                     <th class="col">
                         <input type="text" class="form-control" placeholder="First Name"
                             wire:model="searchFirstName">
@@ -93,6 +91,9 @@
                         <input type="text" class="form-control" placeholder="Event Location"
                             wire:model="searchLocation">
                     </th>
+                    <th class="col"></th>
+                    <th class="col"></th>
+                    <th class="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -100,11 +101,11 @@
                     <tr scope="row" class="align-middle table-group-divider">
                         <td> 
                             @if ($volunteer->attendance_status === 'checked') 
-                                <h5><span class="badge rounded-pill badge-warning">{{strtoupper($volunteer->attendance_status)}}</span></h5>
+                                <h6><span class="badge rounded-pill badge-warning">{{strtoupper($volunteer->attendance_status)}}</span></h6>
                             @elseif ($volunteer->attendance_status === 'confirmed') 
-                                <h5><span class="badge rounded-pill badge-primary">{{strtoupper($volunteer->attendance_status)}}</span></h5>
+                                <h6><span class="badge rounded-pill badge-primary">{{strtoupper($volunteer->attendance_status)}}</span></h6>
                             @elseif ($volunteer->attendance_status === 'validated') 
-                                <h5><span class="badge rounded-pill badge-success">{{strtoupper($volunteer->attendance_status)}}</span></h5>
+                                <h6><span class="badge rounded-pill badge-success">{{strtoupper($volunteer->attendance_status)}}</span></h6>
                             @endif
                         </td>
                         <td> {{ ucwords($volunteer->first_name) }} </td>

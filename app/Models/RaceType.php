@@ -16,4 +16,9 @@ class RaceType extends Model
     public $timestamps = false; //disabling laravel's eloquent timestamps
 
     public $guarded = [];
+
+    public function raceCode()
+    {
+        //
+    }
 }

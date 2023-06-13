@@ -54,6 +54,12 @@
                                                 {{-- staff first name --}}
                                                 {{ $event->first_name }}
                                             </div>
+                                            <div class="d-block">
+                                                <div class="d-inline-block f-montserrat">
+                                                    Role:
+                                                </div>
+                                                {{ ucfirst($event->role) }}
+                                            </div>
 
                                             <div class="d-block">
                                                 <div class="d-inline-block f-montserrat">
@@ -95,49 +101,62 @@
                     <div class="mx-3 mb-3">
                         @if ($claimed_code_events->count() > 0)
                             @foreach ($claimed_code_events as $event)
-                                <div class="p-3">
-                                    <div type="button" class="row p-3 bg-light-gray f-lato view-history-hover"
-                                        onclick="window.location='{{ route('view-event', $event->event_id) }}'">
-                                        <div class="col-lg-6 my-auto">
+                                @foreach ($claiming_code_events_race_credits_val as $credits_val)
+                                    <div class="p-3">
+                                        <div type="button" class="row p-3 bg-light-gray f-lato view-history-hover"
+                                            onclick="window.location='{{ route('view-event', $event->event_id) }}'">
+                                            <div class="col-lg-6 my-auto">
+                                                <div class="d-block">
+                                                    {{-- format the date --}}
+                                                    {{ date('M j, Y', strtotime($event->date)) }}
+                                                </div>
 
-                                            <div class="d-block">
-                                                <div class="fs-3 f-montserrat">
-                                                    {{ $event->title }}
+                                                <div class="d-block">
+                                                    <div class="fs-3 f-montserrat">
+                                                        {{ $event->title }}
+                                                    </div>
+                                                </div>
+                                                <div class="d-block">
+                                                    <img src="/images/icons/pin-icon.png" width="15px">
+                                                    {{ $event->location }}
                                                 </div>
                                             </div>
-                                            <div class="d-block">
-                                                <img src="/images/icons/pin-icon.png" width="15px">
-                                                {{ $event->location }}
-                                            </div>
-                                        </div>
 
-                                        <div class="col-lg-6 my-auto pt-3">
+                                            <div class="col-lg-6 my-auto pt-3">
 
-                                            <div class="d-block">
-                                                <div class="d-inline-block f-montserrat">
-                                                    Type of Race:
+                                                <div class="d-block">
+                                                    <div class="d-inline-block f-montserrat">
+                                                        Type of Race:
+                                                    </div>
+                                                    {{-- staff first name --}}
+                                                    {{ ucfirst($event->race_type) }}
                                                 </div>
-                                                {{-- staff first name --}}
-                                                {{ ucfirst($event->race_type) }}
-                                            </div>
 
-                                            <div class="d-block">
-                                                <div class="d-inline-block f-montserrat">
-                                                    Race Code:
+                                                <div class="d-block">
+                                                    <div class="d-inline-block f-montserrat">
+                                                        Race Credit:
+                                                    </div>
+                                                    {{ ucfirst($credits_val->title) }}
                                                 </div>
-                                                {{-- event status --}}
-                                                {{ ucfirst($event->race_code) }}
-                                            </div>
 
-                                            <div class="d-block">
-                                                <div class="d-inline-block f-montserrat">
-                                                    Status:
+                                                <div class="d-block">
+                                                    <div class="d-inline-block f-montserrat">
+                                                        Race Code:
+                                                    </div>
+                                                    {{-- event status --}}
+                                                    {{ ucfirst($event->race_code) }}
                                                 </div>
-                                                {{ ucfirst($event->status) }}
+
+                                                <div class="d-block">
+                                                    <div class="d-inline-block f-montserrat">
+                                                        Status:
+                                                    </div>
+                                                    {{ ucfirst($event->status) }}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endforeach
                             @endforeach
                         @else
                             <div class="col-lg-12 f-montserrat p-2">

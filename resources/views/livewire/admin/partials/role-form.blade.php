@@ -1,4 +1,4 @@
-        <div class="title-header mb-3 f-montserrat">
+        <div class="title-header mb-3 f-montserrat mt-4">
             <h1>ROLE MANAGEMENT</h1>
         </div>
         <div class="col">
@@ -196,7 +196,7 @@
             </div>
         </div>
         <div class="form-group mt-3 event-form d-grid gap-2">
-            <button type="submit" name="create-event" class="btn btn-danger btn-block" wire:click="createEvent">CREATE EVENT</button>
+            <button type="submit" name="create-event" class="btn btn-danger btn-block">CREATE EVENT</button>
         </div>
     </div>
     {{-- @include('layouts.staff-modal') --}}

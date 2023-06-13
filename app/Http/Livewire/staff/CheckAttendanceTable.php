@@ -2,9 +2,13 @@
 
 namespace App\Http\Livewire\Staff;
 
+use App\Models\RaceCredit;
 use App\Models\Volunteer;
+use App\Models\VolunteerStatus;
+use App\Models\Events;
 
 use Livewire\Component;
+use Illuminate\Support\Carbon;
 use Livewire\WithPagination;
 
 class CheckAttendanceTable extends Component
@@ -22,6 +26,9 @@ class CheckAttendanceTable extends Component
 
     // filter item
     public $filterStatus;
+
+    public $checked = [];
+    public $validated = [];
 
     // sorting items
     // defualt sort(volunteer_id, asc)
@@ -52,6 +59,7 @@ class CheckAttendanceTable extends Component
             'volunteer.volunteer_id',
             'volunteer.first_name',
             'volunteer.last_name',
+            'volunteer.contact_number',
             'volunteer_status.role',
             'volunteer_status.staff_id',
             'volunteer_status.attendance_status',
@@ -78,11 +86,44 @@ class CheckAttendanceTable extends Component
         $this->resetPage();
     }
 
-    public function updateStatus($volunteer_id)
+    public function checkAttendance()
     {
-        if($volunteer_id)
+        $checkedVolunteers = $this->checked;
+
+        if($checkedVolunteers)
         {
-            
+            foreach($checkedVolunteers as $volunteer)
+            {
+                VolunteerStatus::where('volunteer_id', $volunteer)
+                ->where('event_id', $this->eventId)
+                ->update(['attendance_status' => 'checked']);
+            }
+        }
+    }
+
+    public function validateAttendance()
+    {
+        $validatedVolunteers = $this->validated;
+        $event = Events::find($this->eventId);
+
+        $eventDate = Carbon::createFromFormat('Y-m-d', $event->start_date);
+        $expDate = $eventDate->addYear();
+
+        if($validatedVolunteers)
+        {
+            foreach($validatedVolunteers as $volunteer)
+            {
+                VolunteerStatus::where('volunteer_id', $volunteer)
+                ->where('event_id', $this->eventId)
+                ->update(['attendance_status' => 'validated']);
+
+                RaceCredit::insert([
+                    'volunteer_id' => $volunteer,
+                    'event_id' => $this->eventId,
+                    'exp_date' => $expDate,
+                    'status' => 'unclaimed'
+                ]);
+            }
         }
     }
 

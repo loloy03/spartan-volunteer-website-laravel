@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+
+use App\Models\Administrator;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
-// use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\JsonResponse;
 
@@ -114,7 +116,7 @@ class StaffLoginController extends Controller
 
         return $request->wantsJson()
                     ? new JsonResponse([], 204)
-                    : redirect()->intended('/staff-dashboard');
+                    : redirect()->intended('/event');
     }
 
     /**
@@ -200,7 +202,7 @@ class StaffLoginController extends Controller
 
     protected function redirectPath()
     {
-        return '/staff-dashboard';
+        return '/event';
     }
 
 }

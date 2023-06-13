@@ -4,6 +4,9 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\Volunteer;
 
+use App\Exports\AdminVolunteersExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -45,7 +48,7 @@ class AdminVolunteersTable extends Component
     public function queryBuilder()
     {
         return Volunteer::query()->join('volunteer_status', 'volunteer.volunteer_id', '=', 'volunteer_status.volunteer_id')
-            ->join('event', 'volunteer_status.event_id', '=', 'event.event_id')
+            ->join('event', 'event.event_id', '=', 'volunteer_status.event_id')
             ->orderBy($this->sortBy, $this->sortDirection)
             ->select(
                 'volunteer.volunteer_id',
@@ -72,24 +75,25 @@ class AdminVolunteersTable extends Component
         }
 
         if ($this->searchEvent) {
-            $query->where('event.title', 'LIKE', '%' . $this->searchEvent . '%');
+            $query->where('title', 'LIKE', '%' . $this->searchEvent . '%');
         }
 
         if ($this->searchRole) {
             $query->where('role', 'LIKE', '%' . $this->searchRole . '%');
         }
 
-        if ($this->searchStaffFirstName) {
-            $query->where('staff.first_name', 'LIKE', '%' . $this->searchStaffFirstName . '%');
-        }
+        // if ($this->searchStaffFirstName) {
+        //     $query->where('staff.first_name', 'LIKE', '%' . $this->searchStaffFirstName . '%');
+        // }
 
-        if ($this->searchStaffLastName) {
-            $query->where('staff.last_name', 'LIKE', '%' . $this->searchStaffLastName . '%');
-        }
+        // if ($this->searchStaffLastName) {
+        //     $query->where('staff.last_name', 'LIKE', '%' . $this->searchStaffLastName . '%');
+        // }
     }
 
     public function updatedSearch()
     {
+
         $this->resetPage();
     }
 

@@ -1,9 +1,10 @@
 <li class="nav-item bottom-transition mx-1">
-    <a class="nav-link text-light" href="{{ route('home') }}">{{ __('HOME') }}</a>
-</li>
-<li class="nav-item bottom-transition mx-1">
     <a class="nav-link text-light" href="{{ route('event') }}">{{ __('EVENTS') }}</a>
 </li>
+<li class="nav-item bottom-transition mx-1">
+    <a class="nav-link text-light" href="{{ route('admin-volunteers') }}">{{ __('VOLUNTEERS') }}</a>
+</li>
+
 
 <li class="nav-item dropdown bottom-transition">
     <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button"
@@ -13,13 +14,6 @@
     </a>
     <div class="dropdown-menu dropdown-menu-end bg-dark" aria-labelledby="navbarDropdown">
         @admin
-            <a class="dropdown-item text-white" href="{{ route('profile.show') }}">
-                {{ __('PROFILE') }} </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item text-white" href="{{ route('history.show') }}">
-                {{ __('HISTORY') }} </a>
-            <div class="dropdown-divider"></div>
-
             <a class="dropdown-item text-white" href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">

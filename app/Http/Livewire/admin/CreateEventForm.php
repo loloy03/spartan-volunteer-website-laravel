@@ -18,12 +18,11 @@ class CreateEventForm extends Component
     use WithFileUploads;
 
     public $image;
+
     public $title, $description, $location;
-    public $regStart, $regEnd, $claimStart, $claimEnd;
+    public $date, $regStart, $regEnd, $claimStart, $claimEnd;
     public $races = [];
     public $roles = [];
-
-    protected $listeners = ['processImage' => 'handleProcessedImage'];
 
     public function render()
     {
@@ -32,10 +31,10 @@ class CreateEventForm extends Component
     }
 
     protected $rules = [
-        'image' => 'required',
         'title' =>  'required',
         'description' => 'required',
         'location' => 'required',
+        'date' => 'required',
         'regStart' => 'required',
         'regEnd' => 'required',
         'claimStart' => 'required',
@@ -43,41 +42,38 @@ class CreateEventForm extends Component
     ];
 
     // creates event
-    public function createEvent()
+    public function submit()
     {
-        // validates inputs
-        try {
-            $this->validate();
+        // $this->validate();
 
-            // $fileName = $this->image->getClientOriginalName();
-            $this->image->store('images');
+        $title = ucwords($this->title);
+        $description = $this->formatParagraph($this->description);
+        $location = ucwords($this->location);
 
-                Events::create([
-                    'event_pic' => $this->image,
-                    'title' => ucwords($this->title),
-                    'descrption' => $this->formatParagraph($this->description),
-                    'location' => ucwords($this->location),
-                    'start_date' => $this->regStart,
-                    'end_date' => $this->regEnd,
-                    'date' => $this->date,
-                    'code_start_date' => $this->claimStart,
-                    'code_end_date' => $this->claimEnd
-                ]);
-                // insert Event Race
-                
+        $filePath = 'images/event_thumbnails';
+        $fileType = '.' . $this->image->getClientOriginalExtension();
+        $fileName = 'thumbnail_' . $title . '-' . $this->date . $fileType;
 
-                // insert Event Staffs
+        $this->image->storeAs($filePath, $fileName, 'public');
+
+        Events::create([
+            'event_pic' => $fileName,
+            'title' => $title,
+            'description' => $description,
+            'location' => $location,
+            'start_date' => $this->regStart,
+            'end_date' => $this->regEnd,
+            'date' => $this->date,
+            'code_start_date' => $this->claimStart,
+            'code_end_date' => $this->claimEnd
+        ]);
+
+        // insert Event Race
 
 
-        } 
-        catch (ValidationException $e) {
-            
-        }
-    }
+        // insert Event Staffs
 
-    public function handleProcessedImage($imageData)
-    {
-        $this->image = $imageData;
+        return redirect('/event');
     }
 
     public function getStaffs()
@@ -95,6 +91,19 @@ class CreateEventForm extends Component
         $output = preg_replace_callback('/([.!?])\s*(\w)/', function ($matches) {
             return strtoupper($matches[1] . ' ' . $matches[2]);
         }, ucfirst(strtolower($input)));
+        return $output;
+    }
+
+    public function formatFileName($input)
+    {
+        $input = preg_replace('/[^a-zA-Z0-9\s]/', '', $input);
+
+        $input = str_replace(' ', '_', $input);
+
+        $input = strtolower($input);
+
+        $output = $input . '(' . $this->regStart . ')';
+
         return $output;
     }
 }

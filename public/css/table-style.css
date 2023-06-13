@@ -5,15 +5,15 @@
 .table thead tr,
 .table thead th {
     font-family: Montserrat;
-    text-align: center;
-    padding: 10px !important;
+    /* text-align: center; */
+    /* padding: 10px !important; */
 }
 
 .table tbody th,
 .table tbody td {
-    padding-bottom: 20px;
-    text-align: center;
-    padding-top: 20px;
+    /* padding-bottom: 20px; */
+    /* text-align: center; */
+    /* padding-top: 20px; */
     font-weight: 300;
 }
 
@@ -53,17 +53,6 @@
     background: #dc4c64;
 }
 
-/*override dataTables default th alignment*/
-.dataTables_wrapper thead th {
-    text-align: center !important;
-}
-
-/*override dataTables default search input*/
-.dataTables_filter{
-    float: left !important;
-    margin-bottom: 1rem;
-}
-
 input[type=checkbox] {
     font-family: Montserrat !important;
 }
@@ -73,13 +62,16 @@ input::placeholder {
     font-size: small;
 }
 
-input[type=checkbox]:hover {
+.checkbox:hover {
     cursor:pointer;
     transform: scale(1.5);
 }
 
-input[type=checkbox]:checked {
+.checkbox:checked {
     transform: scale(1.5);
 }
 
-
+.nav-tabs, .nav-item, .nav-link
+{
+    font-family: Montserrat !important;
+}

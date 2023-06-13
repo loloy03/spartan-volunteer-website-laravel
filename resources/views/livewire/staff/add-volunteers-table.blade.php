@@ -3,13 +3,15 @@
         <table class="table custom-table" id="">
             <thead>
                 <tr>
-                    <div>
-                        {{-- Toolbar here --}}
-                        <button type="buton" class="btn btn-danger rounded-pill" wire:click="updateVolunteers">
-                            ADD VOLUNTEERS
-                            <i class="fa-regular fa-plus"></i>
-                        </button>
-                        @include('partials.tables.export-btn')
+                    <div class="row g-2">
+                        <div class="col-md-auto">
+                            <button type="buton" class="btn btn-danger" wire:click="updateVolunteers">
+                                ADD VOLUNTEERS
+                            </button>
+                        </div>
+                        <div class="col-md-auto">
+                            @include('partials.tables.export-btn')
+                        </div>
                     </div>
                 </tr>
                 <tr>
