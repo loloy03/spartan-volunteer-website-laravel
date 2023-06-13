@@ -69,7 +69,7 @@
                                 value="{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}">
                             <input type="hidden" name="event_id" value="{{ $event->event_id }}">
                             <button type="button" id="joinButton"
-                                class="my-auto view-event-btn f-montserrat {{ $event_status == 'NOT AVAILABLE' || $event_status == 'VOLUNTEER CANCELLED' ? 'view-event-btn-disabled' : '' }}"
+                                class="my-auto view-event-btn f-montserrat small {{ $event_status == 'NOT AVAILABLE' || $event_status == 'VOLUNTEER CANCELLED' ? 'view-event-btn-disabled' : '' }}"
                                 {{ $event_status == 'NOT AVAILABLE' || $event_status == 'VOLUNTEER CANCELLED' ? 'disabled' : '' }}>
                                 Join Now
                             </button>
@@ -94,9 +94,9 @@
 
                     <div class=" {{ $attendance_status != 'joining' ? 'd-none' : '' }}">
                         <!-- Registration confirmation status -->
-                        <div class="d-flex justify-content-between mt-2">
+                        <div class="justify-content-between mt-2">
                             <div
-                                class="text-success f-lato my-auto fs-13 {{ $event_status == 'NOT AVAILABLE' ? 'text-danger' : '' }}">
+                                class="text-success f-lato my-auto fs-13 mb-3{{ $event_status == 'NOT AVAILABLE' ? 'text-danger' : '' }}">
                                 STATUS: {{ strtoupper($attendance_status) }}
                             </div>
                             <!-- Confirm registration button -->
@@ -105,7 +105,7 @@
                                 <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
                                 <input type="hidden" name="event_id" value="{{ $event->event_id }}">
                                 <!-- Cancel registration button -->
-                                <button class="my-auto view-event-btn f-montserrat">
+                                <button class="my-auto view-event-btn f-montserrat small ">
                                     Confirm Registration
                                 </button>
                             </form>
@@ -142,10 +142,7 @@
                             </div>
                         </div>
 
-                        <div class="d-flex justify-content-between pt-1">
-                            <div class="f-lato mb-auto text-muted text-start fs-10 w-25">
-                                TO BE PART OF THE TEAM YOU NEED TO CONFIRM REGISTRATION
-                            </div>
+                        <div class="justify-content-between pt-1">
 
                             <form id="cancelForm" method="POST" action="{{ route('volunteer_status.cancelled') }}">
                                 @csrf
@@ -153,7 +150,7 @@
                                 <input type="hidden" name="event_id" value="{{ $event->event_id }}">
                                 <!-- Cancel registration button -->
                                 <button type="button" id="ConfirmCancel"
-                                    class="my-auto view-event-btn f-montserrat {{ $event_status == 'NOT AVAILABLE' ? 'view-event-btn-disabled' : '' }}"
+                                    class="my-auto view-event-btn f-montserrat small {{ $event_status == 'NOT AVAILABLE' ? 'view-event-btn-disabled' : '' }}"
                                     {{ $event_status == 'NOT AVAILABLE' ? 'disabled' : '' }} onclick="confirmCancel()">
                                     Cancel Registration
                                 </button>
@@ -181,7 +178,7 @@
                             STATUS: {{ $code_status }}
                         </div>
                         <button
-                            class="my-auto view-event-btn f-montserrat {{ $code_status == 'NOT AVAILABLE' || $attendance_status == 'joining' ? 'view-event-btn-disabled' : '' }}"
+                            class="my-auto view-event-btn f-montserrat small {{ $code_status == 'NOT AVAILABLE' || $attendance_status == 'joining' ? 'view-event-btn-disabled' : '' }}"
                             {{ $code_status == 'NOT AVAILABLE' ? 'disabled' : '' }} data-bs-toggle="collapse"
                             data-bs-target="#view" aria-controls="navbarSupportedContent" aria-expanded="false"
                             aria-label="{{ __('Toggle navigation') }}">Claim Now</button>
@@ -332,7 +329,7 @@
                                 <div>
                                     <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
                                     <input type="hidden" name="event_id" value="{{ $event->event_id }}">
-                                    <div class="f-montserrat mt-4">
+                                    <div class="f-montserrat mt-4 small">
                                         <button type="submit" {{ $race_credit_quantity == 0 ? 'disabled' : '' }}
                                             class="view-event-btn {{ $race_credit_quantity == 0 ? 'view-event-btn-disabled' : '' }}">
                                             Claim
