@@ -19,8 +19,8 @@
             </div>
             <input type="file" class="form-control input" id="file" accept="image/*" value="{{ old('event_pic') }}"
                 wire:model="image" hidden>
-            <div wire:loading wire:target="image">Uploading...</div>
         </div>
+        <div wire:loading wire:target="image">Uploading...</div>
         @error('image')
             <p class="text-danger text-xs mt-1">
                 {{ $message }}
@@ -157,11 +157,17 @@
             </label>
             <div class="col-sm-7">
                 <div class="overflow-auto">
-                    <ul class="list-group list-group-horizontal flex-nowrap" id="category"
-                        data-group="event-categories">
-                    </ul>
+                        {{-- race inserted here --}}
+                        @foreach ($races as $raceId => $raceType)
+                                <h5>
+                                    <span class="badge badge-pill badge-dark">
+                                        {{ucwords($raceType)}}
+                                        <i role="button" class="fa-regular fa-circle-xmark" wire:click.prevent="removeRace('{{$raceId}}')"></i>
+                                    </span>
+                                </h5>
+                        @endforeach
                 </div>
-                {{-- @include('layouts.category-modal') --}}
+                @include('livewire.modal.category-modal')
             </div>
         </div>
     </div>

@@ -74,7 +74,7 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
 
-                        @visitor
+                        @guest
                             @if (Route::has('login') && !Auth::guard('staff')->check() && !Auth::guard('admin')->check())
                                 <li class="nav-item bottom-transition mt-2">
                                     <a class="nav-link text-light" href="{{ route('login') }}">{{ __('LOGIN') }}</a>
@@ -87,11 +87,11 @@
                                 </li>
                             @endif
 
-                            @if (Route::has('login') && !Auth::guard('staff')->check() && !Auth::guard('admin')->check())
+                            @visitor
                                 <li class="nav-item bottom-transition">
                                     @include('partials.admin-staff-auth')
                                 </li>
-                            @endif
+                            @endvisitor
 
                         @else
                             @if (Route::has('event'))
@@ -135,7 +135,7 @@
                                 </div>
 
                             </li>
-                        @endvisitor
+                        @endguest
                         @admin
                             @include('admin.partials.navbar-admin')
                         @endadmin

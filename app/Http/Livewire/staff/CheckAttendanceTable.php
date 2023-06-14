@@ -11,6 +11,8 @@ use Livewire\Component;
 use Illuminate\Support\Carbon;
 use Livewire\WithPagination;
 
+use Illuminate\Support\Facades\DB;
+
 class CheckAttendanceTable extends Component
 {
     use WithPagination;
@@ -113,16 +115,18 @@ class CheckAttendanceTable extends Component
         {
             foreach($validatedVolunteers as $volunteer)
             {
-                VolunteerStatus::where('volunteer_id', $volunteer)
-                ->where('event_id', $this->eventId)
-                ->update(['attendance_status' => 'validated']);
-
-                RaceCredit::insert([
-                    'volunteer_id' => $volunteer,
-                    'event_id' => $this->eventId,
-                    'exp_date' => $expDate,
-                    'status' => 'unclaimed'
-                ]);
+                DB::transaction( function () use ($volunteer, $expDate) {
+                    VolunteerStatus::where('volunteer_id', $volunteer)
+                    ->where('event_id', $this->eventId)
+                    ->update(['attendance_status' => 'validated']);
+    
+                    RaceCredit::insert([
+                        'volunteer_id' => $volunteer,
+                        'event_id' => $this->eventId,
+                        'exp_date' => $expDate,
+                        'status' => 'unclaimed'
+                    ]);
+                });
             }
         }
     }

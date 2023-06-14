@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Blade::if('visitor', function () {
-            return !auth()->check() || !auth()->guard('admin')->check() || !auth()->guard('staff')->check();
+            return !auth()->check() && !auth()->guard('admin')->check() && !auth()->guard('staff')->check();
         });
     }
 }

@@ -17,8 +17,8 @@
                     <th class="col">VERIFY</th>
                     <th class="col">RECEIPT</th>
                     <th class="col">STATUS</th>
-                    <th class="col" role="button" wire:click="sort('event.location')">RACE TYPE
-                        @if ($sortBy === 'race_ype')
+                    <th class="col" role="button" wire:click="sort('race_type')">RACE TYPE
+                        @if ($sortBy === 'race_type')
                             <i class="fa fa-sort-{{ $sortDirection }}"></i>
                         @else
                             <i class="fa-solid fa-sort"></i>
@@ -113,6 +113,6 @@
         </table>
         {{ $volunteers->links() }}
     </div>
-    @include('partials.modals.picture-proof')
+    @include('partials.modals.picture-receipt')
     <script src="{{ asset('js/receipt-modal.js') }}"></script>
 </div>

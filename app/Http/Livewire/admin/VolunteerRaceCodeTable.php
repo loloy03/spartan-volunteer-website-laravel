@@ -2,9 +2,8 @@
 
 namespace App\Http\Livewire\Admin;
 
-use App\Models\Volunteer;
 use App\Models\RaceCode;
-
+use App\Models\RaceCredit;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -33,7 +32,6 @@ class VolunteerRaceCodeTable extends Component
     public $sortDirection = 'asc';
 
     public $eventId;
-    public $volunteerReceipt;
 
     public function render()
     {
@@ -55,11 +53,12 @@ class VolunteerRaceCodeTable extends Component
 
     public function queryBuilder()
     {
-        return RaceCode::query()->join('volunteer', 'volunteer.volunteer_id', '=', 'race_code.volunteer_id')
+        return RaceCredit::query()->join('volunteer', 'volunteer.volunteer_id', '=', 'race_credit.volunteer_id')
+        ->join('race_code', 'race_code.credit_id', '=', 'race_credit.credit_id')
         ->join('race_types', 'race_types.race_id', '=', 'race_code.race_id')
         ->join('event', 'event.event_id', '=', 'race_code.event_id')
         ->orderBy($this->sortBy, $this->sortDirection)
-        ->where('event.event_id', $this->eventId)
+        ->where('race_credit.event_id', $this->eventId)
         ->select(
             'race_code.volunteer_id',
             'first_name',
@@ -69,7 +68,7 @@ class VolunteerRaceCodeTable extends Component
             'race_type',
             'receipt',
             'volunteer.r_credits',
-            'status'
+            'race_code.status'
         );
     }
 
@@ -87,13 +86,6 @@ class VolunteerRaceCodeTable extends Component
             }
         }
     }
-
-    public function setVolunteerReceipt($receipt)
-    {
-        $this->volunteerReceipt = $receipt;
-        // dd($this->volunteerReceipt);
-    }
-
 
     // Search query
     public function search($query)
@@ -135,7 +127,7 @@ class VolunteerRaceCodeTable extends Component
     public function filter($query)
     {
         if ($this->filterStatus) {
-            $query->where('status', $this->filterStatus);
+            $query->where('race_code.status', $this->filterStatus);
         }
     }
 }
