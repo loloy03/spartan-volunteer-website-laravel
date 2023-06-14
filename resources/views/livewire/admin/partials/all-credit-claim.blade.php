@@ -8,18 +8,15 @@
                             @include('partials.tables.racecode-status-select')
                         </div>
                         <div class="col-md-auto">
-                            <button type="buton" class="btn btn-danger" wire:click="export">
+                            <button type="buton" class="btn btn-success" wire:click="export">
                                 <i class="fa-regular fa-plus"></i>
                                 EXPORT
                             </button>
                         </div>
-                        <div class="col-md-auto">
-                            @include('partials.tables.export-btn')
-                        </div>
                     </div>
                     <th class="col">STATUS</th>
-                    <th class="col" role="button" wire:click="sort('event.location')">RACE TYPE
-                        @if ($sortBy === 'race_ype')
+                    <th class="col" role="button" wire:click="sort('race_type')">RACE TYPE
+                        @if ($sortBy === 'race_type')
                             <i class="fa fa-sort-{{ $sortDirection }}"></i>
                         @else
                             <i class="fa-solid fa-sort"></i>

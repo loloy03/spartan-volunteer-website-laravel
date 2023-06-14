@@ -81,14 +81,6 @@ class AdminVolunteersTable extends Component
         if ($this->searchRole) {
             $query->where('role', 'LIKE', '%' . $this->searchRole . '%');
         }
-
-        // if ($this->searchStaffFirstName) {
-        //     $query->where('staff.first_name', 'LIKE', '%' . $this->searchStaffFirstName . '%');
-        // }
-
-        // if ($this->searchStaffLastName) {
-        //     $query->where('staff.last_name', 'LIKE', '%' . $this->searchStaffLastName . '%');
-        // }
     }
 
     public function updatedSearch()
