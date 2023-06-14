@@ -2,6 +2,9 @@
     <a class="nav-link text-light" href="{{ route('event') }}">{{ __('EVENTS') }}</a>
 </li>
 <li class="nav-item bottom-transition mx-1">
+    <a class="nav-link text-light" href="{{ route('create-event') }}">{{ __('CREATE EVENT') }}</a>
+</li>
+<li class="nav-item bottom-transition mx-1">
     <a class="nav-link text-light" href="{{ route('admin-volunteers') }}">{{ __('VOLUNTEERS') }}</a>
 </li>
 

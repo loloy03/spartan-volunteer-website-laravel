@@ -21,7 +21,7 @@ use App\Http\Controllers\Auth\AdministratorRegisterController;
 // Home page
 // Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/', function() {
+Route::get('/', function () {
     return view('index');
 });
 
@@ -91,14 +91,12 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 
-    // Create Event
-    Route::get('/create-event', [EventController::class, 'create'])->name('create-event');
-
 // ADMIN ROUTES
 // Middleware: admin
 // IMPORTANT: It seems using Administrator instead of Admin is preferable
 Route::group(['middleware' => ['admin']], function () {
-
+    // Create Event
+    Route::get('/create-event', [EventController::class, 'create'])->name('create-event');
 
     Route::get('/admin-volunteers', [VolunteerController::class, 'adminListOfVolunteers'])->name('admin-volunteers');
 
@@ -160,4 +158,3 @@ Route::get('volunteers/export/', [ExportsController::class, 'exportAdminVoluntee
 
 Route::get('/super-admin-login', [SuperAdminLoginController::class, 'showLoginForm']);
 Route::post('/super-admin-login', [SuperAdminLoginController::class, 'login']);
-
