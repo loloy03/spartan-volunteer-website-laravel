@@ -154,21 +154,21 @@
                 <div class="row mb-4">
                     <div class="col-lg-6 text-center my-auto">
                         <a href="https://www.facebook.com/spartanracePhilippines/" target="_blank">
-                            <i class="fa-brands fa-facebook text-light mx-3 fa-xl"></i>
+                            <i class="fa-brands fa-facebook text-light mx-2 fa-xl"></i>
                         </a>
                         <a href="https://twitter.com/spartanphi" target="_blank"><i
-                                class="fa-brands fa-twitter text-light mx-3 fa-xl"></i>
+                                class="fa-brands fa-twitter text-light mx-2 fa-xl"></i>
                         </a>
 
                         <a href="https://www.instagram.com/spartanraceph/?hl=en" target="_blank"><i
-                                class="fa-brands fa-instagram text-light mx-3 fa-xl"></i></a>
+                                class="fa-brands fa-instagram text-light mx-2 fa-xl"></i></a>
 
                         <a href="https://www.youtube.com/channel/UCfvYMyK4HA4YJJLV8WvxQsg" target="_blank"><i
-                                class="fa-brands fa-youtube text-light mx-3 fa-xl"></i></a>
+                                class="fa-brands fa-youtube text-light mx-2 fa-xl"></i></a>
 
                     </div>
-                    <div class="col-lg-6 opacity-25 text-center ">
-                        <img src="{{ asset('/images/spartan-logo-with-word.png') }} " width="250px" alt="">
+                    <div class="col-lg-6 opacity-25 text-center mt-2">
+                        <img src="{{ asset('/images/spartan-logo-with-word.png') }} " width="50%" alt="">
                     </div>
                 </div>
                 <div class="row text-light mx-auto f-montserrat my-5">
