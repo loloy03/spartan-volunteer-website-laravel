@@ -107,12 +107,12 @@
                                     <div class="f-lato text-muted">Email Address</div>
                                     <div class="f-montserrat">{{ Auth::user()->email }}</div>
                                     <button type="submit"
-                                        class="button f-montserrat text-center w-50 mx-auto mb-1 w-100 mt-4">UPDATE
+                                        class="button f-montserrat text-center w-50 mx-auto mb-1 w-100 mt-4 small">UPDATE
                                         PROFILE
                                     </button>
 
                                     <button type="button" onclick="window.location='{{ route('profile.show') }}'"
-                                        class="button f-montserrat text-center w-50 mx-auto mb-3 w-100"> CANCEL
+                                        class="button f-montserrat text-center w-100 mx-auto mb-3 w-100 small"> CANCEL
                                     </button>
                                 </div>
                             </div>
@@ -130,4 +130,3 @@
         });
     </script>
 @endsection
-ff

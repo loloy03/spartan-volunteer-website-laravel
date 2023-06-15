@@ -195,7 +195,7 @@
                                     {{ Auth::user()->email }}
                                 </div>
                             </div>
-                            <button class="button f-montserrat text-center w-50 mx-auto mb-3"
+                            <button class="button f-montserrat text-center w-50 mx-auto mb-3 small"
                                 onclick="window.location='{{ route('volunteer_info_edit') }}'">EDIT INFO</button>
                         </div>
                     </div>
@@ -223,7 +223,7 @@
                             {{ Auth::user()->zip == null ? 'No Zip Code assigned yet' : Auth::user()->zip }}
                         </div>
                         <div class="text-center">
-                            <button class="button f-montserrat w-50 mt-5 mb-3"
+                            <button class="button f-montserrat w-50 mt-5 mb-3 small"
                                 onclick="window.location='{{ route('address_edit') }}'">EDIT ADDRESS</button>
                         </div>
                     </div>
@@ -247,7 +247,7 @@
                             {{ Auth::user()->contact_relationship == null ? 'No Contact Person Relationship assigned yet' : Auth::user()->contact_relationship }}
                         </div>
                         <div class="text-center">
-                            <button class="button f-montserrat w-50 mt-5 mb-3"
+                            <button class="button f-montserrat w-50 mt-5 mb-3 small"
                                 onclick="window.location='{{ route('contact_edit') }}'">EDIT CONTACT</button>
                         </div>
                     </div>

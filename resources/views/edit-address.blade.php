@@ -35,11 +35,11 @@
                             <input class="form-control mb-2" type="text" name="zip" id="zip"
                                 value="{{ Auth::user()->zip }}">
                             <div class="text-center">
-                                <button type="submit" class="button f-montserrat text-center w-50  mt-4">UPDATE
+                                <button type="submit" class="button f-montserrat text-center w-100 mt-4 small">UPDATE
                                     ADDRESS
                                 </button>
-                                <button type="button" class="button f-montserrat w-50 mt-2 mb-3"
-                                    onclick="window.location='{{ route('profile.show') }}'">CANCELL</button>
+                                <button type="button" class="button f-montserrat w-100 mt-2 mb-3 small"
+                                    onclick="window.location='{{ route('profile.show') }}'">CANCEL</button>
                             </div>
                         </div>
                     </div>
