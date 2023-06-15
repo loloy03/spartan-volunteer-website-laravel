@@ -141,14 +141,6 @@
 
                                                 <div class="d-block">
                                                     <div class="d-inline-block f-montserrat">
-                                                        Race Code:
-                                                    </div>
-                                                    {{-- event status --}}
-                                                    {{ ucfirst($event->race_code) }}
-                                                </div>
-
-                                                <div class="d-block">
-                                                    <div class="d-inline-block f-montserrat">
                                                         Status:
                                                     </div>
                                                     {{ ucfirst($event->status) }}
