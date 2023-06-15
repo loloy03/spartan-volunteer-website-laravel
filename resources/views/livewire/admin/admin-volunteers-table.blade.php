@@ -17,7 +17,8 @@
                             @include('partials.tables.export-btn')
                         </div> --}}
                     </div>
-                    <th>STATUS</th>
+                    <th>RACE CODE STATUS</th>
+                    <th>ATTENDANCE STATUS</th>
                     <th role="button" wire:click="sort('first_name')">FIRST NAME
                         @if ($sortBy === 'first_name')
                             <i class="fa fa-sort-{{ $sortDirection }}"></i>
@@ -53,7 +54,7 @@
                             <i class="fa-solid fa-sort"></i>
                         @endif
                     </th>
-                    <th role="button" wire:click="sort('volunteer_status.check_in')">CHECK-IN
+                    {{-- <th role="button" wire:click="sort('volunteer_status.check_in')">CHECK-IN
                         @if ($sortBy === 'volunteer_status.check_in')
                             <i class="fa fa-sort-{{ $sortDirection }}"></i>
                         @else
@@ -66,9 +67,10 @@
                         @else
                             <i class="fa-solid fa-sort"></i>
                         @endif
-                    </th>
+                    </th> --}}
                 </tr>
                 <tr>
+                    <th></th>
                     <th></th>
                     <th>
                         <input type="text" class="form-control" placeholder="First Name"
@@ -87,13 +89,28 @@
                         <input type="text" class="form-control" placeholder="Event Location"
                             wire:model="searchLocation">
                     </th>
-                    <th></th>
-                    <th></th>
+                    {{-- <th></th>
+                    <th></th> --}}
                 </tr>
             </thead>
             <tbody>
                 @foreach ($volunteers as $volunteer)
                     <tr class="align-middle table-group-divider">
+                        <td>
+                            @if ($volunteer->attendance_status === 'confirmed')
+                                <h6><span
+                                        class="badge rounded-pill badge-warning">N/A</span>
+                                </h6>
+                            @elseif ($volunteer->status === 'claimed')
+                                <h6><span
+                                        class="badge rounded-pill badge-primary">{{ strtoupper($volunteer->status) }}</span>
+                                </h6>
+                            @elseif ($volunteer->status === 'pending')
+                                <h6><span
+                                        class="badge rounded-pill badge-success">{{ strtoupper($volunteer->status) }}</span>
+                                </h6>
+                            @endif
+                        </td>
                         <td>
                             @if ($volunteer->attendance_status === 'checked')
                                 <h6><span
@@ -114,8 +131,8 @@
                         <td> {{ ucwords($volunteer->title) }} </td>
                         <td> {{ ucwords($volunteer->role) }} </td>
                         <td> {{ ucwords($volunteer->location) }} </td>
-                        <td> {{ $volunteer->check_in ? date('Y-m-d', strtotime($volunteer->check_in)) : 'N/A' }} </td>
-                        <td> {{ $volunteer->check_out ? date('Y-m-d', strtotime($volunteer->check_out)) : 'N/A' }}
+                        {{-- <td> {{ $volunteer->check_in ? date('Y-m-d', strtotime($volunteer->check_in)) : 'N/A' }} </td>
+                        <td> {{ $volunteer->check_out ? date('Y-m-d', strtotime($volunteer->check_out)) : 'N/A' }} --}}
                         </td>
                     </tr>
                 @endforeach

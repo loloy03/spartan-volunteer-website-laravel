@@ -31,9 +31,6 @@ Route::get('/', function () {
 // Authentication routes with email verification
 Auth::routes(['verify' => true]);
 
-// Home page (authenticated)
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 // List events
 // NOTE: KEEP THIS PUBLIC
 // Applying middleware staff and admin somehow doesn't work
@@ -43,6 +40,8 @@ Route::get('/event', [App\Http\Controllers\EventController::class, 'index'])->na
 Route::group(['middleware' => ['auth']], function () {
     // Route for verified volunteer
     Route::middleware(['verified'])->group(function () {
+        // Home page (authenticated)
+        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
 
         Route::get('/history', [App\Http\Controllers\HistoryController::class, 'show'])->name('history.show');

@@ -5,12 +5,13 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
-                    <div class="image-area">
+                    <div class="image-area d-flex justify-content-center align-items-center">
                         {{-- 
-                                IMAGE GOES HERE.
-                                IMPLEMENTED VIA JAVASCRIPT
-                                SEE: image-modal.js
-                                --}}
+                            IMAGE GOES HERE.
+                            IMPLEMENTED VIA JAVASCRIPT
+                            SEE: image-modal.js
+                        --}}
+                        <img>
                     </div>
                 </div>
                 <div class="modal-footer">

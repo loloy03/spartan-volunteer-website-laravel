@@ -55,6 +55,7 @@ class CreateEventForm extends Component
     }
 
     protected $rules = [
+        'image' => 'required|image|mimes:jpeg,png,jpg|dimensions:min_width=480,min_height=360',
         'title' =>  'required',
         'description' => 'required',
         'location' => 'required',
@@ -65,7 +66,7 @@ class CreateEventForm extends Component
         'claimEnd' => 'required'
     ];
 
-    // creates event
+    //creates event
     public function submit()
     {
         $this->validate();
@@ -124,7 +125,12 @@ class CreateEventForm extends Component
 
     public function addStaff($staffRoleId, $staffId)
     {
-        $this->roles[$staffRoleId][] = $staffId;
+        $this->roles[$staffRoleId][$staffId] = '';
+        $staff = Staff::select('first_name', 'last_name')->find($staffId);
+        $staffNames = $staff->first_name . ' ' . $staff->last_name;
+
+        // put staffName into roles[]
+        $this->roles[$staffRoleId][$staffId] = $staffNames;
     }
 
     public function addRace($raceId, $raceType)
