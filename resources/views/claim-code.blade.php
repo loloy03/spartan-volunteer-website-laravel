@@ -78,7 +78,7 @@
 
                     {{-- display if the status is available  --}}
                     <div class="f-montserrat text-muted mt-4 {{ $race_code->status != 'claimed' ? 'd-none' : '' }} ">
-                        PLEASE WAIT FOR 
+                        PLEASE WAIT FOR YOUR CODE TO BE SENT VIA YOUR EMAIL. 
                     </div>
 
                 </div>
