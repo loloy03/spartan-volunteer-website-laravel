@@ -26,13 +26,13 @@ class ProfileController extends Controller
         $claiming_code_events = RaceCode::leftJoin('event', 'race_code.event_id', '=', 'event.event_id')
             ->leftJoin('race_types', 'race_code.race_id', '=', 'race_types.race_id')
             ->where('race_code.volunteer_id', Auth::user()->volunteer_id)
-            ->where('race_code.status', '!=', 'released')
+            ->where('race_code.status', '!=', 'claimed')
             ->get();
 
         $claiming_code_events_race_credits_val = RaceCode::leftJoin('race_credit', 'race_code.credit_id', '=', 'race_credit.credit_id')
             ->leftJoin('event', 'race_credit.event_id', '=', 'event.event_id')
             ->where('race_code.volunteer_id', Auth::user()->volunteer_id)
-            ->where('race_code.status', '!=', 'released')
+            ->where('race_code.status', '!=', 'claimed')
             ->get();
 
 

@@ -78,16 +78,9 @@
 
                     {{-- display if the status is available  --}}
                     <div class="f-montserrat text-muted mt-4 {{ $race_code->status != 'claimed' ? 'd-none' : '' }} ">
-                        PLEASE WAIT FOR YOUR CODE
+                        PLEASE WAIT FOR 
                     </div>
 
-
-                    {{-- if the race code is available --}}
-                    <div class=" {{ $race_code->race_code == null || $race_code->status != 'released' ? 'd-none' : '' }}">
-                        <div class="f-lato text-muted mt-4 fs-10 mb-2">YOUR CODE IS:</div>
-                        <div class="f-montserrat display-5 border border-danger rounded text-center p-1">
-                            {{ $race_code->race_code }} </div>
-                    </div>
                 </div>
             </div>
         </div>
