@@ -7,7 +7,7 @@
                         <div class="col-md-auto">
                             @include('partials.tables.select-attendance-status')
                         </div>
-                        <div class="col-md-auto">
+                        {{-- <div class="col-md-auto">
                             <a href="volunteers/export/" target="_blank" class="btn btn-danger">
                                 <i class="fa-regular fa-plus"></i>
                                 EXPORT
@@ -15,7 +15,7 @@
                         </div>
                         <div class="col-md-auto">
                             @include('partials.tables.export-btn')
-                        </div>
+                        </div> --}}
                     </div>
                     <th>STATUS</th>
                     <th role="button" wire:click="sort('first_name')">FIRST NAME

@@ -68,7 +68,7 @@ class CreateEventForm extends Component
     // creates event
     public function submit()
     {
-        // $this->validate();
+        $this->validate();
 
         DB::transaction( function () {
             $title = ucwords($this->title);
@@ -80,6 +80,7 @@ class CreateEventForm extends Component
             $fileName = 'thumbnail_' . $title . '-' . $this->date . $fileType;
     
             $this->image->storeAs($filePath, $fileName, 'public');
+            // $this->image->move(public_path('images'), $fileName);
 
             $event = Events::create([
                 'event_pic' => $fileName,
@@ -117,7 +118,7 @@ class CreateEventForm extends Component
                 }
             }
         });
-        
+
         return redirect('/event');
     }
 

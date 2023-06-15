@@ -10,9 +10,9 @@
                                 VALIDATE CHECK-OUT
                             </button>
                         </div>
-                        <div class="col-md-auto">
+                        {{-- <div class="col-md-auto">
                             @include('partials.tables.select-attendance-status')
-                        </div>
+                        </div> --}}
                     </div>
                     <th>UPDATE</th>
                     <th class="col no-sort">PICTURE PROOF</th>

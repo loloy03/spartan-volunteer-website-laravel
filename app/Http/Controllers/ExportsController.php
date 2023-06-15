@@ -11,6 +11,6 @@ class ExportsController extends Controller
 {
     public function exportAdminVolunteers()
     {
-        return Excel::download(new AdminVolunteersExport, 'volunteers.xlsx');
+        //
     }
 }

@@ -7,9 +7,9 @@
                         <div class="col-md-auto">
                             @include('partials.tables.select-attendance-status')
                         </div>
-                        <div class="col-md-auto">
+                        {{-- <div class="col-md-auto">
                             @include('partials.tables.export-btn')
-                        </div>
+                        </div> --}}
                     </div>
                     <th class="col no-sort">STATUS</th>
                     <th class="col" role="button" wire:click="sort('first_name')">FIRST NAME

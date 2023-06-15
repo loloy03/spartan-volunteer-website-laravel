@@ -15,6 +15,9 @@ use App\Http\Controllers\Auth\SuperAdmin\SuperAdminLoginController;
 use App\Http\Controllers\Auth\StaffLoginController;
 use App\Http\Controllers\Auth\StaffRegisterController;
 
+use App\Http\Controllers\ImportController;
+use App\Imports\ImportDistributeRaceCodeTable;
+
 use App\Http\Controllers\Auth\AdministratorLoginController;
 use App\Http\Controllers\Auth\AdministratorRegisterController;
 
@@ -22,7 +25,7 @@ use App\Http\Controllers\Auth\AdministratorRegisterController;
 // Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/', function () {
-    return view('index');
+    return view('home');
 });
 
 // Authentication routes with email verification
@@ -101,6 +104,8 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/admin-volunteers', [VolunteerController::class, 'adminListOfVolunteers'])->name('admin-volunteers');
 
     Route::get('/{event}/verify-claim', [EventController::class, 'listOfVolunteerRace'])->name('claim-verify');
+    Route::post('/import-excel', [ImportController::class, 'import'])->name('excel.import');
+    Route::post('/distribute-code', [ImportController::class, 'distributeCode'])->name('code.distribute');
 
     Route::get('/{event}/event-volunteers', [EventController::class, 'listOfEventVolunteers'])->name('event-volunteers');
 

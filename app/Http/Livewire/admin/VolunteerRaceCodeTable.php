@@ -58,7 +58,7 @@ class VolunteerRaceCodeTable extends Component
         ->join('race_types', 'race_types.race_id', '=', 'race_code.race_id')
         ->join('event', 'event.event_id', '=', 'race_code.event_id')
         ->orderBy($this->sortBy, $this->sortDirection)
-        ->where('race_credit.event_id', $this->eventId)
+        ->where('race_code.event_id', $this->eventId)
         ->select(
             'race_code.volunteer_id',
             'first_name',
@@ -80,9 +80,10 @@ class VolunteerRaceCodeTable extends Component
         {
             foreach($claims as $claim)
             {
-                RaceCode::where('volunteer_id', $claim)
-                ->where('event_id', $this->eventId)
-                ->update(['status' => 'claimed']);
+                RaceCode::updateOrInsert(
+                    ['volunteer_id' => $claim, 'event_id' => $this->eventId],
+                    ['status' => 'claimed']
+                );
             }
         }
     }
