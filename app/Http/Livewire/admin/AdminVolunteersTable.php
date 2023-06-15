@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Volunteer;
+use App\Models\RaceCredit;
 
 use App\Exports\AdminVolunteersExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -47,19 +48,22 @@ class AdminVolunteersTable extends Component
     // Sql query 
     public function queryBuilder()
     {
-        return Volunteer::query()->join('volunteer_status', 'volunteer.volunteer_id', '=', 'volunteer_status.volunteer_id')
-            ->join('event', 'event.event_id', '=', 'volunteer_status.event_id')
+        return RaceCredit::query()->join('volunteer_status', 'race_credit.volunteer_id', '=', 'volunteer_status.volunteer_id')
+            ->join('volunteer', 'volunteer_status.volunteer_id', '=', 'volunteer.volunteer_id')
+            ->join('event AS eventPast', 'eventPast.event_id', '=', 'volunteer_status.event_id')
+            // ->join('event AS eventFuture', 'race_code.event_id', '=', 'eventFuture.event_id')
             ->orderBy($this->sortBy, $this->sortDirection)
             ->select(
                 'volunteer.volunteer_id',
                 'volunteer.first_name',
                 'volunteer.last_name',
-                'event.title',
-                'event.location',
+                'eventPast.title',
+                'eventpast.location',
                 'volunteer_status.role',
                 'volunteer_status.check_in',
                 'volunteer_status.check_out',
                 'volunteer_status.attendance_status',
+                'race_credit.status'
             );
     }
 

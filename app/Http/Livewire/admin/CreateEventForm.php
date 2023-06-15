@@ -55,6 +55,7 @@ class CreateEventForm extends Component
     }
 
     protected $rules = [
+        'image' => 'required|image|mimes:jpeg,png,jpg|dimensions:min_width=480,min_height=360',
         'title' =>  'required',
         'description' => 'required',
         'location' => 'required',
@@ -65,10 +66,10 @@ class CreateEventForm extends Component
         'claimEnd' => 'required'
     ];
 
-    // creates event
+    //creates event
     public function submit()
     {
-        // $this->validate();
+        $this->validate();
 
         DB::transaction( function () {
             $title = ucwords($this->title);
@@ -80,6 +81,7 @@ class CreateEventForm extends Component
             $fileName = 'thumbnail_' . $title . '-' . $this->date . $fileType;
     
             $this->image->storeAs($filePath, $fileName, 'public');
+            // $this->image->move(public_path('images'), $fileName);
 
             $event = Events::create([
                 'event_pic' => $fileName,
@@ -117,13 +119,18 @@ class CreateEventForm extends Component
                 }
             }
         });
-        
+
         return redirect('/event');
     }
 
     public function addStaff($staffRoleId, $staffId)
     {
-        $this->roles[$staffRoleId][] = $staffId;
+        $this->roles[$staffRoleId][$staffId] = '';
+        $staff = Staff::select('first_name', 'last_name')->find($staffId);
+        $staffNames = $staff->first_name . ' ' . $staff->last_name;
+
+        // put staffName into roles[]
+        $this->roles[$staffRoleId][$staffId] = $staffNames;
     }
 
     public function addRace($raceId, $raceType)

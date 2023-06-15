@@ -4,15 +4,21 @@
             <thead>
                 <tr>
                     <div class="row g-2">
-                        <div class="col-md-auto">
-                            @include('partials.tables.racecode-status-select')
-                        </div>
-                        <div class="col-md-auto">
-                            <button type="buton" class="btn btn-success" wire:click="export">
-                                <i class="fa-regular fa-plus"></i>
-                                EXPORT
-                            </button>
-                        </div>
+                        <form action="{{ route('excel.import') }}" method="POST" enctype="multipart/form-data" target="_blank">
+                            @csrf
+                            <div class="col-md-auto">
+                                @include('partials.tables.racecode-status-select')
+                            </div>
+                            <div class="col-md-auto">
+                                <input type="file" name="excel-file" id="import-excel" class="form-control">
+                            </div>
+                            <div class="col-md-auto">
+                                <button type="submit" class="btn btn-success import-btn">
+                                    <i class="fa-regular fa-file-excel"></i>
+                                    IMPORT 
+                                </button>
+                            </div>
+                        </form>
                     </div>
                     <th class="col">STATUS</th>
                     <th class="col" role="button" wire:click="sort('race_type')">RACE TYPE
@@ -50,7 +56,8 @@
                         <input type="text" class="form-control" placeholder="Race Type" wire:model="searchRaceType">
                     </th>
                     <th class="col">
-                        <input type="text" class="form-control" placeholder="First Name" wire:model="searchFirstName">
+                        <input type="text" class="form-control" placeholder="First Name"
+                            wire:model="searchFirstName">
                     </th>
                     <th class="col">
                         <input type="text" class="form-control" placeholder="Last Name" wire:model="searchLastName">
@@ -63,7 +70,7 @@
             <tbody>
                 @foreach ($volunteers as $volunteer)
                     <tr class="align-middle table-group-divider">
-                        <td> 
+                        <td>
                             @if ($volunteer->status === 'pending')
                                 <h6><span
                                         class="badge rounded-pill badge-warning">{{ strtoupper($volunteer->status) }}</span>
@@ -89,3 +96,4 @@
         {{ $volunteers->links() }}
     </div>
 </div>
+{{-- <script src="{{ asset('js/import-file.js') }}"></script> --}}

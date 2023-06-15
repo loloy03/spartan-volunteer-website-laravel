@@ -7,9 +7,9 @@
                         <div class="col-md-auto">
                             @include('partials.tables.select-attendance-status')
                         </div>
-                        <div class="col-md-auto">
+                        {{-- <div class="col-md-auto">
                             @include('partials.tables.export-btn')
-                        </div>
+                        </div> --}}
                     </div>
                     <th class="col no-sort">STATUS</th>
                     <th class="col" role="button" wire:click="sort('first_name')">FIRST NAME
@@ -113,9 +113,9 @@
                         <td> {{ ucwords($volunteer->title )}} </td>
                         <td> {{ ucwords($volunteer->role )}} </td>
                         <td> {{ ucwords($volunteer->location )}} </td>
-                        <td> {{ $volunteer->date ? date('Y-m-d', strtotime($volunteer->date)) : 'N/A' }} </td>
-                        <td> {{ $volunteer->check_in ? date('Y-m-d', strtotime($volunteer->check_in)) : 'N/A' }}</td>
-                        <td> {{ $volunteer->check_out ? date('Y-m-d', strtotime($volunteer->check_out)) : 'N/A' }}</td>
+                        <td> {{ $volunteer->date ? date('Y-m-d | H:i:s', strtotime($volunteer->date)) : 'N/A' }} </td>
+                        <td> {{ $volunteer->check_in ? date('Y-m-d | H:i:s', strtotime($volunteer->check_in)) : 'N/A' }}</td>
+                        <td> {{ $volunteer->check_out ? date('Y-m-d | H:i:s', strtotime($volunteer->check_out)) : 'N/A' }}</td>
                     </tr>
                 @endforeach
             </tbody>

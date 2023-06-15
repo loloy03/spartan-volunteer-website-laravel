@@ -1,5 +1,5 @@
 <div>
-    <div class="table-responsive text-nowrap mt-4">
+    <div class="table-responsive text-nowrap mt-4" wire:ignore.self>
         <table class="table">
             <thead>
                 <tr>
@@ -53,7 +53,8 @@
                         <input type="text" class="form-control" placeholder="Race Type" wire:model="searchRaceType">
                     </th>
                     <th class="col">
-                        <input type="text" class="form-control" placeholder="First Name" wire:model="searchFirstName">
+                        <input type="text" class="form-control" placeholder="First Name"
+                            wire:model="searchFirstName">
                     </th>
                     <th class="col">
                         <input type="text" class="form-control" placeholder="Last Name" wire:model="searchLastName">
@@ -73,7 +74,7 @@
                                         <input class="form-check-input" type="checkbox" autocomplete="off"
                                             wire:model="pendingClaim" value="{{ $volunteer->volunteer_id }}">VERIFY
                                     </label>
-                                @endif 
+                                @endif
                             </div>
                         </td>
                         <td>
@@ -82,13 +83,13 @@
                                     <h5>IMAGE NOT FOUND</h5>
                                 </div>
                             @else
-                                <button type="button" class="btn btn-dark btn-modal" data-bs-toggle="modal" 
-                                data-receipt-image="{{ $volunteer->receipt }}" data-bs-target="#receipt">
+                                <button type="button" class="btn btn-dark btn-modal" data-bs-toggle="modal"
+                                    data-receipt-image="{{ $volunteer->receipt }}" data-bs-target="#receipt">
                                     VIEW
                                 </button>
                             @endif
                         </td>
-                        <td> 
+                        <td>
                             @if ($volunteer->status === 'pending')
                                 <h6><span
                                         class="badge rounded-pill badge-warning">{{ strtoupper($volunteer->status) }}</span>
@@ -113,6 +114,7 @@
         </table>
         {{ $volunteers->links() }}
     </div>
+
     @include('partials.modals.picture-receipt')
     <script src="{{ asset('js/receipt-modal.js') }}"></script>
 </div>
