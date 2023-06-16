@@ -56,7 +56,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($volunteers as $volunteer)
+                @forelse ($volunteers as $volunteer)
                     <tr class="align-middle table-group-divider">
                         <td>
                             @if ($volunteer->attendance_status === 'checked')
@@ -79,7 +79,9 @@
                         <td> {{ $volunteer->check_out ? date('Y-m-d | H:i:s', strtotime($volunteer->check_out)) : 'N/A' }}</td>
                         <td> {{ $volunteer->contact_number ? ($volunteer->contact_number) : 'N/A' }}</td>
                     </tr>
-                @endforeach
+                @empty
+                    @include('partials.tables.empty-table')
+                @endforelse
             </tbody>
             {{ $volunteers->links() }}
         </table>

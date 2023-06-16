@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('import-js')
-    <script src="https://cdn.tailwindcss.com"></script>
-@endsection
-
 @section('import-css')
     <!-- Import the custom event.css file -->
     <link rel="stylesheet" href="{{ asset('/css/table-style.css') }}">

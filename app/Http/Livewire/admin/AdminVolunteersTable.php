@@ -22,6 +22,7 @@ class AdminVolunteersTable extends Component
     public $searchStaffFirstName;
     public $searchStaffLastName;
     public $searchEvent;
+    public $searchLocation;
     public $searchRole;
 
     // filter item
@@ -87,6 +88,10 @@ class AdminVolunteersTable extends Component
 
         if ($this->searchEvent) {
             $query->where('event1.title', 'LIKE', '%' . $this->searchEvent . '%');
+        }
+
+        if ($this->searchLocation) {
+            $query->where('event1.location', 'LIKE', '%' . $this->searchLocation . '%');
         }
 
         if ($this->searchRole) {

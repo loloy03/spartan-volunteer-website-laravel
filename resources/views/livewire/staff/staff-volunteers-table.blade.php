@@ -97,7 +97,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($volunteers as $volunteer)
+                @forelse ($volunteers as $volunteer)
                     <tr scope="row" class="align-middle table-group-divider">
                         <td> 
                             @if ($volunteer->attendance_status === 'checked') 
@@ -113,11 +113,13 @@
                         <td> {{ ucwords($volunteer->title )}} </td>
                         <td> {{ ucwords($volunteer->role )}} </td>
                         <td> {{ ucwords($volunteer->location )}} </td>
-                        <td> {{ $volunteer->date ? date('Y-m-d | H:i:s', strtotime($volunteer->date)) : 'N/A' }} </td>
-                        <td> {{ $volunteer->check_in ? date('Y-m-d | H:i:s', strtotime($volunteer->check_in)) : 'N/A' }}</td>
-                        <td> {{ $volunteer->check_out ? date('Y-m-d | H:i:s', strtotime($volunteer->check_out)) : 'N/A' }}</td>
+                        <td> {{ $volunteer->date ? date('Y-m-d | H:i', strtotime($volunteer->date)) : 'N/A' }} </td>
+                        <td> {{ $volunteer->check_in ? date('Y-m-d | H:i', strtotime($volunteer->check_in)) : 'N/A' }}</td>
+                        <td> {{ $volunteer->check_out ? date('Y-m-d | H:i', strtotime($volunteer->check_out)) : 'N/A' }}</td>
                     </tr>
-                @endforeach
+                @empty
+                    @include('partials.tables.empty-table')
+                @endforelse
             </tbody>
         </table>
         {{-- include modal --}}

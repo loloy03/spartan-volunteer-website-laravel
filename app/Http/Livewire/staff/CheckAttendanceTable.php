@@ -108,7 +108,7 @@ class CheckAttendanceTable extends Component
         $validatedVolunteers = $this->validated;
         $event = Events::find($this->eventId);
 
-        $eventDate = Carbon::createFromFormat('Y-m-d', $event->start_date);
+        $eventDate = Carbon::createFromFormat('Y-m-d', $event->date);
         $expDate = $eventDate->addYear();
 
         if($validatedVolunteers)
@@ -116,16 +116,13 @@ class CheckAttendanceTable extends Component
             foreach($validatedVolunteers as $volunteer)
             {
                 DB::transaction( function () use ($volunteer, $expDate) {
-                    VolunteerStatus::where('volunteer_id', $volunteer)
-                    ->where('event_id', $this->eventId)
-                    ->update(['attendance_status' => 'validated']);
-    
-                    RaceCredit::insert([
+                        RaceCredit::insert([
                         'volunteer_id' => $volunteer,
                         'event_id' => $this->eventId,
                         'exp_date' => $expDate,
                         'status' => 'unclaimed'
                     ]);
+
                 });
             }
         }

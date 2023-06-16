@@ -10,9 +10,9 @@
                                 VALIDATE CHECK-OUT
                             </button>
                         </div>
-                        {{-- <div class="col-md-auto">
+                        <div class="col-md-auto">
                             @include('partials.tables.select-attendance-status')
-                        </div> --}}
+                        </div>
                     </div>
                     <th>UPDATE</th>
                     <th class="col no-sort">PICTURE PROOF</th>
@@ -61,7 +61,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($volunteers as $volunteer)
+                @forelse ($volunteers as $volunteer)
                     <tr class="align-middle table-group-divider">
                         <td>
                             <div class="d-grid gap-1">
@@ -102,10 +102,12 @@
                         </td>
                         <td> {{ ucwords($volunteer->first_name) }} </td>
                         <td> {{ ucwords($volunteer->last_name) }} </td>
-                        <td> {{ $volunteer->check_in ? date('Y-m-d | H:i:s', strtotime($volunteer->check_in)) : 'N/A' }}</td>
-                        <td> {{ $volunteer->check_out ? date('Y-m-d | H:i:s', strtotime($volunteer->check_out)) : 'N/A' }}</td>
+                        <td> {{ $volunteer->check_in ? date('Y-m-d | H:i', strtotime($volunteer->check_in)) : 'N/A' }}</td>
+                        <td> {{ $volunteer->check_out ? date('Y-m-d | H:i', strtotime($volunteer->check_out)) : 'N/A' }}</td>
                     </tr>
-                @endforeach
+                @empty
+                    @include('partials.tables.empty-table')
+                @endforelse
             </tbody>
             {{ $volunteers->links() }}
         </table>

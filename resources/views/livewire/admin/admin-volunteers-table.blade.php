@@ -116,7 +116,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($volunteers as $volunteer)
+                @forelse ($volunteers as $volunteer)
                     <tr class="align-middle table-group-divider">
                         <td>
                             @if ($volunteer->attendance_status === 'checked')
@@ -158,7 +158,9 @@
                         <td> {{ ucwords($volunteer->event2_title) }} </td>
                         <td> {{ ucwords($volunteer->race_type) }} </td>
                     </tr>
-                @endforeach
+                @empty
+                    @include('partials.tables.empty-table')
+                @endforelse
             </tbody>
         </table>
         {{-- include modal --}}

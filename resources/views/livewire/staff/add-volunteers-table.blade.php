@@ -49,7 +49,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($volunteers as $volunteer)
+                @forelse ($volunteers as $volunteer)
                     <tr scope="row" class="table-row align-middle">
                         <td scope="row">
                             <div class="form-check d-flex justify-content-center">
@@ -61,7 +61,9 @@
                         <td> {{ ucwords($volunteer->last_name) }} </td>
                         <td> {{ $volunteer->occupation ? ucwords($volunteer->occupation) : 'N/A' }}</td>
                     </tr>
-                @endforeach
+                @empty
+                    @include('partials.tables.empty-table')
+                @endforelse
             </tbody>
         </table>
         {{ $volunteers->links() }}
