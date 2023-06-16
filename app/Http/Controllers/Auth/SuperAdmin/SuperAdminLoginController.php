@@ -26,7 +26,7 @@ class SuperAdminLoginController extends Controller
         {
             if(auth()->guard('admin')->attempt(['email' => $userName, 'password' => $password]))
             {
-                dd(auth());
+                // dd(auth());
                 return redirect('all-volunteers');
             }
         }

@@ -108,7 +108,7 @@ class CreateEventForm extends Component
             }
     
             foreach ($this->roles as $roleId => $staffIds) {
-                foreach ($staffIds as $staffId)
+                foreach ($staffIds as $staffId => $staffName)
                 {
                     // insert Staffs and Roles
                     StaffStatus::insert([
