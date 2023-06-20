@@ -129,7 +129,84 @@
     {{-- script for date picker --}}
     <script>
         $(function() {
-            $("#datepicker").datepicker();
+            $("#datepicker").datepicker({
+                yearRange: "1950:2022",
+                showOtherMonths: true,
+                selectOtherMonths: true,
+                changeYear: true,
+                changeMonth: true,
+                minDate: new Date("1900-01-01"),
+                maxDate: new Date(),
+                dateFormat: "yy-mm-dd",
+                showButtonPanel: true,
+                beforeShow: function(input) {
+                    setTimeout(function() {
+                        var datepicker = $(input).datepicker("widget");
+                        datepicker.addClass("dark-theme"); // Add a CSS class for the dark theme
+
+                        var buttonPane = datepicker.find(".ui-datepicker-buttonpane");
+                        var closeButton = $('<button>', {
+                            text: "Close",
+                            click: function() {
+                                $(input).datepicker("hide");
+                            }
+                        }).appendTo(buttonPane);
+                    }, 1);
+                }
+            });
+
+            // Add CSS to make the calendar dark
+            $("<style>")
+                .prop("type", "text/css")
+                .html(`
+                    .dark-theme .ui-widget-content {
+                        background: #333;
+                        color: #fff;
+                    }
+                    .dark-theme .ui-datepicker-header {
+                        background: #222;
+                        border-color: #444;
+                        color: #fff;
+                    }
+                    .dark-theme .ui-datepicker-prev,
+                    .dark-theme .ui-datepicker-next {
+                        background: #222;
+                        border-color: #444;
+                        color: #fff;
+                    }
+                    .dark-theme .ui-datepicker-title {
+                        color: #fff;
+                    }
+                    .dark-theme .ui-state-default {
+                        background: #222;
+                        border-color: #444;
+                        color: #fff;
+                    }
+                    .dark-theme .ui-state-hover {
+                        background: #444;
+                        border-color: #555;
+                        color: #fff;
+                    }
+                    .dark-theme .ui-state-active {
+                        background: #555;
+                        border-color: #666;
+                        color: #fff;
+                    }
+                    .dark-theme .ui-datepicker-buttonpane {
+                        background: #222;
+                    }
+                    .dark-theme .ui-datepicker-current {
+                        background: #222;
+                        border-color: #444;
+                        color: #fff;
+                    }
+                    .dark-theme .ui-datepicker-close {
+                        background: #222;
+                        border-color: #444;
+                        color: #fff;
+                    }
+                `)
+                .appendTo("head");
         });
     </script>
 @endsection
