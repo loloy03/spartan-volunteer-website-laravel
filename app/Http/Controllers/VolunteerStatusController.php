@@ -133,8 +133,3 @@ class VolunteerStatusController extends Controller
         return redirect($redirectPath);
     }
 }
-
-
-// elseif($attendance_status == 'confirmed'){
-//     redirect( route('join-as-volunteer',$event->event_id) );
-// }

@@ -21,7 +21,7 @@ class CreateEventForm extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
-    public $image;
+    public $thumbnail;
 
     public $searchStaffName;
 
@@ -55,7 +55,7 @@ class CreateEventForm extends Component
     }
 
     protected $rules = [
-        'image' => 'required|image|mimes:jpeg,png,jpg|dimensions:min_width=480,min_height=360',
+        'thumbnail' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         'title' =>  'required',
         'description' => 'required',
         'location' => 'required',
@@ -75,13 +75,15 @@ class CreateEventForm extends Component
             $title = ucwords($this->title);
             $description = $this->formatParagraph($this->description);
             $location = ucwords($this->location);
-    
+
             $filePath = 'images/event_thumbnails';
-            $fileType = '.' . $this->image->getClientOriginalExtension();
+            $fileType = '.' . $this->thumbnail->getClientOriginalExtension();
             $fileName = 'thumbnail_' . $title . '-' . $this->date . $fileType;
     
-            $this->image->storeAs($filePath, $fileName, 'public');
-            // $this->image->move(public_path('images'), $fileName);
+            $this->thumbnail->storeAs($filePath, $fileName, 'public');
+
+            // $imageData = file_get_contents($this->thumbnail->getRealPath());
+            // $eventThumbnail = base64_encode($imageData);
 
             $event = Events::create([
                 'event_pic' => $fileName,
@@ -178,12 +180,12 @@ class CreateEventForm extends Component
     public function search($query)
     {
         if ($this->searchStaffName) {
-            $query->where('first_name', 'LIKE', '%' . $this->searchStaffName . '%');
-            // ->orWhere('last_name', 'LIKE', '%' . $this->searchStaffName . '%');
+            $query->where('first_name', 'LIKE', '%' . $this->searchStaffName . '%')
+            ->orWhere('last_name', 'LIKE', '%' . $this->searchStaffName . '%');
         }
     }
 
-    public function updatedSearch()
+    public function updated()
     {
         $this->resetPage();
     }

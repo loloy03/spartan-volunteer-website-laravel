@@ -65,7 +65,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($volunteers as $volunteer)
+                @forelse ($volunteers as $volunteer)
                     <tr class="align-middle table-group-divider">
                         <td>
                             <div class="d-grid gap-1">
@@ -109,7 +109,9 @@
                         <td> {{ ucwords($volunteer->last_name) }} </td>
                         <td> {{ ucwords($volunteer->email) }} </td>
                     </tr>
-                @endforeach
+                    @empty
+                        @include('partials.tables.empty-table')
+                @endforelse
             </tbody>
         </table>
         {{ $volunteers->links() }}

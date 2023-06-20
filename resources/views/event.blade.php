@@ -48,11 +48,12 @@
                                     onclick="window.location='{{ route('admin-staff-view-event', $event->event_id) }}'">
                                 @else 
                                     onclick="window.location='{{ route('login') }}'"> @endif
-                                {{-- 
-                                    USE THIS: 
-                                    <img src="{{ asset('storage/images/event_thumbnails/' . $event->event_pic) }}" class="fixed-size-img">
-                                    --}}
                                 <img src="/images/events/{{ $event->event_pic }}" class="fixed-size-img">
+                                {{-- <img src="data:image/jpg;base64,{{ $event->thumbnail }}" alt="Thumbnail" class="fixed-size-img"> --}}
+                                @if (empty($event->event_pic))
+                                <img src="{{ asset('storage/images/event_thumbnails/' . $event->event_pic) }}" class="fixed-size-img">
+                                @endif
+
                                 <!-- Image Text Overlay -->
                                 <div class="image-text p-2">
                                     <p class="fs-6">{{ strtoupper($event->date) }}</p>
@@ -62,7 +63,7 @@
                             <!-- Event Details -->
                             <div class="p-4">
                                 <div class="d-block fs-4">
-                                    {{ strtoupper($event->title) }}
+                                    {{ $event->title }}
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-8">

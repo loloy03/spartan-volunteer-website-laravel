@@ -1,3 +1,3 @@
-<div>
-    <span> EMPTY RESULT </span>
-</div>
+<tr class="table-dark">
+    <td colspan="10">EMPTY TABLE</td>
+</tr>

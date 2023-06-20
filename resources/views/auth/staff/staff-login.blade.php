@@ -17,7 +17,7 @@
                             </div>
                             <form action="/staff-login" method="POST" class="f-lato">
                                 @csrf
-                                <div class="form-group first">
+                                <div class="form-group first mb-3">
                                     <label for="username">Email</label>
                                     <input type="text" class="form-control" name="email" id="email" value ="{{ old ('email')}}">
 
