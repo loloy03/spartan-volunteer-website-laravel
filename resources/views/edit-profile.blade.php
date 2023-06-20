@@ -93,6 +93,9 @@
                                         <option value="Unemployed" @if (Auth::user()->occupation == 'Unemployed') selected @endif>
                                             Unemployed
                                         </option>
+                                        <option value="Others" @if (Auth::user()->occupation == 'Unemployed') selected @endif>
+                                            Others
+                                        </option>
                                         <!-- Add more options as needed -->
                                     </select>
 
@@ -101,8 +104,8 @@
                                         value="{{ Auth::user()->birthdate }}">
                                     <div class="f-lato text-muted">Contact Number</div>
                                     <input class="form-control mb-2" type="text" name="contact_number"
-                                        id="contact_number" pattern="\+639\d{9}"
-                                        title="Please enter a contact number in the format +639XXXXXXXXX"
+                                        id="contact_number" pattern="\639\d{9}"
+                                        title="Please enter a contact number in the format 639XXXXXXXXX"
                                         placeholder="+639XXXXXXXXX" value="{{ Auth::user()->contact_number }}" required>
                                     <div class="f-lato text-muted">Email Address</div>
                                     <div class="f-montserrat">{{ Auth::user()->email }}</div>
