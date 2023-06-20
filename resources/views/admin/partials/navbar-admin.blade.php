@@ -17,6 +17,12 @@
     </a>
     <div class="dropdown-menu dropdown-menu-end bg-dark" aria-labelledby="navbarDropdown">
         @admin
+            <a class="dropdown-item text-white" href="{{ route('admin.signup') }}">
+                {{-- {{ __('MAKE ADMIN') }} </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-white" href="{{ route('staff.signup') }}">
+                {{ __('MAKE STAFF') }} </a>
+            <div class="dropdown-divider"></div> --}}
             <a class="dropdown-item text-white" href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">

@@ -53,11 +53,11 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($volunteers as $volunteer)
+                @forelse ($volunteers as $volunteer)
                     <tr class="align-middle table-group-divider">
                         <td>
                             <div class="d-grid gap-1">
-                                @if (!empty($volunteer->check_in) && $volunteer->attendance_status === 'confirmed')
+                                @if (!empty($volunteer->check_in) && $volunteer->attendance_status === 'confirmed' && $volunteer->attendance_status != 'validated')
                                     <label class="btn btn-secondary align-items-center d-flex">
                                         <input class="form-check-input" type="checkbox" autocomplete="off"
                                             wire:model="checked" value="{{ $volunteer->volunteer_id }}">CHECK-IN
@@ -82,9 +82,11 @@
                         </td>
                         <td> {{ ucwords($volunteer->first_name) }} </td>
                         <td> {{ ucwords($volunteer->last_name) }} </td>
-                        <td> {{ $volunteer->check_in ? date('Y-m-d | H:i:s', strtotime($volunteer->check_in)) : 'N/A' }}</td>
+                        <td> {{ $volunteer->check_in ? date('Y-m-d | H:i', strtotime($volunteer->check_in)) : 'N/A' }}</td>
                     </tr>
-                @endforeach
+                @empty
+                    @include('partials.tables.empty-table')
+                @endforelse
             </tbody>
             {{ $volunteers->links() }}
         </table>

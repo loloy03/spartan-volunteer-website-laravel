@@ -49,57 +49,6 @@ class ClaimCodeController extends Controller
         }
     }
 
-
-
-    // public function confirm(Request $request)
-    // {
-    //     // Validate the uploaded file
-    //     $validatedData = $request->validate([
-    //         'volunteer_id' => 'required|numeric',
-    //         'event_id' => 'required|numeric',
-    //     ]);
-
-    //     $raceCode = RaceCode::where('volunteer_id', $validatedData['volunteer_id'])
-    //         ->where('event_id', $validatedData['event_id'])
-    //         ->first();
-
-
-    //     if ($raceCode) {
-    //         $raceCode->status = "pending";
-    //         $raceCode->save();
-    //     }
-
-    //     // Redirect back to the previous page with a success message
-    //     return redirect()->back()->with('success', 'Receipt uploaded successfully.');
-    // }
-
-
-    // public function cancel(Request $request)
-    // {
-    //     // Validate the input data
-    //     $validatedData = $request->validate([
-    //         'volunteer_id' => 'required|numeric',
-    //         'event_id' => 'required|numeric',
-    //     ]);
-
-    //     // Find the existing race code in the database
-    //     $race_code = RaceCode::where([
-    //         'volunteer_id' => $validatedData['volunteer_id'],
-    //         'event_id' => $validatedData['event_id'],
-    //     ])->first();
-
-    //     if ($race_code) {
-    //         // Delete the race code from the database
-    //         $race_code->delete();
-    //     }
-
-    //     // Redirect the user back to the previous page
-    //     return redirect(route('view-event', $request->event_id));
-    // }
-
-
-
-
     public function store_race_type(Request $request)
     {
         $validatedData = $request->validate([
@@ -142,9 +91,6 @@ class ClaimCodeController extends Controller
         // Redirect the user back to the previous page
         return redirect()->route('claim_code.show', $request->event_id);
     }
-
-
-
 
     public function show(Events $event)
     {

@@ -10,8 +10,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
-
-
 class ProfileController extends Controller
 {
     public function show(Volunteer $volunteer)

@@ -83,7 +83,7 @@ class StaffVolunteersTable extends Component
         }
     }
 
-    public function updatedSearch()
+    public function updated()
     {
         $this->resetPage();
     }

@@ -40,6 +40,9 @@ class ImportController extends Controller
                 continue;
             }
 
+            // Row indices is based on excel file standarized column headers
+            // First Name[0] | Last Name[1] | Email[2] | Race Code[3]
+            // this can be edited, although tedious
             $email = $row[2]; 
             $raceCode = $row[3]; 
 
@@ -49,12 +52,12 @@ class ImportController extends Controller
             ];
         }
 
-        // dd($raceData);
         return $raceData;
     }
 
     public function distributeCode()
     {
+        // gets and deletes excelData session data
         $excelData = Session::pull('excelData');
 
         foreach ($excelData as $row) {

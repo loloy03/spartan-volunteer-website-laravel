@@ -22,10 +22,12 @@ class AdminVolunteersTable extends Component
     public $searchStaffFirstName;
     public $searchStaffLastName;
     public $searchEvent;
+    public $searchLocation;
     public $searchRole;
 
     // filter item
     public $filterStatus;
+    public $filterRaceCodeStatus;
 
     // sorting items
     // defualt sort(volunteer_id, asc)
@@ -39,6 +41,8 @@ class AdminVolunteersTable extends Component
         $this->search($query);
 
         $this->filter($query);
+
+        $this->codeStatusFilter($query);
         
         $volunteers = $query->paginate(10);
 
@@ -49,22 +53,26 @@ class AdminVolunteersTable extends Component
     public function queryBuilder()
     {
         return RaceCredit::query()->join('volunteer_status', 'race_credit.volunteer_id', '=', 'volunteer_status.volunteer_id')
-            ->join('volunteer', 'volunteer_status.volunteer_id', '=', 'volunteer.volunteer_id')
-            ->join('event AS eventPast', 'eventPast.event_id', '=', 'volunteer_status.event_id')
-            // ->join('event AS eventFuture', 'race_code.event_id', '=', 'eventFuture.event_id')
-            ->orderBy($this->sortBy, $this->sortDirection)
-            ->select(
-                'volunteer.volunteer_id',
-                'volunteer.first_name',
-                'volunteer.last_name',
-                'eventPast.title',
-                'eventpast.location',
-                'volunteer_status.role',
-                'volunteer_status.check_in',
-                'volunteer_status.check_out',
-                'volunteer_status.attendance_status',
-                'race_credit.status'
-            );
+        ->join('volunteer', 'volunteer_status.volunteer_id', '=', 'volunteer.volunteer_id')
+        ->join('race_code', 'race_credit.credit_id', '=', 'race_code.credit_id')
+        ->join('race_types', 'race_code.race_id', '=', 'race_types.race_id')
+        ->join('event as event1', 'race_credit.event_id', '=', 'event1.event_id')
+        ->join('event as event2', 'race_code.event_id', '=', 'event2.event_id')
+        ->where('volunteer_status.attendance_status', '!=', 'cancelled')
+        ->orderBy($this->sortBy, $this->sortDirection)
+        ->select(
+            'volunteer.volunteer_id',
+            'volunteer.first_name',
+            'volunteer.last_name',
+            'event1.title as event1_title' ,
+            'event1.location as event1_location',
+            'volunteer_status.role',
+            'volunteer_status.attendance_status',
+            'race_code.status as race_code_status',
+            'race_types.race_type',
+            'event2.title as event2_title',
+            'event2.location as event2_location',
+        );
     }
 
     // Search query
@@ -79,7 +87,11 @@ class AdminVolunteersTable extends Component
         }
 
         if ($this->searchEvent) {
-            $query->where('title', 'LIKE', '%' . $this->searchEvent . '%');
+            $query->where('event1.title', 'LIKE', '%' . $this->searchEvent . '%');
+        }
+
+        if ($this->searchLocation) {
+            $query->where('event1.location', 'LIKE', '%' . $this->searchLocation . '%');
         }
 
         if ($this->searchRole) {
@@ -87,9 +99,8 @@ class AdminVolunteersTable extends Component
         }
     }
 
-    public function updatedSearch()
+    public function updated()
     {
-
         $this->resetPage();
     }
 
@@ -109,6 +120,13 @@ class AdminVolunteersTable extends Component
     {
         if ($this->filterStatus) {
             $query->where('attendance_status', $this->filterStatus);
+        }
+    }
+
+    public function codeStatusFilter($query)
+    {
+        if ($this->filterRaceCodeStatus) {
+            $query->where('race_code.status', $this->filterRaceCodeStatus);
         }
     }
 }

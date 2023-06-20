@@ -86,14 +86,6 @@ class EventController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store()
-    {
-
-    }
-
-    /**
      * Display the specified resource.
      */
 
@@ -257,9 +249,6 @@ class EventController extends Controller
         }
 
         $staffRole = ucwords($role->role);
-        // EXCEPTION HANDLING
-        // if (staff isn't part of the event)
-        // show: staff isn't part of event
 
         return view('staff.check-attendance', compact('staffId', 'staffRole', 'event'));
     }
