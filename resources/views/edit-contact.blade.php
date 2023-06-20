@@ -24,11 +24,23 @@
                                 id="emergency_contact_name" value="{{ Auth::user()->emergency_contact_name }}">
                             <div class="f-lato text-muted">Contact Number</div>
                             <input class="form-control mb-2" type="text" name="emergency_number" id="emergency_number"
-                                pattern="\+639\d{9}" title="Please enter a contact number in the format +639XXXXXXXXX"
-                                placeholder="+639XXXXXXXXX" value="{{ Auth::user()->emergency_number }}" required>
+                                pattern="\639\d{9}" title="Please enter a contact number in the format 639XXXXXXXXX"
+                                placeholder="639XXXXXXXXX" value="{{ Auth::user()->emergency_number }}" required>
                             <div class="f-lato text-muted">Contact Person Relationship</div>
-                            <input class="form-control mb-2" type="text" name="contact_relationship"
-                                id="contact_relationship" value="{{ Auth::user()->contact_relationship }}">
+                            <select class="form-control mb-2" name="contact_relationship" id="contact_relationship" required>
+                                <option value="Parent" @if (Auth::user()->contact_relationship == 'Parent') selected @endif>Parent
+                                </option>
+                                <option value="Sibling" @if (Auth::user()->contact_relationship == 'Sibling') selected @endif>Sibling
+                                </option>
+                                <option value="Cousin" @if (Auth::user()->contact_relationship == 'Cousin') selected @endif>Cousin
+                                </option>
+                                <option value="Friend" @if (Auth::user()->contact_relationship == 'Friend') selected @endif>Friend
+                                </option>
+                                <option value="Wife/Husband" @if (Auth::user()->contact_relationship == 'Wife/Husband') selected @endif>
+                                    Wife/Husband</option>
+                                <option value="Daughter/Son" @if (Auth::user()->ocontact_relationship == 'Daughter/Son') selected @endif>
+                                    Daughter/Son</option>
+                            </select>
                             <div class="text-center">
                                 <button type="submit" class="button f-montserrat text-center w-100 mt-4 small">UPDATE
                                     CONTACT
