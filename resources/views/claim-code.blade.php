@@ -26,7 +26,7 @@
                 <div class="position-relative mb-4">
                     <!-- Display the event picture -->
                     <div>
-                        <img class="w-100" src="/images/events/{{ $event->event_pic }}">
+                        <img class="fixed-size-img" src="/images/events/{{ $event->event_pic }}">
                     </div>
                     <!-- Add an overlay image on top of the event picture -->
                     <img class="overlay-image" src="{{ asset('/images/spartan-logo-with-word.png') }}">

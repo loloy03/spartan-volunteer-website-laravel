@@ -12,8 +12,8 @@
             <div class="col-lg-6 my-auto position-relative">
                 <!-- Display the event picture -->
                 <div>
-                   {{-- <img src="data:image/jpg;base64,{{ $event->thumbnail }}" alt="Thumbnail" class="w-100"> --}}
-                   <img src="/images/events/{{ $event->event_pic }}" class="w-100">
+                   {{-- <img src="data:image/jpg;base64,{{ $event->thumbnail }}" alt="Thumbnail"> --}}
+                   <img src="/images/events/{{ $event->event_pic }}" class="fixed-size-img">
                    @if (empty($event->event_pic))
                         <img src="{{ asset('storage/images/event_thumbnails/' . $event->event_pic) }}" class="">
                    @endif

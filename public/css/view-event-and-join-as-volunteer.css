@@ -20,10 +20,9 @@
     font-size: 13px;
 }
 
-
 .fixed-size-img {
     width: 900px;
-    height: 200px;
+    height: 300px;
     max-width: 100%;
     object-fit: cover;
 }
