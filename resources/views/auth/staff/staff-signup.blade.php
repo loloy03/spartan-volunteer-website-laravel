@@ -13,7 +13,7 @@
                     <div class="col-md-12">
                         <div class="form-block mx-auto">
                             <div class="text-center mb-5 fw-bold fs-3 f-montserrat">
-                                <h3>STAFF SIGNUP</h3>
+                                <h3>NEW STAFF</h3>
                             </div>
                             <form action="/staff-signup" method="POST" class="f-lato">
                                 @csrf
@@ -74,7 +74,7 @@
                                     <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span>
                                 </div> --}}
 
-                                <input type="submit" value="Sign Up" class="submit-button mt-2 f-montserrat btn-lg">
+                                <input type="submit" value="Create Staff" class="submit-button mt-2 f-montserrat btn-lg">
 
                             </form>
                         </div>

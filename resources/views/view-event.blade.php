@@ -12,11 +12,11 @@
             <div class="col-lg-6 my-auto position-relative">
                 <!-- Display the event picture -->
                 <div>
-                    {{-- 
-                        USE THIS: 
-                        <img src="{{ asset('storage/images/event_thumbnails/' . $event->event_pic) }}" class="fixed-size-img">
-                        --}}
-                    <img class="w-100" src="/images/events/{{ $event->event_pic }}">
+                   {{-- <img src="data:image/jpg;base64,{{ $event->thumbnail }}" alt="Thumbnail" class="w-100"> --}}
+                   <img src="/images/events/{{ $event->event_pic }}" class="w-100">
+                   @if (empty($event->event_pic))
+                        <img src="{{ asset('storage/images/event_thumbnails/' . $event->event_pic) }}" class="">
+                   @endif
                 </div>
                 <!-- Add an overlay image on top of the event picture -->
                 <img class="overlay-image" src="{{ asset('/images/spartan-logo-with-word.png') }}">

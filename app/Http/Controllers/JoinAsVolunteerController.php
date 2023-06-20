@@ -44,9 +44,6 @@ class JoinAsVolunteerController extends Controller
         return redirect()->back()->with('success', 'Photo uploaded successfully.');
     }
 
-
-
-
     public function check_in(Request $request)
     {
         // Validate input parameters

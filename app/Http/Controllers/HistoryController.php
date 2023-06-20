@@ -23,8 +23,6 @@ class HistoryController extends Controller
             })
             ->get();
 
-
-
         $claimed_code_events = RaceCode::leftJoin('event', 'race_code.event_id', '=', 'event.event_id')
             ->leftJoin('race_types', 'race_code.race_id', '=', 'race_types.race_id')
             ->where('race_code.volunteer_id', Auth::user()->volunteer_id)
@@ -36,7 +34,6 @@ class HistoryController extends Controller
             ->where('race_code.volunteer_id', Auth::user()->volunteer_id)
             ->where('race_code.status', 'claimed')
             ->get();
-
 
         return view('history', compact('joined_events', 'claimed_code_events','claiming_code_events_race_credits_val'));
     }

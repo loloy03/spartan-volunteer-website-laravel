@@ -20,7 +20,7 @@
                                </button>
                            </div>
                            <div class="col-sm-5">
-                               <div class="overflow-auto d-flex">
+                               <div class="overflow-auto d-flex gap-2">
                                    {{-- insert badges here --}}
                                    @foreach ($roles as $roleId => $staffIds)
                                        @if ($key == $roleId)

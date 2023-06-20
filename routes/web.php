@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\VolunteerController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StaffController;
 
 use App\Http\Controllers\ExportsController;
@@ -20,6 +19,8 @@ use App\Imports\ImportDistributeRaceCodeTable;
 
 use App\Http\Controllers\Auth\AdministratorLoginController;
 use App\Http\Controllers\Auth\AdministratorRegisterController;
+
+use App\Http\Controllers\Auth\ResetStaffPasswordController;
 
 // Home page
 // Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -93,12 +94,14 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 
+Route::get('/create-event', [EventController::class, 'create'])->name('create-event');
+
 // ADMIN ROUTES
 // Middleware: admin
 // IMPORTANT: It seems using Administrator instead of Admin is preferable
 Route::group(['middleware' => ['admin']], function () {
     // Create Event
-    Route::get('/create-event', [EventController::class, 'create'])->name('create-event');
+    // Route::get('/create-event', [EventController::class, 'create'])->name('create-event');
 
     Route::get('/admin-volunteers', [VolunteerController::class, 'adminListOfVolunteers'])->name('admin-volunteers');
 
@@ -111,6 +114,8 @@ Route::group(['middleware' => ['admin']], function () {
     Route::get('/{event}/event-staffs', [EventController::class, 'listOfEventStaffs'])->name('event-staffs');
 
     Route::post('/admin-logout', [AdministratorLoginController::class, 'logout']);
+
+    Route::get('/staff-reset-password', [ResetStaffPasswordController::class, 'showResetForm'])->name('admin.reset-password');
 });
 
 // Routes that are shared by both Admin and Staff
@@ -131,6 +136,8 @@ Route::group(['middleware' => ['staff']], function () {
 
     Route::get('/staff-volunteers', [StaffController::class, 'staffListOfVolunteers'])->name('staff-volunteers');
 
+    Route::get('/staff-reset-password', [ResetStaffPasswordController::class, 'showResetForm'])->name('staff.reset-password');
+
     Route::post('/staff-logout', [StaffLoginController::class, 'logout']);
 });
 
@@ -139,26 +146,20 @@ Route::group(['middleware' => ['staff']], function () {
 // 'auth' middleware specifically checks for 1 user -- i.e. volunteer -- and not admin/staff
 // This middleware is a workaround for this oversight
 Route::group(['middleware' => ['visitor']], function () {
+    
     // Admin Signup
-    Route::get('/admin-signup', [AdministratorRegisterController::class, 'showRegisterForm']);
+    Route::get('/admin-signup', [AdministratorRegisterController::class, 'showRegisterForm'])->name('admin.signup');
     Route::post('/admin-signup', [AdministratorRegisterController::class, 'store']);
 
+    // Staff Signup
+    Route::get('/staff-signup', [StaffRegisterController::class, 'showRegisterForm'])->name('staff.signup');
+    Route::post('/staff-signup', [StaffRegisterController::class, 'store']);
     // Admin Login
     Route::get('/admin-login', [AdministratorLoginController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/admin-login', [AdministratorLoginController::class, 'login']);
-
-    // Staff Signup
-    Route::get('/staff-signup', [StaffRegisterController::class, 'showRegisterForm']);
-    Route::post('/staff-signup', [StaffRegisterController::class, 'store']);
 
     // Staff Login
     Route::get('/staff-login', [StaffLoginController::class, 'showLoginForm'])->name('staff.login');
     Route::post('/staff-login', [StaffLoginController::class, 'login']);
 });
 
-Route::get('/all-volunteers', [VolunteerController::class, 'allVolunteers']);
-
-Route::get('volunteers/export/', [ExportsController::class, 'exportAdminVolunteers']);
-
-Route::get('/super-admin-login', [SuperAdminLoginController::class, 'showLoginForm']);
-Route::post('/super-admin-login', [SuperAdminLoginController::class, 'login']);
