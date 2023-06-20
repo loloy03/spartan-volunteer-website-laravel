@@ -1,0 +1,75 @@
+.fixed-size-img {
+    width: 700px;
+    height: 200px;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.bg-light-gray {
+    background-color: #ebebeb;
+}
+
+.align-middle {
+    display: inline-block;
+    vertical-align: left;
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    border: none;
+}
+
+.image-container img {
+    transition: transform 0.5s ease;
+}
+
+.image-container:hover img {
+    transform: scale(1.1);
+}
+
+.image-text {
+    position: absolute;
+    top: 0%;
+    background-color: black;
+    color: white;
+    width: 20%;
+}
+
+.view-event-button {
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    border: 1px solid red;
+    border-radius: 20px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.view-event-button:hover {
+    background-color: white;
+    border: 1px solid red;
+    color: red;
+}
+
+.fs-10 {
+    font-size: 10px;
+}
+
+select {
+    background-color: white;
+    padding: 10px;
+    font-size: 10px;
+    color: #333;
+}
+/* Custom styles for the tooltip */
+.custom-tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.custom-tooltip .tooltip-inner {
+    background-color: #007bff;
+    color: #fff;
+}
