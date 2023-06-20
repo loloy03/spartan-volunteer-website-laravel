@@ -33,5 +33,8 @@
     transition: 0.5s;
 }
 
-
-
+.rounded-circle {
+    width: 200px; /* Set the desired width */
+    height: 200px; /* Set the desired height */
+    object-fit: cover; /* Preserve the aspect ratio and crop if necessary */
+}
