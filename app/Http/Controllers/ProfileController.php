@@ -67,6 +67,12 @@ class ProfileController extends Controller
         return view('edit-contact');
     }
 
+    public function need_complete_info(Request $request)
+    {
+        // Redirect the user back to their profile page with a success message
+        return redirect()->route('profile.show')->with('message', 'Please complete the Profile Info, Adress and Emergency Contact before joining the event!');
+    }
+
     public function contact_update(Request $request)
     {
         // Validate the input data

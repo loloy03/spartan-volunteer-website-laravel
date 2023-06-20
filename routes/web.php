@@ -44,6 +44,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
 
+        Route::get('/profile_need_complete_info', [App\Http\Controllers\ProfileController::class, 'need_complete_info'])->name('profile_need_complete_info');
+
         Route::get('/history', [App\Http\Controllers\HistoryController::class, 'show'])->name('history.show');
 
         Route::get('/volunteer_info_edit', [App\Http\Controllers\ProfileController::class, 'volunteer_info_edit'])->name('volunteer_info_edit');

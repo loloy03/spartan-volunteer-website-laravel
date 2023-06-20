@@ -18,6 +18,12 @@
                     </div>
                 @endif
 
+                @if (session('message'))
+                    <div class="alert alert-warning">
+                        {{ session('message') }}
+                    </div>
+                @endif
+
 
                 <div class="box-border-shadow-bt-red mb-5">
                     <div class="f-montserrat h4 m-4">MY ONGOING EVENTS</div>

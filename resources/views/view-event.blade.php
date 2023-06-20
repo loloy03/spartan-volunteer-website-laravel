@@ -66,7 +66,17 @@
                             STATUS: {{ $event_status }}
                         </div>
 
-                        <form id="joinForm" method="POST" action="{{ route('volunteer_status.store') }}">
+                        <form id="joinForm"
+                            @if (Auth::user()->contact_number == null ||
+                                    Auth::user()->birthdate == null ||
+                                    Auth::user()->occupation == null ||
+                                    Auth::user()->emergency_contact_name == null ||
+                                    Auth::user()->emergency_number == null ||
+                                    Auth::user()->contact_relationship == null ||
+                                    Auth::user()->street_add == null ||
+                                    Auth::user()->province == null ||
+                                    Auth::user()->city == null ||
+                                    Auth::user()->zip == null) method="GET" action="{{ route('profile_need_complete_info') }}" @else method="POST" action="{{ route('volunteer_status.store') }}" @endif>
                             @csrf
                             <input type="hidden" name="volunteer_id" value="{{ Auth::user()->volunteer_id }}">
                             <input type="hidden" name="volunteer_fullname"
@@ -78,6 +88,8 @@
                                 Join Now
                             </button>
                         </form>
+
+
                     </div>
 
                     <!-- Confirmation modal -->
